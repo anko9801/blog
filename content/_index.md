@@ -315,7 +315,8 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - サーバー
   - [データベース](./other/Application/Server/RDBMS.md)
   - [リバースプロキシ](other/Application/Server/ReverseProxy.md)
-  - [高速化](./other/Application/Server/fast.md)
+  - [バックエンド最適化](./other/Application/Server/backend-optimization.md)
+  - [フロントエンド最適化](./other/Application/Server/frontend-optimization.md)
 - [ネットワーク構成](./other/Application/Network/network.md)
   - [SDR](./other/Application/Network/SDR.md)
 - [SAT/SMT](./other/Application/SAT-SMT/SAT-SMT.md)
