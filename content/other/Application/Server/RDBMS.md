@@ -2,25 +2,10 @@
 title: "RDBMS"
 ---
 
-### isolation level
-複数のトランザクションが1つのテーブルを操作するときの不整合についてどの程度許容するか
-1. READ UNCOMMITTED ... COMMIT されてないトランザクションの変更を参照できる
-2. READ COMMITTED ... COMMIT されたトランザクションの変更を参照できる
-3. REPEATABLE READ ... COMMIT されたトランザクションの追加を参照できる
-4. SERIALIZE ... 参照不可
-
-2以降を実現する為には `SELECT` で共有ロック, `UPDATE` `INSERT` で専有ロックを取得すればよい. ロックの取得はパフォーマンスを下げるのでなるべくしたくない. そこでMVCC .
-
-### MultiVersion Concurrency Controll: MVCC
-
-- `DB_ROW_ID` ... 行ID
-- `DB_TRX_ID` ... 最後にupdateしたトランザクションID
-- `DB_ROLL_PTR` ... レコードの過去の値を持つundo log recordへのポインタ
-
-参照トランザクションIDが `DB_TRX_ID` より大きいなら変更後の値を参照, 小さいなら undo log record から探して参照, 追加したトランザクションIDより小さいなら参照できない.
-
-[MySQLのMVCC - Qiita](https://qiita.com/nkriskeeic/items/24b7714b749d38bba87b)
-
+### データベースとは
+- [B-Tree/B+Tree](https://qiita.com/kiyodori/items/f66a545a47dc59dd8839)LSMツリーと呼ばれる平衡N分木で構築されたデータの集合。メモリ/実行時間最適化、排他制御をよしなにやってくれます。
+- やり取りに人間がわかりやすい言葉`DDL(Data Definition Language) DML(Data Manipulation Language) DCL(Data Control Language)`を使ってDBを操作します。例えば`Structured Query Language(SQL)`などがあります。
+- データベースシステムとSQLはごっちゃにして言われやすいので注意。例えば、MariaDBはMySQLから派生した`Relational Database Management System(RDBMS)`の一種だとか、`Not only SQL(NoSQL)`はクラウドのDBに対してネットワーク伝送コストを避けて最適化された非RDBMSで、MongoDBやAWSのDynamoDB, Redisがそれに含まるなど。
 
 ### 具体的にどんな処理がされているのか
 
@@ -293,3 +278,26 @@ InnoDB は、ほとんどのデータまたはすべてのデータをメモリ�
 
 tmpfs
 セッションとは？
+
+### ORM O/Rマッパー
+開発効率を上げる為のSQLのラッパー(クエリービルダー)
+ex.) gorm
+
+### isolation level
+複数のトランザクションが1つのテーブルを操作するときの不整合についてどの程度許容するか
+1. READ UNCOMMITTED ... COMMIT されてないトランザクションの変更を参照できる
+2. READ COMMITTED ... COMMIT されたトランザクションの変更を参照できる
+3. REPEATABLE READ ... COMMIT されたトランザクションの追加を参照できる
+4. SERIALIZE ... 参照不可
+
+2以降を実現する為には `SELECT` で共有ロック, `UPDATE` `INSERT` で専有ロックを取得すればよい. ロックの取得はパフォーマンスを下げるのでなるべくしたくない. そこでMVCC .
+
+### MultiVersion Concurrency Controll: MVCC
+
+- `DB_ROW_ID` ... 行ID
+- `DB_TRX_ID` ... 最後にupdateしたトランザクションID
+- `DB_ROLL_PTR` ... レコードの過去の値を持つundo log recordへのポインタ
+
+参照トランザクションIDが `DB_TRX_ID` より大きいなら変更後の値を参照, 小さいなら undo log record から探して参照, 追加したトランザクションIDより小さいなら参照できない.
+
+[MySQLのMVCC - Qiita](https://qiita.com/nkriskeeic/items/24b7714b749d38bba87b)
