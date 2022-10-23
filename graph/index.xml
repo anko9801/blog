@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Graphs on</title><link>https://anko9801.github.io/blog/graph/</link><description>Recent content in Graphs on</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://anko9801.github.io/blog/graph/index.xml" rel="self" type="application/rss+xml"/><item><title>全点対最短路 (Floyd-Warshall)</title><link>https://anko9801.github.io/blog/graph/shortest_path/floyd_warshall/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/shortest_path/floyd_warshall/</guid><description>説明 不安なら3回やればいい
+計算量 $O(V^3)$
+実装 {% include cpp.html code=&amp;ldquo;graph/shortest_path/floyd_warshall.hpp&amp;rdquo; %}
+使用例</description></item><item><title>単一始点最短路 (Bellman-Ford)</title><link>https://anko9801.github.io/blog/graph/shortest_path/bellman_ford/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/shortest_path/bellman_ford/</guid><description>説明 全ての辺を更新できなくなるまで更新する。 $V$ 回目のループで更新が発生するなら負閉路が存在する。
+計算量 $O(EV)$
+実装 {% include cpp.html code=&amp;ldquo;graph/shortest_path/bellman_ford.hpp&amp;rdquo; %}
+使用例</description></item><item><title>単一始点最短路 (Dijkstra)</title><link>https://anko9801.github.io/blog/graph/shortest_path/dijkstra/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/shortest_path/dijkstra/</guid><description>説明 有向グラフに負の辺が存在しないとき次の事がいえる。 「まだ最短距離が確定していない点の中で、始点からの距離が最小 $\iff$ 最短距離として確定」
+計算量 疎グラフ ヒープを用いる $O(E\log{V})$ 密グラフ 単純に探索 $O(V^2)$
+実装 {% include cpp.html code=&amp;ldquo;graph/shortest_path/dijkstra.hpp&amp;rdquo; %}
+使用例</description></item><item><title>強連結成分分解</title><link>https://anko9801.github.io/blog/graph/scc/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/scc/</guid><description>説明 有向グラフにおいて、ある部分グラフが強連結であるとは任意の2点が互いに行き来可能であること。
+深さ優先探索の帰りがけ順(トポロジカルソート順)に逆グラフを探索したときそれらが通る点は強連結成分となる。
+計算量 $O(V + E)$
+実装 {% include cpp.html code=&amp;ldquo;graph/SCC.hpp&amp;rdquo; %}
+使用例</description></item><item><title>最大流 (Dinic)</title><link>https://anko9801.github.io/blog/graph/flow/dinic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/flow/dinic/</guid><description>説明 計算量 $O(EV^2)$
+実装 {% include cpp.html code=&amp;ldquo;graph/flow/dinic.hpp&amp;rdquo; %}
+使用例</description></item><item><title>最大流 (Ford Fulkerson)</title><link>https://anko9801.github.io/blog/graph/flow/ford_fulkerson/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/flow/ford_fulkerson/</guid><description>説明 計算量 $O(FE)$
+実装 {% include cpp.html code=&amp;ldquo;graph/flow/ford_fulkerson.hpp&amp;rdquo; %}
+使用例</description></item><item><title>木の直径</title><link>https://anko9801.github.io/blog/graph/tree/diameter/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/graph/tree/diameter/</guid><description>説明 木の直径とはある2点間が最大となる距離である。
+どの頂点から始めても、そこから最も遠い頂点は直径の端点の1つになる。端点から最も遠い頂点はもう1つの端点になる。その2点の距離が木の直径となる。
+計算量 $O(V + E)$
+実装 {% include cpp.html code=&amp;ldquo;graph/tree/diameter.hpp&amp;rdquo; %}
+使用例</description></item></channel></rss>

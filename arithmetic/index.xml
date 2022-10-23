@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Arithmetics on</title><link>https://anko9801.github.io/blog/arithmetic/</link><description>Recent content in Arithmetics on</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://anko9801.github.io/blog/arithmetic/index.xml" rel="self" type="application/rss+xml"/><item><title>Modint</title><link>https://anko9801.github.io/blog/arithmetic/modulo/modint/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/modulo/modint/</guid><description>説明 計算量 実装 {% include cpp.html code=&amp;ldquo;math/modulo/modint.hpp&amp;rdquo; %}
+使用例 ABC262 D - I Hate Non-integer Number</description></item><item><title>中国剰余定理</title><link>https://anko9801.github.io/blog/arithmetic/crt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/crt/</guid><description>説明 Garnerのアルゴリズム
+計算量 $O(n^2 + n\log(\max p_i))$
+実装 {% include cpp.html code=&amp;ldquo;math/crt.hpp&amp;rdquo; %}
+使用例</description></item><item><title>任意Modint</title><link>https://anko9801.github.io/blog/arithmetic/modulo/arbitrary_modint/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/modulo/arbitrary_modint/</guid><description>説明 計算量 実装 {% include cpp.html code=&amp;ldquo;math/modulo/runtime_modint.hpp&amp;rdquo; %}
+使用例</description></item><item><title>数論変換</title><link>https://anko9801.github.io/blog/arithmetic/ntt/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/ntt/</guid><description>説明 複素数上のFFTを有限体上に取り替えたのがNTT。乗法群の位数が大きな2のべき乗を持っていると精度を落とさずに計算できて嬉しい。
+計算量 $O(N\log{N})$
+実装 {% include cpp.html code=&amp;ldquo;math/ntt.hpp&amp;rdquo; %}
+使用例</description></item><item><title>最大公約数・最小公倍数</title><link>https://anko9801.github.io/blog/arithmetic/gcd/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/gcd/</guid><description>説明 ユークリッドの互除法
+計算量 $O(\log{N})$
+実装 {% include cpp.html code=&amp;ldquo;math/gcd.hpp&amp;rdquo; %}
+使用例</description></item><item><title>素因数分解</title><link>https://anko9801.github.io/blog/arithmetic/primes/factorize/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/primes/factorize/</guid><description>説明 計算量 実装 {% include cpp.html code=&amp;ldquo;math/prime/factorize.hpp&amp;rdquo; %}
+使用例</description></item><item><title>素因数分解(線形篩)</title><link>https://anko9801.github.io/blog/arithmetic/primes/sieve/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/primes/sieve/</guid><description>説明 init
+整数$N$を与えると、前計算として$N$以下の合成数$i$について$i$の自明でない($1$でも$i$でもない)約数の1つを求める それと同時に、$N$以下の素数のリストも求める 以降の関数に$N$より大きい値を与えると補完のためにinitが呼ばれる。これは最初にinitに十分大きい値を与えることで回避できる 計算量は$Ο(N)$ linear_sieve
+コンストラクタ。initを呼ぶ primearray
+整数$N$を与えると、$N$以下の素数を昇順に並べたvectorを返す もし前計算が足りない場合、ちょうど補完するようにinitが実行される 計算量はinitのもの+$Ο(N/log(N))$ divisor
+整数$N$を与えると、前計算した$N$の自明でない約数の1つを返す もし$N$が素数なら$N$を、$1$なら$1$を、正でないなら$-1$を返す もし前計算が足りない場合、ちょうど補完するようにinitが実行される 計算量はinitのもの+$Ο(1)$ factorization</description></item><item><title>素数列挙</title><link>https://anko9801.github.io/blog/arithmetic/primes/primes/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/primes/primes/</guid><description>説明 エラトステネスの篩
+計算量 実装 {% include cpp.html code=&amp;ldquo;math/prime/primes.hpp&amp;rdquo; %}
+使用例</description></item><item><title>行列</title><link>https://anko9801.github.io/blog/arithmetic/matrix/matrix/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/matrix/matrix/</guid><description>説明 計算量 実装 {% include cpp.html code=&amp;ldquo;math/matrix/matrix.hpp&amp;rdquo; %}
+使用例</description></item><item><title>高速ゼータ変換・高速メビウス変換</title><link>https://anko9801.github.io/blog/arithmetic/zeta/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/zeta/</guid><description>説明 計算量 実装 {% include cpp.html code=&amp;ldquo;math/zeta.hpp&amp;rdquo; %}
+使用例</description></item><item><title>高速フーリエ変換 (FFT)</title><link>https://anko9801.github.io/blog/arithmetic/fft/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/fft/</guid><description>説明 FFTはDFTを高速にしたもの。
+計算量 $O(N\log{N})$
+実装 {% include cpp.html code=&amp;ldquo;math/fft.hpp&amp;rdquo; %}
+使用例</description></item><item><title>高速素因数分解 (Pollard-ρ法/Miller-Rabin法)</title><link>https://anko9801.github.io/blog/arithmetic/primes/fast_factorize/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/arithmetic/primes/fast_factorize/</guid><description>説明 Pollard-$\rho$ 法と Miller-Rabin 法を用いて $O(n^{\frac{1}{4}}\log^3n)$ で素因数分解できる。
+Miller–Rabin 素数判定法 Miller-Rabin 素数判定法は与えられた数 $n$ が素数かどうかを計算時間 $O(k\log^3 n)$ で誤り率 $4^{-k}$ 以下で判定する確率的素数判定アルゴリズムである。
+フェルマーの小定理について考える。素数である剰余 $n$ について、その乗法群の位数 $n-1$ はそれを $2$ で割れるだけ割った数を $d$ として $n-1 = 2^sd$ と書ける。</description></item></channel></rss>

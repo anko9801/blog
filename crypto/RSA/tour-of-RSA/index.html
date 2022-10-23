@@ -1,0 +1,785 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="RSA暗号を極める！(理論編) というか無限工事編です(文章が拙くて申し訳ない)
+はじめに すぐそこに秘密の世界があります。この記事を読んでいるなら、あなたは暗号化された通信を通してサーバーから電気線を通り、遥々その端末に届いている文字を読んでいます。
+こんなことを考えてみてほしい。機器から暗号を使って通信をしていますが、私達が触れていないだけで暗号は誰でも解けるものであり、近くを通った人が自分の通信を盗聴しているかもしれない。ゾクッとしませんか。
+そんなことが2017年に起こりました。ROCA攻撃と呼ばれるものです。暗号の中でも最も世界で活躍していると言われる「RSA暗号」が簡単に解けてしまうというものです。
+その「RSA暗号」の本当の世界を覗いてみましょう。
+CryptoはCTF特有のメタ的な能力よりかは数学力に重きが置かれる分野です。最近では発想だけではなくテクニックを知らないと解けないような問題が多くなってきました。そこでこの記事ではRSA関連の問題でよく使うテクニックを体系的に1から習得します。
+テクニック GCD, 中国剰余定理, 終結式, グレブナー基底, LLL, Approximate GCD, Coppersmith
+前提知識は出来る限り高校数学に絞っていますが、それでも少し大学での数学が出てきますので適宜補ってほしいです。
+時計の世界 RSA暗号を語る上で最も根幹を成すのが、Nを自然数として「Nを法とする」算術です。"><title>🪴 Quartz 3.3</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://anko9801.github.io/blog//icon.png><link href=https://anko9801.github.io/blog/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://anko9801.github.io/blog/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://anko9801.github.io/blog/js/darkmode.5777cdbea4ccb2b68cacc7e904cabb5c.min.js></script>
+<script src=https://anko9801.github.io/blog/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://anko9801.github.io/blog/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.ffa26d54a708b2057e4f595fc02a6c95.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.7a49cba2b21b54d1bc2fb46840a59161.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script src=https://cdn.jsdelivr.net/npm/flexsearch@0.7.21/dist/flexsearch.bundle.js integrity="sha256-i3A0NZGkhsKjVMzFxv3ksk0DZh3aXqu0l49Bbh0MdjE=" crossorigin=anonymous defer></script>
+<script defer src=https://anko9801.github.io/blog/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://anko9801.github.io/blog/>🪴 Quartz 3.3</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><p class=meta>Last updated
+Oct 23, 2022
+<a href=https://github.com/jackyzha0/quartz/tree/hugo/content/crypto/RSA/tour%20of%20RSA.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#はじめに>はじめに</a></li><li><a href=#時計の世界>時計の世界</a><ol><li></li></ol></li></ol><ol><li><ol><li></li></ol></li><li><a href=#剰余上の掛け算と足し算>剰余上の掛け算と足し算</a><ol><li></li></ol></li><li><a href=#rsa暗号>RSA暗号</a></li><li><a href=#素因数分解>素因数分解</a></li><li><a href=#素因数分解する方法はなにがあるのか>素因数分解する方法はなにがあるのか</a><ol><li></li></ol></li><li><a href=#攻撃>攻撃</a><ol><li></li></ol></li><li><a href=#中国剰余定理>中国剰余定理</a><ol><li></li></ol></li><li><a href=#一般の方程式を解く>一般の方程式を解く</a><ol><li></li><li><a href=#ほんまか>ほんまか？</a></li><li><a href=#boneh-durfee-attack>Boneh-Durfee Attack</a></li><li><a href=#秘密鍵が部分的にでも知られてはいけない-partial-key-exposure-attack>秘密鍵が部分的にでも知られてはいけない (Partial Key Exposure Attack)</a></li><li><a href=#その他の道具>その他の道具</a></li></ol></li><li><a href=#理論編まとめ>理論編まとめ</a></li><li><a href=#コラム-素数生成>コラム 素数生成</a><ol><li></li></ol></li></ol><ol><li><ol><li><a href=#紹介するrsa暗号の解読方法>紹介するRSA暗号の解読方法</a></li></ol></li><li><a href=#実践編まとめ>実践編まとめ</a><ol><li><a href=#参考文献-1>参考文献</a></li></ol></li></ol></nav></details></aside><a href=#rsa暗号を極める理論編><h1 id=rsa暗号を極める理論編><span class=hanchor arialabel=Anchor># </span>RSA暗号を極める！(理論編)</h1></a><p>というか無限工事編です(文章が拙くて申し訳ない)</p><a href=#はじめに><h2 id=はじめに><span class=hanchor arialabel=Anchor># </span>はじめに</h2></a><p>すぐそこに秘密の世界があります。この記事を読んでいるなら、あなたは暗号化された通信を通してサーバーから電気線を通り、遥々その端末に届いている文字を読んでいます。</p><p>こんなことを考えてみてほしい。機器から暗号を使って通信をしていますが、私達が触れていないだけで暗号は誰でも解けるものであり、近くを通った人が自分の通信を盗聴しているかもしれない。ゾクッとしませんか。</p><p>そんなことが2017年に起こりました。ROCA攻撃と呼ばれるものです。暗号の中でも最も世界で活躍していると言われる「RSA暗号」が簡単に解けてしまうというものです。</p><p>その「RSA暗号」の本当の世界を覗いてみましょう。</p><p>CryptoはCTF特有のメタ的な能力よりかは数学力に重きが置かれる分野です。最近では発想だけではなくテクニックを知らないと解けないような問題が多くなってきました。そこでこの記事ではRSA関連の問題でよく使うテクニックを体系的に1から習得します。</p><p>テクニック
+GCD, 中国剰余定理, 終結式, グレブナー基底, LLL, Approximate GCD, Coppersmith</p><p>前提知識は出来る限り高校数学に絞っていますが、それでも少し大学での数学が出てきますので適宜補ってほしいです。</p><a href=#時計の世界><h2 id=時計の世界><span class=hanchor arialabel=Anchor># </span>時計の世界</h2></a><p>RSA暗号を語る上で最も根幹を成すのが、Nを自然数として「Nを法とする」算術です。</p><p>この算術は日々触れていて例えば時間についてこんな問題を考えてみましょう。</p><p>午前10時に仕事を始めて、8時間働くとすると、仕事が終わるのはいつでしょうか？</p><p>10 + 8 = 18 だから「18時に終わる」と答えるのが自然でしょうか。18から12を引き 18 - 12 = 6 で「午後6時に終わる」とも答えられますね。どちらにしても数はある範囲に入るように調整されます。午前午後で分ける方法であれば数は0から11の間に入り、24時間制であれば数は0から23の間に入ります。</p><p>角度でもこの算術に出くわします。例えば2つの角度の和を求めるとき、360度を超えてしまった場合はそこから360を引いて1から360までの間に収まるようにします。例えば 450 - 360 = 90 だから、450度の回転は90度の回転に等しいです。</p><p>他にも曜日や
+以上の出してきたものに共通していることは結果がある範囲に収まるようにしていることです。このようなタイプの計算をNを法とする算術と呼びます。先ほどの例だと午前午後であれば「12を法とする」足し算、角度であれば「360を法とする」足し算をしています。</p><p>$$
+\begin{aligned}
+10 + 8 &= 6 \pmod{12} \\ 450 &= 90 \pmod{360} \\ 810 &= 90 \pmod{360}
+\end{aligned}
+$$</p><p>より広く考えると810度は90度であるようにこの算術はNで割った余りが同じなら等しく扱う算術であるとも言えます。この算術の上では一般の自然数NでNを法とする足し算を考えることができます。</p><p>このNを法とする算術をしっかり考えるために定義を与えます。</p><p>まず $0$ から $N-1$ までの数を集めた集合をもってきて、それを $\mathbb{Z}/N\mathbb{Z}$ と名付けます。</p><p>$$
+\mathbb{Z}/N\mathbb{Z} := {0, 1, &mldr;, N - 2, N - 1}
+$$</p><p>例えば $\mathbb{Z}/12\mathbb{Z}$ はAM/PMで時間を表す数、$\mathbb{Z}/24\mathbb{Z}$ は24時間表記で時間を表す数となります。</p><p>これらの数の集合に対し、加法(足し算)を定義します。この集合の中から任意の2つの数が与えられたとして、それらを足したものが $N$ より大きくなるなら、$N$ を引いて計算結果が自分の中に入るようにします。</p><p>この集合にこう定義した加法を入れることで集合は群となります。群とは集合と1つの演算がよく馴染んでいるようなもので次のような条件を満たします。</p><ul><li>単位元の存在
+演算しても変わらない値 ex.) $a + 0 = a, a \times 1 = a$</li><li>逆元の存在
+演算して単位元となる値 ex.) $a + (- a) = 0, a \times \frac{1}{a} = 1$</li><li>結合法則
+どこから演算しても同じ結果になる ex.) $(a + b) + c = a + (b + c)$</li></ul><p>群のうれしいことは、群であればどのような集合や演算であれ、必ず成り立つ法則があり、その法則を流用できることにあります。今回はそれらの法則をそれほど使いませんが暗号全般的に使われるので覚えておいて損は無いでしょう。
+さて、加法について群を満たすかチェックしてみます。</p><ul><li>加法の単位元　　 $0$</li><li>加法の逆元　　　 $a + (-a) = 0 \pmod N \iff -a = N - a$</li><li>加法の結合法則　 $(a + b) + c = a + (b + c) \pmod N$</li></ul><p>このように群の条件を満たすので $\mathbb{Z}/N\mathbb{Z}$ は加法について群となります。</p><p>同じように乗法(掛け算)も定義してみます。集合から任意の2つの数を取ってきて、それらを掛けた後に $N$ で割った余りを計算します。乗法についても群を満たすかチェックしてみましょう。</p><ul><li>乗法の単位元　　 $1$</li><li>乗法の逆元　　　 $aa^{-1} = 1 \pmod N \iff a^{-1} = \frac{kN + 1}{a}$</li><li>乗法の結合法則　 $(a \times b) \times c = a \times (b \times c) \pmod N$</li></ul><p>よく考えると乗法の逆元が常に存在する訳ではないです。だから乗法については群になりません。</p><p>乗法での逆元とは掛けて1になる数で具体的にはこのようになります。</p><p>$$
+\begin{aligned}
+1^{-1} &= 1 && (1 \times 1 = 1 = 1) & \pmod{13} \\ 2^{-1} &= 7 && (2 \times 7 = 14 = 1) & \pmod{13} \\ 3^{-1} &= 9 && (3 \times 9 = 27 = 1) & \pmod{13} \\ 4^{-1} &= 10 && (4 \times 10 = 40 = 1) & \pmod{13} \\ 5^{-1} &= 8 && (5 \times 8 = 40 = 1) & \pmod{13} \\ \vdots
+\end{aligned}
+$$</p><p>ではどういうときに逆元が存在しないのかを考えてみます。逆元 $x$ が存在する条件について式変形していくと( $\gcd$ は最大公約数 (Greatest Common Divisor) とします)</p><p>$$
+\begin{aligned}
+ax &= 1 & \pmod N \\ ax - kN &= 1 \\ \gcd(a, N)(a&rsquo;x - kN&rsquo;) &= 1 & (a = \gcd(a, N)a&rsquo;, N = \gcd(a, N)N&rsquo;) \\ \gcd(a, N) &= 1 \\ \end{aligned}
+$$</p><p>となります。つまり $a$ と $N$ とが互いに素であれば $\bmod N$ で $a$ の逆元が存在します。逆に $a$ が $0$ や $N$ の約数である場合は逆元が存在しません。</p><p>具体的に法に対して逆元が存在する数を羅列すると</p><p>$$
+\begin{aligned}
+\bmod 10 &\to 1, 3, 7, 9 \\ \bmod 11 &\to 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \\ \bmod 12 &\to 1, 5, 7, 11 \\ \bmod 13 &\to 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 \\ \bmod 14 &\to 1, 3, 5, 9, 11, 13 \\ \end{aligned}
+$$</p><p>意外と逆元を取れる元が少ないですね。その中で法の数が素数のときは $0$ 以外の数と互いに素となるので任意の $0$ ではない元に対して逆元が存在します。また、逆元の逆元は元の数となるため、逆元を取れる集合に対して逆元を取っても元の集合と等しくなります。</p><p>$$
+\begin{aligned}
+1^{-1} &= 1 \pmod{10} \\ 3^{-1} &= 7 \pmod{10} \\ 7^{-1} &= 3 \pmod{10} \\ 9^{-1} &= 9 \pmod{10} \\ {1, 3, 7, 9} &= {1, 7, 3, 9}
+\end{aligned}
+$$</p><p>ここで逆元を取れる集合、つまり $\mathbb{Z}/N\mathbb{Z}$ から $0$ や $N$ の約数を除いた集合を $(\mathbb{Z}/N\mathbb{Z})^\times$ と名付けます。そして $(\mathbb{Z}/N\mathbb{Z})^\times$ は乗法について群となります。特に素数 $p$ として $(\mathbb{Z}/p\mathbb{Z})^\times$ は $0$ のみ除いた集合でとても扱いやすいです。</p><p>$$
+\begin{aligned}
+(\mathbb{Z}/p\mathbb{Z})^\times &= {1, 2, &mldr;, p - 2, p - 1} \\ \end{aligned}
+$$</p><p>このように加法も乗法も群となっている集合を体と呼びます。体であると面倒くさい場合分けをしなくて済むのでしばらくは法を素数として考えます。法が合成数でも互いに素なら逆元がありますし、その後の定義、定理も互いに素なら大体成り立ちます。</p><p>では逆元について一通り分かったので実装してみましょう。
+TODO: 拡張ユークリッドの互除法</p><hr><p>加法、乗法の他にも実数の世界で扱うような演算を $N$ を法とする世界でも定義できます。</p><a href=#平方根累乗根><h4 id=平方根累乗根><span class=hanchor arialabel=Anchor># </span>平方根・累乗根</h4></a><p>ある数 $a$ に対し $x^2 = a \pmod N$ となるような $x$ を $a$ の平方根 $\sqrt{a}$ とする。また $x^n = a \pmod N$ となる $x$ を $a$ の累乗根 $\sqrt[n]{a}$ とする。</p><p>平方根や累乗根の解は存在しない場合や複数ある場合などがあります。後述する乗法と加法の関係を証明する際に補題として証明するものを用いて、$x^n = 1 \pmod p$ の解の個数は $\gcd(n, p-1)$ 個だけ存在することを示せます。</p><a href=#本当ですか><h1 id=本当ですか><span class=hanchor arialabel=Anchor># </span>本当ですか？</h1></a><a href=#対数><h4 id=対数><span class=hanchor arialabel=Anchor># </span>対数</h4></a><p>ある数 $e, a$ に対し $e^x = a \pmod N$ となるような $x$ を $e$ を底とする $a$ の対数 $\log_e{a}$ とする。</p><p>対数に関しては原始根を底にすると解が一意に決まります。原始根とはその値を $a$ とおいて $a^k \bmod{p} \\ (k=0, \ldots, p-2)$ がそれぞれ違う値を取る数です。</p><p>具体例</p><p>$$
+\begin{aligned}
+3 + 4 &= 0 & \pmod 7 \\ 3 - 4 &= -1 = 6 & \pmod 7 \\ 3 \times 4 &= 12 = 5 & \pmod 7 \\ 3 \div 4 &= 3 \times 4^{-1} = 3 \times 2 = 6 & \pmod 7 \\ 3^4 &= 9^2 = 2^2 = 4 & \pmod 7 \\ \sqrt{4} &= 2, 5 & \pmod 7 \\ \sqrt[3]{6} &= 3, 5, 6 & \pmod 7 \\ \log_3{6} &= 3 & \pmod 7 \\ \end{aligned}
+$$</p><hr><p>これで剰余上の演算は一通りできるようになりました。さてコンピューターはこれらをどのようにして計算するのでしょうか。代表的なアルゴリズムで組んだ場合だと以下の表のようになります。(簡単の為、基本的な演算の計算量はビット数に依らないとする)</p><table><thead><tr><th style=text-align:left>演算</th><th style=text-align:left>方法</th><th style=text-align:center>計算量</th></tr></thead><tbody><tr><td style=text-align:left>足し算 $a + b$</td><td style=text-align:left>足してN以上になったらN引く</td><td style=text-align:center>$O(1)$</td></tr><tr><td style=text-align:left>引き算 $a - b$</td><td style=text-align:left>引いて0未満になったらN足す</td><td style=text-align:center>$O(1)$</td></tr><tr><td style=text-align:left>掛け算 $a \times b$</td><td style=text-align:left>掛けてNで割った余り</td><td style=text-align:center>$O(1)$</td></tr><tr><td style=text-align:left>割り算 $a \div b$</td><td style=text-align:left>拡張ユークリッドの互除法</td><td style=text-align:center>$O(\log^2 N)$</td></tr><tr><td style=text-align:left>累乗 $a ^ e$</td><td style=text-align:left>繰り返し二乗法</td><td style=text-align:center>$O(\log N)$</td></tr><tr><td style=text-align:left>平方根 $\sqrt{a}$</td><td style=text-align:left>Tonelli Shanksのアルゴリズム</td><td style=text-align:center>$O(\log^2 N)$</td></tr><tr><td style=text-align:left>累乗根 $\sqrt[e]{a}$</td><td style=text-align:left>Tonelli Shanksのアルゴリズム</td><td style=text-align:center>$O(\min(N^{1/4},\sqrt{e})\log{e}\log^2{N})$</td></tr><tr><td style=text-align:left>対数 $\log_e{a}$</td><td style=text-align:left>離散対数問題</td><td style=text-align:center>$O(\sqrt{N})$</td></tr><tr><td style=text-align:left>(参考:
+<a href=https://kirika-comp.hatenablog.com/entry/2018/03/12/210446 rel=noopener>整数論テクニック集のpdf</a> など)</td><td></td><td></td></tr></tbody></table><p>それぞれのアルゴリズムは参考などの資料を見てください。累乗は多項式時間しか掛かりませんが、累乗根や対数は指数時間掛かるということを頭の隅に置いておいてください。</p><p>それと剰余と合わせて、普段よく使っている整数 $\mathbb{Z}$ 上での演算は $\bmod N$ と対比して $\mathrm{over}\\ \mathbb{Z}$ と書くことにします。</p><p>まとめ
+実数で扱っている演算は剰余でも同じようにできることがある。</p><a href=#剰余上の掛け算と足し算><h2 id=剰余上の掛け算と足し算><span class=hanchor arialabel=Anchor># </span>剰余上の掛け算と足し算</h2></a><p>剰余のことが少しわかった所で累乗について少し深く掘り下げてみます。</p><p>累乗に関する有名な定理としてフェルマーの小定理があります。</p><hr><a href=#フェルマーの小定理><h4 id=フェルマーの小定理><span class=hanchor arialabel=Anchor># </span>フェルマーの小定理</h4></a><p>$p$ を素数として、$a \neq 0 \pmod p$ のとき次の式が成り立つ。</p><p>$$
+a^{p-1} = 1 \pmod p
+$$</p><p>証明
+$a \neq 0 \pmod p$ より同値な $a^p = a \pmod p$ を示す。$a = 1$ は自明で、 $a = k$ を仮定すると</p><p>$$
+(k + 1)^p = k^p + {}_p\mathrm{C}_1k + &mldr; + 1 = k^p + 1 = k + 1 \pmod p
+$$</p><p>より数学的帰納法から成り立つ。</p><hr><p>数式だけだとあまり良くわからないので具体的に $\bmod 7$ で考えてみます。 $a^k$ を計算した表がこちらになります。</p><table><thead><tr><th style=text-align:center>k ＼ a</th><th style=text-align:center>1</th><th style=text-align:center>2</th><th style=text-align:center>3</th><th style=text-align:center>4</th><th style=text-align:center>5</th><th style=text-align:center>6</th></tr></thead><tbody><tr><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>2</td><td style=text-align:center>3</td><td style=text-align:center>4</td><td style=text-align:center>5</td><td style=text-align:center>6</td></tr><tr><td style=text-align:center>2</td><td style=text-align:center>1</td><td style=text-align:center>4</td><td style=text-align:center>2</td><td style=text-align:center>2</td><td style=text-align:center>4</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>3</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>6</td><td style=text-align:center>1</td><td style=text-align:center>6</td><td style=text-align:center>6</td></tr><tr><td style=text-align:center>4</td><td style=text-align:center>1</td><td style=text-align:center>2</td><td style=text-align:center>4</td><td style=text-align:center>4</td><td style=text-align:center>2</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>5</td><td style=text-align:center>1</td><td style=text-align:center>4</td><td style=text-align:center>5</td><td style=text-align:center>2</td><td style=text-align:center>3</td><td style=text-align:center>6</td></tr><tr><td style=text-align:center>6</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>1</td></tr></tbody></table><p>このようにどんな $a$ を使って計算しても必ず $a^6 = 1$ になります。これが一般の素数 $p$ で法を取ったなら必ず $p-1$ 乗で $1$ となるという不思議な定理です。</p><p>ここではこの定理についてもう少し膨らませてみます。</p><p>フェルマーの小定理では指数について考えましたが逆に対数について考えてみます。具体例として先ほどの $\bmod 7$ で $\log_3 n$ を計算してみます。</p><table><thead><tr><th style=text-align:center>$n$</th><th style=text-align:center>$1$</th><th style=text-align:center>$2$</th><th style=text-align:center>$3$</th><th style=text-align:center>$4$</th><th style=text-align:center>$5$</th><th style=text-align:center>$6$</th></tr></thead><tbody><tr><td style=text-align:center>$n = 3^k$</td><td style=text-align:center>$3^0$</td><td style=text-align:center>$3^2$</td><td style=text-align:center>$3^1$</td><td style=text-align:center>$3^4$</td><td style=text-align:center>$3^5$</td><td style=text-align:center>$3^3$</td></tr><tr><td style=text-align:center>$\log_3 n$</td><td style=text-align:center>$0$</td><td style=text-align:center>$2$</td><td style=text-align:center>$1$</td><td style=text-align:center>$4$</td><td style=text-align:center>$5$</td><td style=text-align:center>$3$</td></tr></tbody></table><p>じっくり見てみると、対数を取ったもの同士の $\bmod 6$ での足し算はそれに対応する値同士の $\bmod 7$ の掛け算と一致しているということが見えてきます。</p><p>$$
+\begin{aligned}
+4 &\times 6 = 3 \pmod 7 \\ &\downarrow \log_3 \\ 4 &+ 3 = 1 \pmod 6 \\ \end{aligned}
+$$</p><p>他の素数で考えてみても同じような法則が成り立ち、一般に $\bmod p$ での乗法は対数を取れば $\bmod p - 1$ での加法に変換できるということが成り立ちそうです。このような性質を同型と呼び、記号 $\cong$ を使って $(\mathbb{Z}/p\mathbb{Z})^\times \cong \mathbb{Z}/(p−1)\mathbb{Z}$ と表します。</p><hr><a href=#乗法と加法の関係><h4 id=乗法と加法の関係><span class=hanchor arialabel=Anchor># </span>乗法と加法の関係</h4></a><p>$$
+(\mathbb{Z}/p\mathbb{Z})^\times \cong \mathbb{Z}/(p−1)\mathbb{Z}
+$$</p><p>証明
+任意の素数 $p$ の法で原始根が存在することを示す。
+まず $n$ が $p - 1$ の約数であるとき $x^n = 1$ は $n$ 個の解を持つことを示す。仮定より $p - 1 = nk$ とおけ、次のそれぞれの式について解の個数について考える。</p><p>$$
+x^{p-1} - 1 = (x^n - 1)((x^n)^{k-1} + \ldots + x^n + 1)
+$$</p><p>$x^{p-1} - 1 = 0$ はフェルマーの小定理より $p - 1$ 個
+$(x^n)^{k-1} + \ldots + x^n + 1 = 0$ は代数学の基本定理より $n(k-1)$ 個以下
+よって $x^{n} - 1 = 0$ は解の個数を比較して $n$ 個存在する。</p><p>これより $p-1$ と互いに素な数の個数だけ原始根が存在する。</p><p>原始根 $a$ を1つ選んでくると $a^k \bmod{p} \\ (k=0, \ldots, p-2)$ はそれぞれ違う値を取り、$(\mathbb{Z}/p\mathbb{Z})^\times, \mathbb{Z}/(p−1)\mathbb{Z}$ を対応させる。そして剰余上の指数法則 $a^m \times a^n = a^{m + n} \pmod p$ は成り立つ。よって $(\mathbb{Z}/p\mathbb{Z})^\times \cong \mathbb{Z}/(p−1)\mathbb{Z}$ である。</p><hr><p>:::details
+また、法の数を素数から一般の自然数に一般化することができます。</p><hr><a href=#カーマイケルの定理><h4 id=カーマイケルの定理><span class=hanchor arialabel=Anchor># </span>カーマイケルの定理</h4></a><p>$$
+\begin{aligned}
+(\mathbb{Z}/p_1^{e_1}\ldots p_n^{e_n}\mathbb{Z})^\times &\cong (\mathbb{Z}/p_1^{e_1}\mathbb{Z})^\times \times \ldots \times (\mathbb{Z}/p_n^{e_n}\mathbb{Z})^\times\\ (\mathbb{Z}/2^e\mathbb{Z})^× &≅ \left{
+\begin{array}{ll}
+\mathbb{Z}/1\mathbb{Z} & (e = 1) \\ \mathbb{Z}/2\mathbb{Z} \times \mathbb{Z}/2^{e-2}\mathbb{Z} & (e \geq 2)
+\end{array}
+\right.\\ (\mathbb{Z}/p^e\mathbb{Z})^× &≅ \mathbb{Z}/p^{e-1}(p−1)\mathbb{Z} \\ \end{aligned}
+$$</p><p>証明
+せきゅーんさんの記事がおすすめです。
+<a href=https://integers.hatenablog.com/entry/2016/07/24/163831 rel=noopener>https://integers.hatenablog.com/entry/2016/07/24/163831</a>
+<a href=https://integers.hatenablog.com/entry/2017/06/08/191649 rel=noopener>https://integers.hatenablog.com/entry/2017/06/08/191649</a></p><hr><p>:::</p><p>こうして掛け算を足し算に置き換えられ、問題が簡単にできることが多いです。</p><a href=#rsa暗号が解ける><h4 id=rsa暗号が解ける><span class=hanchor arialabel=Anchor># </span>RSA暗号が解ける？</h4></a><p>RSA暗号はこれを使えば簡単に解けます。
+RSAは $c = m^e \pmod {N}$ という式について $e, c$ が分かっているので累乗根を求める問題なのですが、原始根 $a$ で対数を取るとカーマイケルの定理より</p><p>$$
+\begin{aligned}
+c &= m^e & \pmod {N} \\ m &= c^{1/e} & \pmod {N} \\ \end{aligned}
+$$</p><p>と累乗根を計算できます。</p><p>ここまでは数学の話でしたが、ここから計算機科学に移ります。</p><p>確かに、掛け算を足し算に変換することで簡単な問題になります。しかし、それ以前にコンピュータが剰余上の対数を計算する事は結構難しく、離散対数問題 (DLP: Discrete Logarithm Problem) と呼ばれ、現在見つかっている最も速いアルゴリズムでも完全指数時間も掛かります。</p><p>では諦めて掛け算だけで解く、というだけではなく他に1つ方法があります。直接数に対応させなくても、ある数だけ累乗すると $1$ や $-1$ になるという情報を使うことである程度情報を引き出すことができます。いわゆる平方剰余と呼ばれるものなどです。</p><p>$$
+n^{\frac{p-1}{2}}
+$$</p><p>例えば Tonelli Shanks のアルゴリズムは平方剰余を使っています。</p><p>剰余上の平方根を計算することについてじっくり考えてみます。定義より $x^2 = a \pmod p$ となる $x$ を求めればよいです。
+まずは具体的に $\bmod 13$ の場合について平方根を全て求めてみます。</p><table><thead><tr><th style=text-align:center>$n$</th><th style=text-align:center>$2^0$</th><th style=text-align:center>$2^1$</th><th style=text-align:center>$2^2$</th><th style=text-align:center>$2^3$</th><th style=text-align:center>$2^4$</th><th style=text-align:center>$2^5$</th><th style=text-align:center>$2^6$</th><th style=text-align:center>$2^7$</th><th style=text-align:center>$2^8$</th><th style=text-align:center>$2^9$</th><th style=text-align:center>$2^{10}$</th><th style=text-align:center>$2^{11}$</th></tr></thead><tbody><tr><td style=text-align:center>$\sqrt{n}$</td><td style=text-align:center>$2^0, 2^6$</td><td style=text-align:center>なし</td><td style=text-align:center>$2^1, 2^7$</td><td style=text-align:center>なし</td><td style=text-align:center>$2^2, 2^8$</td><td style=text-align:center>なし</td><td style=text-align:center>$2^3, 2^9$</td><td style=text-align:center>なし</td><td style=text-align:center>$2^4, 2^{10}$</td><td style=text-align:center>なし</td><td style=text-align:center>$2^5, 2^{11}$</td><td style=text-align:center>なし</td></tr></tbody></table><p>とこのようになります。</p><p>例えば $\sqrt{10} \pmod{13}$ については $\sqrt{10} = \sqrt{2^{10}} = 2^5, 2^{11} = 6, 7 \pmod{13}$ となります。このように DLP が解けるとき、つまり肩の数がわかるなら、それを半分にするだけで平方根となります。</p><p>では DLP が解けないときはどうすればよいのでしょうか。</p><p>最初に思いつくのは $2^{-1} \bmod p-1$ 乗すれば平方根になるということです。しかし $2$ と $p-1$ は互いに素ではないので $2$ の逆数を定義できません。なので一旦逆数を定義できるところだけやって、後で定義できない部分を考えることにします。</p><p>$$
+(\mathbb{Z}/13\mathbb{Z})^×≅\mathbb{Z}/12\mathbb{Z}≅\mathbb{Z}/3\mathbb{Z}\times\mathbb{Z}/2^2\mathbb{Z}
+$$</p><p>中国剰余定理から上のように分解でき、$\bmod 3$ なら $2$ の逆数が定義できるので $2^{-1} \bmod 3 = 2$ 乗します。すると $10^2 = 9 \pmod{13}$ となり、これは $9 = 2^8 \pmod{13}$ で下の表をみるとしっかり $8$ は $5, 11$ のある $2 \bmod 3$ の行にあります。ここから上下に動かさずに左右だけを動かして本当の平方根を求めます。</p><table><thead><tr><th style=text-align:center>$\times$</th><th style=text-align:center>0</th><th style=text-align:center>1</th><th style=text-align:center>2</th><th style=text-align:center>3</th></tr></thead><tbody><tr><td style=text-align:center>0</td><td style=text-align:center>0</td><td style=text-align:center>9</td><td style=text-align:center>6</td><td style=text-align:center>3</td></tr><tr><td style=text-align:center>1</td><td style=text-align:center>4</td><td style=text-align:center>1</td><td style=text-align:center>10</td><td style=text-align:center>7</td></tr><tr><td style=text-align:center>2</td><td style=text-align:center>8</td><td style=text-align:center>5</td><td style=text-align:center>2</td><td style=text-align:center>11</td></tr></tbody></table><p>本当の平方根を求める為に誤差を取り除くことが必要です。誤差とは $x$ が平方根であれば $a^{-1}x^2 = 1 \pmod p$ となるのに対し、現在仮に求まっている平方根が $x=9$ であるから $a^{-1}x^2 = 10^{-1}9^2 = 2 \pmod{13}$ と異なっているこの誤差です。</p><p>この誤差をより詳しく調べる為に累乗して情報、肩の数の trailing zero ( $\bmod 2^n$ 上)を求めます。trailing zero とは2進数で考えたときに末尾に0が何個あるのかというものです。例えば 8 であれば 1000 より 3 となり、10 であれば 1010 で 1 となります。</p><p>例えば $s = a^{-1}x^2$ についてこんなことが成り立つとします。</p><p>$$
+s \neq 1, s^2 \neq 1, s^4 \neq 1, s^8 = 1
+$$</p><p>この場合、肩の数は1,2,4倍しても0にはならず、ちょうど8倍して0になる数であることがわかります。つまり $\underbrace{bb1000\ldots}_n$ というようになっているはずです(分からないビットは $b$ としています)。これより trailing zero は $n - 3$ と分かります。</p><p>これに加えて平方剰余ではない数 $u$ をランダムに取ってきて $q$ 乗します。平方剰余ではないので肩の数は奇数、つまり一番下のビットが $1$ であることが分かってます。するとこの肩の数を $n - 4$ だけ左シフトすればその2乗は $\underbrace{bb1000\ldots}_n$ となり、それと $x$ を掛け合わせることで$bb1000\ldots + bb1000\ldots = bb0000\ldots$ と最下位ビットを 0 にできて誤差の対数の trailing zero を増やしていくことができます。そして最終的に全て 0 になったとき、誤差はなくなります。</p><p>つまり $\sqrt{a} \pmod{p}$ を計算するには次を行えばよいです。</p><ol><li>$p - 1 = q \times 2^e$ から $2^{-1} \pmod q = (q + 1)/2$ 乗する。</li><li>$a^{-1}x^2$ の対数の trailing zero $t$ を求め、非平方剰余 $u$ を用いて $\mathrm{pow}(u^q, 2^{e - t - 1})$ を $x$ に掛けることを繰り返す。</li></ol><p>これを Tonelli Shanks のアルゴリズムと呼びます。</p><p>まとめ
+累乗は様々な情報を持っている。</p><a href=#rsa暗号><h2 id=rsa暗号><span class=hanchor arialabel=Anchor># </span>RSA暗号</h2></a><p>ようやくRSA暗号です。</p><p>RSA暗号とは剰余上での累乗は簡単でも累乗根は難しいという非対称性を使った暗号です。</p><p>事前に大きな素数 $p, q$ と自然数 $e$ を生成し、$N = pq$ を公開します。(素数生成の方法はコラムへ)
+そして平文 $m$ に対して暗号文を $m^e \bmod N$ とします。そして復号化については逆に $e^{-1}$ 乗します。具体的にはカーマイケルの定理から $(\mathbb{Z}/pq\mathbb{Z})^×≅\mathbb{Z}/\mathrm{lcm}((p−1), (q-1))\mathbb{Z}$ より $\phi(N) = (p - 1)(q - 1)$ として $d = e^{-1} \pmod{\phi(N)}$ 乗すれば $m$ を復号できます。</p><p>$$
+\begin{aligned}
+c &= m^e &\pmod N \\ m &= c^{d} &\pmod N
+\end{aligned}
+$$</p><p>ここで $N, e$ を知っていても $p, q, d$ いずれも知らないとき、素因数分解の計算困難性から復号化は難しいとされています。これを用いた暗号をRSA暗号 (Rivest-Shamir-Adleman encryption) と呼びます。</p><p>具体的には次の手順で暗号化された通信します。</p><ol><li>AliceがBobに公開鍵 $N, e$ を渡す</li><li>Bobは公開鍵を用いて平文を暗号化</li><li>BobからAliceへ暗号文を送る</li><li>Aliceは秘密鍵 $p, q$ を用いて復号化し、平文を得る</li></ol><p>ここに図</p><p>このようにして送っている最中に盗聴されても秘密鍵がなければ解読できず、安全な通信ができます。またこれ自体は一方向通信ですが、逆も同様に行えば双方向通信もできます。</p><p>実装するにはそれぞれの具体的なパラメータについて知っておきましょう。
+$e$ は慣例的に <code>0x10001 = 65537</code> が使われています。攻撃されないような丁度よい大きさの数であり、かつ暗号化する際にバイナリ法を用いると素早く計算できる数であるという理由が挙げられます。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=n>getPrime</span><span class=p>,</span> <span class=n>long_to_bytes</span><span class=p>,</span> <span class=n>bytes_to_long</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>N</span> <span class=o>=</span> <span class=n>p</span> <span class=o>*</span> <span class=n>q</span>
+</span></span><span class=line><span class=cl><span class=n>phi</span> <span class=o>=</span> <span class=p>(</span><span class=n>p</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=n>q</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mh>0x10001</span>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=n>e</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>,</span> <span class=n>phi</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>encrypt</span><span class=p>(</span><span class=n>plaintext</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>m</span> <span class=o>=</span> <span class=n>bytes_to_long</span><span class=p>(</span><span class=n>plaintext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>c</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>cipher</span> <span class=o>=</span> <span class=n>long_to_bytes</span><span class=p>(</span><span class=n>c</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>cipher</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>decrypt</span><span class=p>(</span><span class=n>cipher</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>c</span> <span class=o>=</span> <span class=n>bytes_to_long</span><span class=p>(</span><span class=n>cipher</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>m</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>d</span><span class=p>,</span> <span class=n>phi</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>plaintext</span> <span class=o>=</span> <span class=n>long_to_bytes</span><span class=p>(</span><span class=n>m</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>plaintext</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>cipher</span> <span class=o>=</span> <span class=n>encrypt</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;This is RSA&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>cipher</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># </span>
+</span></span><span class=line><span class=cl><span class=n>plaintext</span> <span class=o>=</span> <span class=n>decrypt</span><span class=p>(</span><span class=n>cipher</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>plaintext</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=c1># This is RSA</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::details ライブラリの説明</p><table><thead><tr><th style=text-align:left>pycryptodomeライブラリの関数</th><th style=text-align:left>説明</th></tr></thead><tbody><tr><td style=text-align:left><code>getPrime(n)</code></td><td style=text-align:left>n bit長のランダムな素数を生成</td></tr><tr><td style=text-align:left><code>bytes_to_long(bytes)</code></td><td style=text-align:left>バイト文字列をASCIIとしてデコードし数に変換</td></tr><tr><td style=text-align:left><code>long_to_bytes(n)</code></td><td style=text-align:left>数をASCIIとしてエンコードしバイト文字列に変換</td></tr><tr><td style=text-align:left>:::</td><td></td></tr></tbody></table><a href=#素因数分解><h2 id=素因数分解><span class=hanchor arialabel=Anchor># </span>素因数分解</h2></a><p>もし巨大な数の素因数分解が簡単に解けるとするつまり公開鍵 N を素因数分解して秘密鍵 p,q が求められるとどうなるか。 ϕ,d を求められ、任意の暗号文を復号化できてしまいます。</p><p>暗号化は簡単でも復号化は難しいという非対称性を用いて暗号は作られます。</p><p>代表的な暗号の安全性の根拠</p><ul><li>RSA暗号 素因数分解</li><li>ElGamal暗号 DLP</li><li>楕円曲線暗号 ECDLP</li></ul><a href=#素因数分解する方法はなにがあるのか><h2 id=素因数分解する方法はなにがあるのか><span class=hanchor arialabel=Anchor># </span>素因数分解する方法はなにがあるのか</h2></a><p>素因数分解アルゴリズムは Pollard-$\rho$ 法、p-1 法などがありますが、今回は比較的簡単で汎用的に適用できる Pollard-$\rho$ 法を紹介します。</p><p>誕生日のパラドックスを聞いたことありますか？ 誕生日が同じな2人を見つけたいときに人を何人集めればそうなる確率が50%を超えるのかという問題です。鳩ノ巣原理から366人いれば必ず同じ誕生日の人が出てきます。さて、同じ誕生日の組が 50% の確率でいる場合、何人いればよいでしょうか。</p><p>答えは 23 人いれば十分です。</p><p>これを使って素因数分解する方法があります。</p><p>$\bmod p$ 上で同じ2つの数を見つけたいときに $\sqrt{p\ln 4} \fallingdotseq 1.18\sqrt{p}$ だけ集めれば 50% の確率で見つかります。そしてその差は $p$ の倍数となっているため、これと $N$ で最大公約数を取って素因数 $p$ を求めることができます。</p><p>コンピュータ上ではランダムな数を集める為に擬似的な乱数を生成する関数 $f$ を用いて最大公約数が $p$ になるまで回し続けます。</p><p>$$
+\begin{aligned}
+f(x) &= x^2 + c \pmod N \\ x_{i+1} &= f(x_i) \\ y_{i+1} &= f(f(y_i)) \\ p &= \gcd(N, |x_i - y_i|) \\ \end{aligned}
+$$</p><p>計算量は $O(\sqrt{p})$ で $N \approx 10^{20}$ くらいまでなら現実的な時間で素因数分解できます。
+ほんまか？</p><p>上の方法だと完全指数時間掛かりますがそれより速い準指数時間のアルゴリズム、Index calculus や数体ふるい法などがあります。
+整数をランダムに選んできたとき、それは小さい素数、たとえば 2, 3, 5, 7 などのべき乗を掛け合わせたもの、言い換えると、これらの小さい素数だけで生成されるものになる確率は高いことが知られています。これらの小さな素数を「ファクターベース」これらの数が暗号に使われている数に比べて大変小さく、たとえばその準指数関数のサイズ</p><p>:::details 量子コンピュータ
+最近は量子コンピュータが開発されており、古典計算機では指数時間掛かる問題も多項式時間で解けるようになるという画期的な技術です。素因数分解もその範疇であり、Shorのアルゴリズムを用いて $O((\log⁡N)^2)$ です。
+そこで量子コンピュータでも解けないような暗号、耐量子暗号が開発されています。代表的な暗号は格子暗号や符号暗号などがあります。詳しくは楕円曲線暗号
+:::</p><a href=#近い値の素数を使ってはいけない-fermats-method><h4 id=近い値の素数を使ってはいけない-fermats-method><span class=hanchor arialabel=Anchor># </span>近い値の素数を使ってはいけない (Fermat&rsquo;s Method)</h4></a><p>$p, q$ が近いと中心から順に調べることで素数の組を見つけられます。様々な探索の方法がありますが、以下のような方法がよく用いられています。</p><p>$$
+\begin{aligned}
+N &= pq \\ &= (x + y)(x - y) \\ &= x^2 - y^2 \\ y^2 &= x^2 - N \\ \end{aligned}
+$$</p><p>より初期値を $x = \lceil\sqrt N\rceil, y = 0$ として $x$ の値を1ずつ上げながら $y$ の値も上げていき、右辺と左辺の計算結果が一致したとき $p, q$ が求まるという仕掛けです。</p><a href=#近似比><h4 id=近似比><span class=hanchor arialabel=Anchor># </span>近似比</h4></a><p>前の問題だと素数 $p, q$ が近い値のときしか対応できませんが、素数同士の近似比 $p:q \approx a:b$ が与えられる場合だったらどうでしょうか。(
+<a href=https://project-euphoria.dev/blog/27-rsa-attacks/ rel=noopener>RSA暗号攻撃で他でも使える n のこと</a> より)</p><p>:::details 解法
+$$
+\begin{aligned}
+\frac{a}{b} &\approx \frac{p}{q} \\ aq &\approx bp \\ aq \times bp &= abN
+\end{aligned}
+$$</p><p>これより $abN$ に対し Fermat&rsquo;s method を適用することで $p, q$ が求まります。
+:::</p><a href=#攻撃><h2 id=攻撃><span class=hanchor arialabel=Anchor># </span>攻撃</h2></a><p>実際のRSAではこのような攻撃が発見されてきました。</p><table><thead><tr><th>アンチケース</th><th>攻撃技</th><th>方法</th></tr></thead><tbody><tr><td>公開鍵 $N$ の値が小さくてはいけない</td><td>Pollard-$\rho$ 素因数分解法</td><td>素因数分解</td></tr><tr><td>近い値の素数を使ってはいけない</td><td>Fermat&rsquo;s method</td><td>素因数分解</td></tr><tr><td>$e$ の値が小さすぎてはいけない</td><td>Low Public Exponent Attack</td><td>剰余ではなく整数上のe乗根となる</td></tr><tr><td>$d$ の値が小さすぎてはいけない($e$の値が大きすぎてはいけない)</td><td>Wiener&rsquo;s Attack, Boneh-Durfee Attack</td><td>近似分数から見積もる, Coppersmith Method</td></tr><tr><td>同一の平文を異なる $e$ で暗号化した暗号文を与えてはいけない</td><td>Common Modulus Attack</td><td>$e$ について拡張ユークリッドの互除法</td></tr><tr><td>同一の平文を異なる $N$ で暗号化した暗号文を与えてはいけない</td><td>Håstad&rsquo;s Broadcast Attack</td><td>中国剰余定理</td></tr><tr><td>同一の平文を同一の $d$ 異なる $e, N$ で暗号化した暗号文を与えてはいけない</td><td>Small Common Private Exponent Attack</td><td>Coppersmith Method</td></tr><tr><td>任意の暗号文を復号した結果を知られてはいけない</td><td>適応的選択暗号文攻撃</td><td>$a^ec$ を復号すると $am$ となる</td></tr><tr><td>暗号文を復号した結果の偶奇を知られてはいけない</td><td>LSB Decryption Oracle Attack</td><td>二分探索</td></tr><tr><td>RSA-CRTにバグがあってはならない</td><td>RSA-CRT Fault Attack</td><td>秘密鍵が書き換えれると平文の差分が $p, q$ の倍数となる</td></tr><tr><td>上位ビットが共通する二つの平文に対する暗号文を知られてはいけない</td><td>Franklin-Reiter Related Message Attack</td><td>最大公約式</td></tr><tr><td>秘密鍵が部分的にでも知られてはならない</td><td>Partial Key Exposure Attack</td><td>Coppersmith Method</td></tr><tr><td>(参考:
+<a href=https://www.slideshare.net/sonickun/rsa-n-ssmjp rel=noopener>RSA暗号運用でやってはいけない n のこと</a>)</td><td></td><td></td></tr></tbody></table><p>これらの攻撃手法はCrypto問を解く上で基本的なアイデアとなります。解き方やソースコードなど詳しいことは実践編で取り扱いますが、ここではそれぞれのアイデアの中で特に重要な性質をここで紹介します。</p><a href=#まとめ><h4 id=まとめ><span class=hanchor arialabel=Anchor># </span>まとめ</h4></a><p>RSA暗号は素因数分解の困難性が安全性の根拠である。
+うまく実装しないと素因数分解を解かなくても攻撃が出来てしまう。</p><a href=#中国剰余定理><h2 id=中国剰余定理><span class=hanchor arialabel=Anchor># </span>中国剰余定理</h2></a><p>// TODO 中国剰余定理とは
+これを使えば大きな問題を小さな問題に分割して計算することができます。</p><p>$$
+\bmod pq \iff \bmod p, \bmod q
+$$</p><hr><a href=#中国剰余定理-crt-chinese-remainder-theorem><h4 id=中国剰余定理-crt-chinese-remainder-theorem><span class=hanchor arialabel=Anchor># </span>中国剰余定理 (CRT: Chinese Remainder Theorem)</h4></a><p>$$
+\mathbb{Z}/p_1^{e_1}\ldots p_n^{e_n}\mathbb{Z} \cong \mathbb{Z}/p_1^{e_1}\mathbb{Z}\times\ldots \times\mathbb{Z}/p_n^{e_n}\mathbb{Z}
+$$</p><p>証明
+//TODO</p><p>$$
+\mathbb{Z}/pq\mathbb{Z} \cong \mathbb{Z}/p\mathbb{Z}\times\mathbb{Z}/q\mathbb{Z}
+$$</p><p>をユークリッドの互除法で証明すれば大体証明できる。</p><hr><p>例えば $\mathbb{Z}/15\mathbb{Z} \cong \mathbb{Z}/3\mathbb{Z}\times\mathbb{Z}/5\mathbb{Z}$ となるので法が15の数と法が3, 5の数のペアは1対1に対応させることができます。</p><table><thead><tr><th style=text-align:center>$\times$</th><th style=text-align:center>0</th><th style=text-align:center>1</th><th style=text-align:center>2</th><th style=text-align:center>3</th><th style=text-align:center>4</th></tr></thead><tbody><tr><td style=text-align:center>0</td><td style=text-align:center>0</td><td style=text-align:center>6</td><td style=text-align:center>12</td><td style=text-align:center>3</td><td style=text-align:center>9</td></tr><tr><td style=text-align:center>1</td><td style=text-align:center>10</td><td style=text-align:center>1</td><td style=text-align:center>7</td><td style=text-align:center>13</td><td style=text-align:center>4</td></tr><tr><td style=text-align:center>2</td><td style=text-align:center>5</td><td style=text-align:center>11</td><td style=text-align:center>2</td><td style=text-align:center>8</td><td style=text-align:center>14</td></tr></tbody></table><p>数自体だけではなく加法、乗法についても対応します。</p><p>$$
+\begin{aligned}
+8 &+ 9 = 2 & \pmod{15} \\ &\downarrow \\ (2, 3) &+ (0, 4) = (2, 2) & \pmod{(3, 5)} \\ \end{aligned}
+$$</p><p>$$
+\begin{aligned}
+8 &\times 9 = 12 & \pmod{15} \\ &\downarrow \\ (2, 3) &+ (0, 4) = (0, 2) & \pmod{(3, 5)} \\ \end{aligned}
+$$</p><p>コンピュータではどう計算するのでしょうか。
+まずは $\bmod pq \to \bmod p, \bmod q$ についてです。これは簡単で $a \bmod p$ と $a \bmod q$ を計算すればよいです。なぜかというと</p><p>$$
+\begin{aligned}
+a \bmod{pq} \bmod{p} &= (a - k_1pq) - k_2p \\ &= a - (k_1q + k_2)p \\ &= a \bmod{p} \\ \end{aligned}
+$$</p><p>となるからです。注意すべきなのは2つが約数の関係となる剰余でしかこのような式は有効ではないです。例えば有効ではない式として $20 \bmod 15 \bmod 9 \neq 20 \bmod 9$ があります。</p><p>逆に $\bmod p, \bmod q \to \bmod pq$ はどうやって計算するのでしょうか。この操作は持ち上げ(lift)とよばれていて、Garnerのアルゴリズムを用いて持ち上げます。</p><p>このような関係があるとします。</p><p>$$
+\begin{cases}
+x = r_1 \pmod{m_1} \\ x = r_2 \pmod{m_2} \\ \end{cases}
+$$</p><p>これに対しては次のようにすることで持ち上げることができます。</p><p>$$
+\begin{aligned}
+x + q_1m_1 &= r_2 & \pmod{m_2} \\ q_1m_1 &= r_2 - x & \pmod{m_2} \\ q_1 &= (r_2 - x)m_1^{-1} & \pmod{m_2} \\ x &= x + (r_2 - x)(m_1^{-1} \bmod{m_2})m_1 & \pmod{m_1m_2} \\ \end{aligned}
+$$</p><p>例えば「3 で割ったあまりが 2」かつ「5 で割ったあまりが 3」であるようなものは $2 + (3 - 2)2\times3 = 8 \pmod{15}$ となります。</p><p>これで中国剰余定理をコンピュータで再現できました。それではこれを使った代表的な攻撃について紹介します。</p><a href=#同一の平文を異なる-n-で暗号化した暗号文を与えてはいけないhåstads-broadcast-attack><h4 id=同一の平文を異なる-n-で暗号化した暗号文を与えてはいけないhåstads-broadcast-attack><span class=hanchor arialabel=Anchor># </span>同一の平文を異なる $N$ で暗号化した暗号文を与えてはいけない(Håstad&rsquo;s Broadcast Attack)</h4></a><p>同一の平文を異なる $e$ 個の $N$ で暗号化した暗号文を与えられたとします。</p><p>$$
+\begin{cases}
+c_1 = m^e \pmod{N_1} \\ c_2 = m^e \pmod{N_2} \\ \qquad \vdots \\ c_e = m^e \pmod{N_e} \\ \end{cases}
+$$</p><p>これらの暗号文を中国剰余定理によって整数上の $m^e$ を作り $e$ 乗根して平文 $m$ を得られます。</p><p>$$
+\begin{aligned}
+m^e &= \mathrm{CRT}(c_1, c_2, \ldots, c_e) \pmod{N_1N_2\ldots N_e} \\ &= \mathrm{CRT}(c_1, c_2, \ldots, c_e) \quad (\mathrm{over} \\ \mathbb{Z}) \\ \end{aligned}
+$$</p><a href=#smooth-な-elgamal暗号><h4 id=smooth-な-elgamal暗号><span class=hanchor arialabel=Anchor># </span>Smooth な ElGamal暗号</h4></a><p>累乗を求めることは簡単でもDLPが難しいという非対称性を用いた暗号が ElGamal暗号 です。通常は素数を法としますが、多くの小さな素数で割り切れるようなsmoothな数を法とした場合はどうなるのか考えてみます。</p><p>$$
+c = a^{m} \pmod{p_1p_2\ldots p_n}
+$$</p><p>まずは素因数分解をします。今回はそれぞれの素数が小さいので Pollard-$\rho$ 法を用いて素因数分解できます。そして暗号文をそれぞれの素因数について剰余を取ります。</p><p>$$
+\begin{aligned}
+c_1 &= a^{m_1} \pmod{p_1} \\ c_2 &= a^{m_2} \pmod{p_2} \\ \vdots \\ c_n &= a^{m_n} \pmod{p_n} \\ \end{aligned}
+$$</p><p>それぞれの式の法の数が小さいので DLP が解けます。</p><p>$$
+\begin{aligned}
+m_1& \pmod{p_1 - 1} \\ m_2& \pmod{p_2 - 1} \\ \vdots \\ m_n& \pmod{p_n - 1} \\ \end{aligned}
+$$</p><p>それらを持ち上げることで平文を求めることができます。</p><p>$$
+m = \mathrm{CRT}(m_1, m_2, \ldots, m_n)
+$$</p><a href=#rsa-crt-fault-attack><h4 id=rsa-crt-fault-attack><span class=hanchor arialabel=Anchor># </span>RSA-CRT Fault Attack</h4></a><p>RSAの復号をする際に $c^d$ を計算しますが、 $d = e^{-1} \pmod {\phi (N)}$ は比較的大きいので処理が重くなります。これに対してRSA-CRTは中国剰余定理(CRT)を用いて高速化を図っています。</p><p>$$
+\begin{aligned}
+&\begin{cases}
+d_p = d & \pmod{p-1} \\ d_q = d & \pmod{q-1} \\ \end{cases} \\ &\begin{cases}
+m_p = c^{d_p} & \pmod p \\ m_q = c^{d_q} & \pmod q \\ \end{cases} \\ &\quad \\ m = \mathrm{CRT}(m_p, m_q) & \pmod {N} \\ &\qquad \\ = m_q + (m_p - m_q) (q^{-1} \bmod p) q & \pmod {N} \\ \end{aligned}
+$$</p><p>これより下の値を秘密鍵として持つことになります。</p><p>$$
+\begin{aligned}
+d_p &= d \bmod p−1 \\ d_q &= d \bmod q−1 \\ q_{inv} &= q^{-1} \bmod p \\ \end{aligned}
+$$</p><p>しかし $d_p, d_q$ のどちらかが何らかの方法で書き換えられてしまったとき次のようにできます。</p><p>$$
+\begin{aligned}
+m_p &= c^{d_p} \pmod p \\ m_q&rsquo; &= c^{d_q&rsquo;} \pmod q \\ m &= \mathrm{CRT}(m_p, m_q) = kp + m_p \\ m&rsquo; &= \mathrm{CRT}(m_p, m_q&rsquo;) = k&rsquo;p + m_p \\ |m - m&rsquo;| &= |k - k&rsquo;|p \\ p &= \gcd(|m - m&rsquo;|, N) \\ \end{aligned}
+$$</p><p>これより元々の平文と書き換えられた平文の差が素数の倍数となり、解くことができます。</p><a href=#一般の方程式を解く><h2 id=一般の方程式を解く><span class=hanchor arialabel=Anchor># </span>一般の方程式を解く</h2></a><p>ここからが本題です！！
+RSAというe次方程式の解を求めるだけに絞らず、任意の方程式を解くことができたらうれしいですよね。さっそく考えてみましょう。</p><p>$$
+\begin{cases}
+2x + 3y = 2 & \pmod{13} \\ 3x + 5y = 1 & \pmod{13} \\ \end{cases}
+$$</p><p>まずは簡単そうな連立方程式を解くことを考えてみます。上の方程式を加減法を用いて解いてみます。中学生の頃を思い出しますね。</p><p>$$
+\begin{aligned}
+&\begin{cases}
+2x + 3y = 2 & \pmod{13} \\ 3x + 5y = 1 & \pmod{13} \\ \end{cases} \\ \iff&\begin{cases}
+6x + 9y = 6 & \pmod{13} \\ 6x + 10y = 2 & \pmod{13} \\ \end{cases} \\ \iff&\begin{cases}
+x = 7 & \pmod{13} \\ y = 9 & \pmod{13} \\ \end{cases} \\ \end{aligned}
+$$</p><p>普通の方程式と同様に解けました！
+より一般の連立方程式を解く為に行列を用いて解いてみます。拡大係数行列にしてガウスの消去法を行います！大学1年の復習ですね。</p><p>$$
+\begin{aligned}
+\begin{pmatrix}
+2 & 3 \\ 3 & 5 \\ \end{pmatrix}
+\begin{pmatrix}
+x \\ y \\ \end{pmatrix}
+&=\begin{pmatrix}
+2 \\ 1 \\ \end{pmatrix} \</p><p>\left(
+\begin{array}{cc|c}
+2 & 3 & 2 \\ 3 & 5 & 1 \\ \end{array}
+\right)
+&\to
+\left(
+\begin{array}{cc|c}
+0 & -1 & 4 \\ 1 & 2 & -1 \\ \end{array}
+\right) \</p><p>&\to
+\left(
+\begin{array}{cc|c}
+1 & 0 & 7 \\ 0 & 1 & 9 \\ \end{array}
+\right) \</p><p>\begin{pmatrix}
+x \\ y \\ \end{pmatrix}
+&=\begin{pmatrix}
+7 \\ 9 \\ \end{pmatrix} \\ \end{aligned}
+$$</p><p>一般の連立方程式は次のように解けます。行列の次元が行数と一致すれば逆行列が存在します。</p><p>$$
+\begin{aligned}
+A\mathbf{x} &= \mathbf{b} \\ \mathbf{x} &= A^{-1}\mathbf{b}
+\end{aligned}
+$$</p><p>$$
+\begin{aligned}
+A = \begin{pmatrix}
+a_{11} & a_{12} & \ldots & a_{1n} \\ a_{21} & a_{22} & \ldots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \ldots & a_{mn}
+\end{pmatrix}
+&&
+\mathbf{x} = \begin{pmatrix}
+x_1 \\ \vdots \\ x_n \\ \end{pmatrix}
+&&
+\mathbf{b} = \begin{pmatrix}
+b_1 \\ \vdots \\ b_m \\ \end{pmatrix}
+\pmod{p}
+\end{aligned}
+$$</p><p>なるほど。次元が式の数と一致する連立1次方程式は必ず解けそうですね。</p><p>では与えられる1次方程式が1つのみであればどうでしょうか。複数の解が出てきますが、その中で具体的な解を1つ返したいと思います。</p><p>$$
+a_1x_1 + a_2x_2 + \ldots + a_nx_n = b \pmod N
+$$</p><p>1変数方程式であれば逆元を掛けて解けますが、2変数、3変数、n変数の場合だと難しそうです。</p><p>これに対抗し得るCrypto界最強の道具があります。LLL 基底簡約アルゴリズムです。詳しいことは格子暗号の回で紹介しますが、行列の値が全体的に小さくなるように変形してくれます。</p><p>それだけ？と言われそうですがこれがとても強くてRSA暗号以外にもナップサック暗号、格子暗号、楕円曲線暗号に使えたりします。</p><p>これをどうやって方程式に適用するかというと次のような行列を考えます。</p><p>$$
+\begin{pmatrix}
+1 & 0 & 0 & \ldots & ? & ? \\ 0 & 1 & 0 & \ldots & ? & ? \\ 0 & 0 & 1 & \ldots & ? & ? \\ \vdots & \vdots & \vdots & & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & N & N \\ \end{pmatrix}
+$$</p><p>例えば、</p><p>$$
+8053x+343y+1362z
+$$</p><p>の絶対値を小さくするような、全てが0ではない $x, y, z$ の値を求めたいときは、</p><p>$$
+\begin{pmatrix}
+1 & 0 & 0 & 8053 \\ 0 & 1 & 0 & 343 \\ 0 & 0 & 1 & 1362 \\ \end{pmatrix}
+$$</p><p>をLLLに投げれば良いです。実際に投げたら、次の答えが返ってきました。</p><p>$$
+\begin{pmatrix}
+0 & -4 & 1 & -10 \\ -3 & -5 & 19 & 4 \\ -2 & 35 & 3 & -15 \\ \end{pmatrix}
+$$</p><p>例えば2行目は、$x=−3, y=−5, z=19$ という解に対応しています。</p><p>$$
+8053 \times (−3) + 343 \times (−5) + 1362 \times 19 = 4
+$$</p><p>応用すると解がある程度小さなことが分かっていると次のようにできます。</p><p>$$
+a_1x_1 + a_2x_2 + a_3x_3 + b = 0 \pmod N \\ x_1 &lt; 2^{32}, x_2 &lt; 2^{16}, x_3 &lt; 2^{8}
+$$</p><p>定数は1回しか使ってはいけないという気持ちを込めて大きな数を設定して、他は解の制約に合わせて設定します。最下段は法の数を入れておくことで剰余上で計算してくれます。</p><p>$$
+\begin{pmatrix}
+1 & 0 & 0 & 0 & a_1 \\ 0 & 2^{16} & 0 & 0 & a_2 \\ 0 & 0 & 2^{24} & 0 & a_3 \\ 0 & 0 & 0 & 2^{32} & b \\ 0 & 0 & 0 & 0 & N \\ \end{pmatrix}
+$$</p><p>詳しくは次の記事で紹介されています。</p><p><a href=https://qiita.com/kusano_k/items/5509bff6e426e5043591 rel=noopener>https://qiita.com/kusano_k/items/5509bff6e426e5043591</a></p><p>一般の線形方程式は解けるようになりました！
+やったね！</p><p>こうなってくると1次方程式だけではなく2次、3次、n次方程式も解いてみたいですね。
+まずは次のような方程式を考えてみます。</p><p>$$
+a_nx^n + \ldots + a_1x + a_0 = 0 \pmod N
+$$</p><p>$x, y = x^2, z = x^3, \ldots$ というように変数を設定してLLLで乗り切るという方法が1つあります。しかし $x, y, z$ には関係性という情報を失っています。それをうまく使ってあげたいですね。
+そこでHowgrave-Grahamの補題というものがあります。</p><hr><a href=#thm-howgrave-grahamの補題><h4 id=thm-howgrave-grahamの補題><span class=hanchor arialabel=Anchor># </span>Thm. Howgrave-Grahamの補題</h4></a><p>$N$ を法、 $g(x) \in \mathbb{Z}[x]$ を整数多項式とし、含まれる単項式の数を $\omega$ とする。$g(x)$ に対してある $X$ が存在し、$g(x_0) = 0 \pmod{N}$ なる $x_0 \in \mathbb{Z}$ について $|x_0| \leq X$ であると仮定する。このとき</p><p>$$
+|g(xX)| &lt; \frac{N}{\sqrt{\omega}}
+$$</p><p>が成立するならば $g(x_0) = 0$ が整数方程式として成立する。ただし</p><p>$$
+|g(x)| = \left|\sum_{i=0}^{\deg g(x)}g_i\right| = \sqrt{\sum_{i=0}^{\deg g(x)}g_i^2}
+$$</p><p>であり、 $\deg g(x)$ は $g(x)$ の次数である。</p><p>証明</p><p>$$
+\begin{aligned}
+|g(x_0)| &= \left|\sum_{i=0}^{\deg g(x_0)}g_ix_0^i\right| \\ &\leq \sum_{i}|g_ix_0^i| \\ &\leq \sum_{i}|g_i|X^i \\ &= \sum_{i}(1\cdot|g_i|X^i) \\ &\leq \sqrt{\sum_{i, g_i \neq 0}1} \sqrt{\sum_{i}(|g_i|X^i)^2} && \left(\because \text{コーシー＝シュワルツの不等式}\right) \\ &= \sqrt{\omega}|g(xX)| &lt; N && \left(\because |g(xX)| &lt; \frac{N}{\sqrt{\omega}}\right)
+\end{aligned}
+$$</p><p>$g(x_0) = 0 \pmod N$ より $g(x_0) = 0$ となる。</p><hr><p>つまり、「剰余の方程式は係数がある程度小さければそのまま整数方程式となるよ」と言っています。ここで勘のいい人はLLLを用いて係数を小さくすれば整数方程式に変換できて解けるのでは&mldr;！？と気付くでしょう。実際に考えてみましょう。</p><p>とりあえず状況を整理すると、LLLに入れる値は各係数として、LLLを使う為には複数の方程式が必要になってきます。そしてそれらの方程式は同じ解を持つ必要があります。現在、その解が分からないのですが、どうしたらそんな方程式が作れるでしょうか。</p><p>実は $\bmod {N}$ では難しいので、$\bmod {N^m}$ に持ち上げることで同じ解の方程式を増やすことができます。</p><hr><a href=#lemma><h4 id=lemma><span class=hanchor arialabel=Anchor># </span>Lemma</h4></a><p>$N$ を法、$f(x)$ を多項式とする。自然数 $m, l$ について</p><p>$$
+g_{i,j}(x) := N^{m−i}x^j f^i(x) \\ (0 \leq i \leq m, 0 \leq j\leq l)
+$$</p><p>とおく。このとき、 $f(x_0) = 0 \pmod N$ をみたす $x_0 \in \mathbb{Z}$ について、 $g_{i,j}(x_0) = 0 \pmod{N^m}$ となる。</p><p>証明</p><p>$f(x_0) = 0 \pmod N$ なので $f(x_0) = kN$ とおける。</p><p>$$
+\begin{aligned}
+g_{i,j}(x_0) &= N^{m−i}x_0^j f^i(x_0) \\ &= N^{m−i}x_0^j (kN)^i \\ &= k^ix_0^j N^m \\ g_{i,j}(x_0) &= 0 \pmod{N^m} \\ \end{aligned}
+$$</p><hr><p>これで方程式を増やすことができました！ちゃんとLLLで動くかちょっと不安ですがとりあえずやってみます。</p><p>小さくしたい方程式は $g_{i,j}(xX)$ であることに注意して。
+$g_{i,j}(x)$ の $k$ 次の係数のことを $g_{i,j}^{(k)}$ と表すことにします。</p><p>$$
+\begin{pmatrix}
+g_{0,0}^{(0)} & g_{0,0}^{(1)}X & g_{0,0}^{(2)}X^2 & g_{0,0}^{(3)}X^3 & g_{0,0}^{(4)}X^4 & g_{0,0}^{(5)}X^5 \\ g_{0,1}^{(0)} & g_{0,1}^{(1)}X & g_{0,1}^{(2)}X^2 & g_{0,1}^{(3)}X^3 & g_{0,1}^{(4)}X^4 & g_{0,1}^{(5)}X^5 \\ g_{1,0}^{(0)} & g_{1,0}^{(1)}X & g_{1,0}^{(2)}X^2 & g_{1,0}^{(3)}X^3 & g_{1,0}^{(4)}X^4 & g_{1,0}^{(5)}X^5 \\ g_{1,1}^{(0)} & g_{1,1}^{(1)}X & g_{1,1}^{(2)}X^2 & g_{1,1}^{(3)}X^3 & g_{1,1}^{(4)}X^4 & g_{1,1}^{(5)}X^5 \\ g_{2,0}^{(0)} & g_{2,0}^{(1)}X & g_{2,0}^{(2)}X^2 & g_{2,0}^{(3)}X^3 & g_{2,0}^{(4)}X^4 & g_{2,0}^{(5)}X^5 \\ g_{2,1}^{(0)} & g_{2,1}^{(1)}X & g_{2,1}^{(2)}X^2 & g_{2,1}^{(3)}X^3 & g_{2,1}^{(4)}X^4 & g_{2,1}^{(5)}X^5 \\ \end{pmatrix}
+$$</p><p>これをLLLに通してあげると無事小さな値の方程式が返ってきます。これがHowgrave-Grahamの補題を満たしていれば整数方程式となります。後は適当に増減表書いたりして探索すれば解けます。</p><a href=#ほんまか><h3 id=ほんまか><span class=hanchor arialabel=Anchor># </span>ほんまか？</h3></a><p>これらの操作はCoppersmithの定理と呼ばれています。</p><hr><a href=#thm-coppersmithの定理><h4 id=thm-coppersmithの定理><span class=hanchor arialabel=Anchor># </span>Thm. Coppersmithの定理</h4></a><p>$N$ を法とし $f(x)$ をモニックな 1変数 $\delta$ 多項式とする。このとき $f(x_0) = 0 \pmod{N}$ と次の条件を満たすような $x_0$ を効率よく求めることができる</p><p>$$
+|x_0| \leq N^{\frac{1}{\delta}}
+$$</p><hr><p>これで一般のn次方程式について小さな解を求めることができるようになりました！</p><p>// TODO ここに具体例</p><p>$$
+ax^5 + bx + c = 0
+$$</p><p>さらにCoppersmithの定理には拡張できることが2つあります。</p><ul><li>未知の法について解ける。素因数分解が出来ないほど大きな数を法としたときに既知の法の約数を法とする式の解を求められます。法が小さいほど方程式に対する制約がゆるくなります。</li><li>多変数の方程式も解ける。これは変数が1つだけでしたが、複数の変数でもできます。変数の数が多いほど方程式に対する制約がキツくなります。</li></ul><p>これらは Howgrave-Grahamの補題 などを見直すことで簡単に拡張できます。興味ある方は考えてみてください。</p><p>これらをまとめてCoppersmith Methodと呼びます。</p><p>これを使って様々な攻撃ができます。
+Coppersmith Method はRSAをそのまま与えても解けませんが何かしらの値が一部分だけ分かっていると解けるというものです。</p><p>解きたい方程式の法の数の下限 $\beta$ と解が存在しうる上限 $X$ を決めて関数を与えると解が返ってきます。</p><a href=#boneh-durfee-attack><h3 id=boneh-durfee-attack><span class=hanchor arialabel=Anchor># </span>Boneh-Durfee Attack</h3></a><p>まず以下のように変形します。</p><p>$$
+\begin{aligned}
+ed &= 1 & \pmod{\phi} \\ ed &= k \phi + 1 & (\mathrm{over}\\ \mathbb{Z}) \\ 0 &= k \phi + 1 & \pmod e \\ &= k (N + 1 - p - q) + 1 & \pmod e \\ &= 2k \left(\frac{N + 1}{2} + \frac{-p -q}{2}\right) + 1 & \pmod e \\ \end{aligned}
+$$</p><p>この方程式について $f(x,y) = x (A + y) + 1$ とおき、関数 $f(x,y)$ に対して Coppersmith Method を用いることで $p + q$ が求まり、解くことができます。</p><a href=#秘密鍵が部分的にでも知られてはいけない-partial-key-exposure-attack><h3 id=秘密鍵が部分的にでも知られてはいけない-partial-key-exposure-attack><span class=hanchor arialabel=Anchor># </span>秘密鍵が部分的にでも知られてはいけない (Partial Key Exposure Attack)</h3></a><p>秘密鍵を部分的に知っていさえいれば、Coppersmith Method を用いて解けてしまう。
+$n$ を $N$ のビット数とする。</p><a href=#p-q-のどちらかを-n4-ビット程度知っているとき><h4 id=p-q-のどちらかを-n4-ビット程度知っているとき><span class=hanchor arialabel=Anchor># </span>p, q のどちらかを n/4 ビット程度知っているとき</h4></a><p>例えば p を部分的に知っているときこのような関数を作ります。</p><p>$$
+\begin{aligned}
+f(x) &= p_{upper} + x & \pmod N \\ f(x) &= 2^{k}x + p_{lower} & \pmod N \\ f(x,y) &= 2^kx + p_{mid} + y & \pmod N \\ \end{aligned}
+$$</p><p>これに対して法の数を $p$ としたいので $\beta \approx 0.3$ として、実行すると出てきます。</p><a href=#d-を-n4-ビット程度知っているとき><h4 id=d-を-n4-ビット程度知っているとき><span class=hanchor arialabel=Anchor># </span>d を n/4 ビット程度知っているとき</h4></a><p>$e$ が総当り出来るくらい小さいときに $d$ を $n/4$ ビットだけ知っていれば元の $d$ を構成できる。大体の場合は $e = 65537$ であるから十分可能である。$d &lt; \phi(N)$ より $0 &lt; k \leq e$ となり、この $k$ に対して総当たりする。</p><a href=#上位ビットの場合><h5 id=上位ビットの場合><span class=hanchor arialabel=Anchor># </span>上位ビットの場合</h5></a><p>$d$ と $p, q$ の関係式を立てる。</p><p>$$
+\begin{aligned}
+ed &= 1 & \pmod{\phi(N)} \\ ed &= 1 + k(N - p - q + 1) \\ d &= \frac{kN}{e} - \frac{k(p+q-1) -1}{e} \\ e(d_{upper} + x) &= - k (y - 1) + 1 & \pmod N \\ \end{aligned}
+$$</p><p>第三式について $p + q \approx \sqrt{N}$ より第二項は上位ビットに関連する情報を持たない。これより第一項の $k$ について総当りして上位ビットと一致する $k$ を見つければよい。すると第4式に対し Coppersmith Method を用いて、$d$ がわかる。</p><a href=#下位ビットの場合><h5 id=下位ビットの場合><span class=hanchor arialabel=Anchor># </span>下位ビットの場合</h5></a><p>まずは $d$ の下位ビットから $p$ の下位ビットを求める。</p><p>$$
+\begin{aligned}
+ed &= 1 + k\left(N - p - \frac{N}{p} + 1\right) \\ edp &= p + kp(N - p + 1) - kN & \pmod {2^{n/4}} \\ \end{aligned}
+$$</p><p>$k$ について総当りして $p$ の最下位ビットを求める。すると先程の問題に帰着できて $p$ がわかり $d$ がわかる。</p><a href=#rsa-crt-の秘密鍵-d-を-n4-ビット程度知っているとき><h4 id=rsa-crt-の秘密鍵-d-を-n4-ビット程度知っているとき><span class=hanchor arialabel=Anchor># </span>RSA-CRT の秘密鍵 d を n/4 ビット程度知っているとき</h4></a><p>$$
+\begin{aligned}
+ed_p &= 1 & \pmod{p-1} \\ ed_p &= 1 + k_p(p − 1) \\ \end{aligned}
+$$</p><p>上と同様です。</p><a href=#平文-m-を-1-1en-ビット程度知っているとき><h4 id=平文-m-を-1-1en-ビット程度知っているとき><span class=hanchor arialabel=Anchor># </span>平文 m を (1-1/e)n ビット程度知っているとき</h4></a><p>次数が大きいのである程度知っていないと解けません。</p><p>$$
+\begin{aligned}
+f(x) &= (m_{upper} + x)^e - c & \pmod N \\ f(x) &= (2^kx + m_{lower})^e - c & \pmod N \\ f(x,y) &= (2^kx + m_{mid} + y)^e - c & \pmod N \\ \end{aligned}
+$$</p><p>このようにある程度知っているとCoppersmith Methodで解けるものが多いです。</p><p>Coppersmith method を使ったより様々な攻撃を知りたければ次の資料を読むことををおすすめします。</p><p><a href=https://eprint.iacr.org/2020/1506.pdf rel=noopener>https://eprint.iacr.org/2020/1506.pdf</a></p><a href=#その他の道具><h3 id=その他の道具><span class=hanchor arialabel=Anchor># </span>その他の道具</h3></a><p>さて多変数連立n次方程式の場合はどうでしょう。Coppersmithも使うこともできますが、精度は出にくいです。これに対して使われる道具は多項式GCD, 終結式, Gröbner基底があります。</p><a href=#多項式gcd><h4 id=多項式gcd><span class=hanchor arialabel=Anchor># </span>多項式GCD</h4></a><p>まずは多項式GCDです。
+例えば $x$ について同じ解を持つ次のような方程式を考えてみましょう。</p><p>$$
+\begin{cases}
+f_1 = x^e - c_1 & \pmod{N} \\ f_2 = (x + y)^e - c_2 & \pmod{N} \\ \end{cases} \\ $$</p><p>これは多項式GCDを取ると解けます。その名の通り、ある2つの方程式に公約式があったとき、最も次数が大きい公約式を返します。Half-GCDというアルゴリズムを用いると $O(N(\log{N})^2)$ でGCDが取れます。(N is 何)</p><p>$$
+\begin{aligned}
+&\begin{cases}
+f_1 = x^e - c_1 & \pmod{N} \\ f_2 = (x + y)^e - c_2 & \pmod{N} \\ \end{cases} \\ \iff
+&\begin{cases}
+f_1 = (x - m)g_1 & \pmod{N} \\ f_2 = (x - m)g_2 & \pmod{N} \\ \end{cases} \\ &\gcd(f_1, f_2) = x - m
+\end{aligned}
+$$</p><a href=#終結式><h4 id=終結式><span class=hanchor arialabel=Anchor># </span>終結式</h4></a><p>式増やしてgcd</p><a href=#gröbner基底><h4 id=gröbner基底><span class=hanchor arialabel=Anchor># </span>Gröbner基底</h4></a><p>Gröbner基底のお気持ちは多項式イデアルを格子にしたものに対して順序を与えて基底簡約するものです。</p><p>Buchberger&rsquo;s Algorithmと呼ばれています。</p><p>表に解き方をまとめるとこんな感じです。</p><table><thead><tr><th style=text-align:center></th><th style=text-align:center>1変数</th><th style=text-align:center>多変数</th></tr></thead><tbody><tr><td style=text-align:center>線型方程式</td><td style=text-align:center>拡張ユークリッドの互除法</td><td style=text-align:center>LLL</td></tr><tr><td style=text-align:center>n次方程式</td><td style=text-align:center>Coppersmith Method</td><td style=text-align:center>多項式GCD, 終結式, Gröbner基底</td></tr></tbody></table><a href=#理論編まとめ><h2 id=理論編まとめ><span class=hanchor arialabel=Anchor># </span>理論編まとめ</h2></a><p>このようにしてRSA暗号は解くことは出来ます。</p><p>これらを知っておけばRSA暗号の研究論文が追えるようになっていると思います。
+興味がある人は暗号に特化した論文サイト
+<a href=https://eprint.iacr.org/ rel=noopener>ePrint Archive</a> を覗いてみると良いと思います。</p><a href=#コラム-素数生成><h2 id=コラム-素数生成><span class=hanchor arialabel=Anchor># </span>コラム 素数生成</h2></a><p>暗号として機能する素数の大きさは $2^{512}$ や $2^{1024}$ 程度のオーダーとなっています。素数定理より、ある数 $n$ が素数である確率は約 $1/\log n$ です。例えば $n=2^{512}$ で2.8%、 $n=2^{1024}$ で1.4%となります。つまり、500回乱数を生成すれば99.65%で素数を見つけられるということです。
+素数判定のアルゴリズムは多くありますが、ここではMiller-Rabin素数判定法を紹介します。</p><a href=#millerrabin-素数判定法><h4 id=millerrabin-素数判定法><span class=hanchor arialabel=Anchor># </span>Miller–Rabin 素数判定法</h4></a><p>素数判定法とはその名の通り、数を与えるとそれが素数かどうかが分かる判定法です。その中で Miller-Rabin 素数判定法は与えられた数 $n$ が素数かどうかを計算時間 $O(k\log^3 n)$ で誤り率 $4^{-k}$ 以下で判定する確率的素数判定アルゴリズムです。</p><p>$n$ が素数のとき、$n-1$ はそれを $2$ で割れるだけ割った数を $d$ として $n-1 = 2^sd$ と書けます。フェルマーの小定理より $a≠0 \pmod n$ のとき</p><p>$$
+\begin{aligned}
+a^{n-1} &= a^{2^sd} ≡ 1 \quad \pmod n \\ a^{2^sd}-1 &= (a^d-1)(a^d+1)(a^{2d}+1)(a^{4d}+1)\cdots(a^{2^{s-1}d}+1)\\ &≡ 0 \\ \end{aligned}
+$$</p><p>これより次の2式のどちらかが成り立ちます。</p><p>$$
+\begin{aligned}
+\left{
+\begin{array}{ll}
+a^d &≡ 1 & \pmod n \\ a^{2^rd} &≡ -1 & \pmod n \qquad (\exists r \in \mathbb{Z}, 0\leq r\leq s-1)
+\end{array}
+\right.
+\end{aligned}
+$$</p><p>この対偶をとると、「ある $a$ をとってきて次の2式をどちらも満たすとき</p><p>$$
+\begin{aligned}
+\left{
+\begin{array}{ll}
+a^d &\neq 1 & \pmod n\\ a^{2^rd} &\neq -1 & \pmod n \qquad (\forall r \in \mathbb{Z}, 0\leq r\leq s-1)
+\end{array}
+\right.
+\end{aligned}
+$$</p><p>$n$ は合成数である」と言えます。</p><p>これを用い、次のステップを実行することで確率的な素数判定ができます。</p><ol><li>$1\leq a \leq n-1$ でaの値をランダムにとってくる。</li><li>上の条件を満たしたらcompositeと返す。</li><li>満たさなければprobably primeと返す。</li></ol><p>これを繰り返すことで判定の精度が高まります。この処理をMiller–Rabin素数判定法といって、実行時間は $O(k\log^3 n)$ 、FFTベースの乗算で $Õ(k\log^2 n)$ となります。</p><p>具体例を考えてみましょう。
+判定時にprobably primeを返す時 p、compositeを返す時 c として具体値を入れると次のようになります。
+$n = 25$ (合成数)のとき
+$n-1 = 24 = 2^3 \times 3$ より $s = 3, d = 3$</p><table><thead><tr><th style=text-align:center>a</th><th style=text-align:center>1</th><th style=text-align:center>2</th><th style=text-align:center>3</th><th style=text-align:center>4</th><th style=text-align:center>5</th><th style=text-align:center>6</th><th style=text-align:center>7</th><th style=text-align:center>8</th><th style=text-align:center>9</th><th style=text-align:center>10</th><th style=text-align:center>11</th><th style=text-align:center>12</th><th style=text-align:center>13</th><th style=text-align:center>14</th><th style=text-align:center>15</th><th style=text-align:center>16</th><th style=text-align:center>17</th><th style=text-align:center>18</th><th style=text-align:center>19</th><th style=text-align:center>20</th><th style=text-align:center>21</th><th style=text-align:center>22</th><th style=text-align:center>23</th><th style=text-align:center>24</th></tr></thead><tbody><tr><td style=text-align:center>$a^3 \bmod 25$</td><td style=text-align:center>1</td><td style=text-align:center>8</td><td style=text-align:center>2</td><td style=text-align:center>14</td><td style=text-align:center>0</td><td style=text-align:center>16</td><td style=text-align:center>18</td><td style=text-align:center>12</td><td style=text-align:center>4</td><td style=text-align:center>0</td><td style=text-align:center>6</td><td style=text-align:center>3</td><td style=text-align:center>22</td><td style=text-align:center>19</td><td style=text-align:center>0</td><td style=text-align:center>21</td><td style=text-align:center>13</td><td style=text-align:center>7</td><td style=text-align:center>9</td><td style=text-align:center>0</td><td style=text-align:center>11</td><td style=text-align:center>23</td><td style=text-align:center>17</td><td style=text-align:center>24</td></tr><tr><td style=text-align:center>$a^6 \bmod 25$</td><td style=text-align:center>1</td><td style=text-align:center>14</td><td style=text-align:center>4</td><td style=text-align:center>21</td><td style=text-align:center>0</td><td style=text-align:center>6</td><td style=text-align:center>24</td><td style=text-align:center>19</td><td style=text-align:center>16</td><td style=text-align:center>0</td><td style=text-align:center>11</td><td style=text-align:center>9</td><td style=text-align:center>9</td><td style=text-align:center>11</td><td style=text-align:center>0</td><td style=text-align:center>16</td><td style=text-align:center>19</td><td style=text-align:center>24</td><td style=text-align:center>6</td><td style=text-align:center>0</td><td style=text-align:center>21</td><td style=text-align:center>4</td><td style=text-align:center>14</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>$a^{12} \bmod 25$</td><td style=text-align:center>1</td><td style=text-align:center>21</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>0</td><td style=text-align:center>11</td><td style=text-align:center>1</td><td style=text-align:center>11</td><td style=text-align:center>6</td><td style=text-align:center>0</td><td style=text-align:center>21</td><td style=text-align:center>6</td><td style=text-align:center>6</td><td style=text-align:center>21</td><td style=text-align:center>0</td><td style=text-align:center>6</td><td style=text-align:center>11</td><td style=text-align:center>1</td><td style=text-align:center>11</td><td style=text-align:center>0</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>21</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>判定</td><td style=text-align:center>p</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>p</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>p</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>c</td><td style=text-align:center>p</td></tr></tbody></table><p>$n = 17$ (素数)のとき
+$n-1 = 16 = 2^4 \times 1$ より $s = 4, d = 1$</p><table><thead><tr><th style=text-align:center>a</th><th style=text-align:center>1</th><th style=text-align:center>2</th><th style=text-align:center>3</th><th style=text-align:center>4</th><th style=text-align:center>5</th><th style=text-align:center>6</th><th style=text-align:center>7</th><th style=text-align:center>8</th><th style=text-align:center>9</th><th style=text-align:center>10</th><th style=text-align:center>11</th><th style=text-align:center>12</th><th style=text-align:center>13</th><th style=text-align:center>14</th><th style=text-align:center>15</th><th style=text-align:center>16</th></tr></thead><tbody><tr><td style=text-align:center>$a \bmod 17$</td><td style=text-align:center>1</td><td style=text-align:center>2</td><td style=text-align:center>3</td><td style=text-align:center>4</td><td style=text-align:center>5</td><td style=text-align:center>6</td><td style=text-align:center>7</td><td style=text-align:center>8</td><td style=text-align:center>9</td><td style=text-align:center>10</td><td style=text-align:center>11</td><td style=text-align:center>12</td><td style=text-align:center>13</td><td style=text-align:center>14</td><td style=text-align:center>15</td><td style=text-align:center>16</td></tr><tr><td style=text-align:center>$a^2 \bmod 17$</td><td style=text-align:center>1</td><td style=text-align:center>4</td><td style=text-align:center>9</td><td style=text-align:center>16</td><td style=text-align:center>8</td><td style=text-align:center>2</td><td style=text-align:center>15</td><td style=text-align:center>13</td><td style=text-align:center>13</td><td style=text-align:center>15</td><td style=text-align:center>2</td><td style=text-align:center>8</td><td style=text-align:center>16</td><td style=text-align:center>9</td><td style=text-align:center>4</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>$a^4 \bmod 17$</td><td style=text-align:center>1</td><td style=text-align:center>16</td><td style=text-align:center>13</td><td style=text-align:center>1</td><td style=text-align:center>13</td><td style=text-align:center>4</td><td style=text-align:center>4</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>4</td><td style=text-align:center>4</td><td style=text-align:center>13</td><td style=text-align:center>1</td><td style=text-align:center>13</td><td style=text-align:center>16</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>$a^8 \bmod 17$</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>16</td><td style=text-align:center>1</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>1</td><td style=text-align:center>1</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>16</td><td style=text-align:center>1</td><td style=text-align:center>16</td><td style=text-align:center>1</td><td style=text-align:center>1</td></tr><tr><td style=text-align:center>判定</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td><td style=text-align:center>p</td></tr></tbody></table><p>かなり正確に判定できていることがわかるでしょう。</p><p>素数については必ず成功し、合成数のときは誤る可能性が $1/4$ 以下ということが示せるので、 $k$ 回試行すれば誤り率は $4^{-k}$ 以下となります。つまり、ある値に対して10回素数判定法を回せば99.9999046%成功するということです。</p><a href=#rsa暗号を極める実践編><h1 id=rsa暗号を極める実践編><span class=hanchor arialabel=Anchor># </span>RSA暗号を極める！(実践編)</h1></a><p>理論編を読んでRSA暗号で使われる道具たちを把握できたかと思います。(理論編を読んでない方は&mldr;読んでも読まなくてもどちらでもいいです。気になったときに読んだ方がたのしいです。)</p><p>ここでは実際にスクリプトを書いて攻撃していきます！攻撃したことない人はコードを書きながら勉強でき、CTFerにはライブラリ保管庫として使ってほしいと思って書いてます。
+// TODO ちゃんと書く</p><a href=#紹介するrsa暗号の解読方法><h3 id=紹介するrsa暗号の解読方法><span class=hanchor arialabel=Anchor># </span>紹介するRSA暗号の解読方法</h3></a><table><thead><tr><th>アンチケース</th><th>攻撃技</th><th>方法</th></tr></thead><tbody><tr><td>公開鍵 $N$ の値が小さくてはいけない</td><td>Pollard-$\rho$ 素因数分解法</td><td>素因数分解</td></tr><tr><td>近い値の素数を使ってはいけない</td><td>Fermat&rsquo;s method</td><td>素因数分解</td></tr><tr><td>$e$ の値が小さすぎてはいけない</td><td>Low Public Exponent Attack</td><td>剰余ではなく整数上のe乗根となる</td></tr><tr><td>$d$ の値が小さすぎてはいけない($e$の値が大きすぎてはいけない)</td><td>Wiener&rsquo;s Attack, Boneh-Durfee Attack</td><td>近似分数から見積もる, Coppersmith Method</td></tr><tr><td>同一の平文を異なる $e$ で暗号化した暗号文を与えてはいけない</td><td>Common Modulus Attack</td><td>$e$ について拡張ユークリッドの互除法</td></tr><tr><td>同一の平文を異なる $N$ で暗号化した暗号文を与えてはいけない</td><td>Håstad&rsquo;s Broadcast Attack</td><td>中国剰余定理</td></tr><tr><td>同一の平文を同一の $d$ 異なる $e, N$ で暗号化した暗号文を与えてはいけない</td><td>Small Common Private Exponent Attack</td><td>Coppersmith Method</td></tr><tr><td>任意の暗号文を復号した結果を知られてはいけない</td><td>適応的選択暗号文攻撃</td><td>$a^ec$ を復号すると $am$ となる</td></tr><tr><td>暗号文を復号した結果の偶奇を知られてはいけない</td><td>LSB Decryption Oracle Attack</td><td>二分探索</td></tr><tr><td>RSAにバグがあってはならない</td><td>RSA-CRT Fault Attack</td><td>秘密鍵が書き換えれると平文の差分が $p, q$ の倍数となる</td></tr><tr><td>上位ビットが共通する二つの平文に対する暗号文を知られてはいけない</td><td>Franklin-Reiter Related Message Attack</td><td>最大公約式</td></tr><tr><td>秘密鍵が部分的にでも知られてはならない</td><td>Partial Key Exposure Attack</td><td>Coppersmith Method</td></tr></tbody></table><p>それとわかりやすいように暗号化, 復号化関数 $Enc, Dec$ を定義しておきます。</p><p>$$
+\begin{aligned}
+Enc(m) &= m^e &\pmod N \\ Dec(c) &= c^d &\pmod N \\ \end{aligned}
+$$</p><a href=#n-の値が小さくてはいけない-pollard-rho-素因数分解法><h4 id=n-の値が小さくてはいけない-pollard-rho-素因数分解法><span class=hanchor arialabel=Anchor># </span>N の値が小さくてはいけない (Pollard-rho 素因数分解法)</h4></a><p>公開鍵 $N$ が小さいと素因数分解されて秘密鍵 $p, q$ を求められてしまいます。素因数分解を行うアルゴリズムは多くありますが、今回はお手軽で高速に求められるアルゴリズムである Pollard-rho 法を解説します。</p><p>以下のように擬似的にランダムな値を生成する関数 $f$ を用いて2つの値の差が $N$ との共通因数を持つまで繰り返します。これはパッと見、そこまで速いアルゴリズムに見えませんが、誕生日のパラドックスと同じようなカラクリになっていて平均計算量 $\mathcal{O}(\sqrt{N})$ で素因数を見つけられます。</p><p>$$
+\begin{aligned}
+f(x) &= x^2 + c \pmod N \\ x_{i+1} &= f(x_i) \\ y_{i+1} &= f(f(y_i)) \\ \end{aligned}
+$$</p><p>:::details ライブラリ
+$c$ は $1$ とし、初期値は $2$ を用いることが多いらしいです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>gcd</span><span class=p>(</span><span class=n>m</span><span class=p>,</span> <span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>n</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>m</span><span class=p>,</span> <span class=n>n</span> <span class=o>=</span> <span class=n>n</span><span class=p>,</span> <span class=n>m</span> <span class=o>%</span> <span class=n>n</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>m</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>pollard_rho</span><span class=p>(</span><span class=n>N</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>f</span> <span class=o>=</span> <span class=k>lambda</span> <span class=n>x</span><span class=p>:</span> <span class=p>(</span><span class=n>x</span><span class=o>*</span><span class=n>x</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>%</span> <span class=n>N</span>
+</span></span><span class=line><span class=cl>    <span class=n>x</span> <span class=o>=</span> <span class=n>y</span> <span class=o>=</span> <span class=mi>2</span>
+</span></span><span class=line><span class=cl>    <span class=n>d</span> <span class=o>=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>d</span> <span class=o>==</span> <span class=mi>1</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>x</span> <span class=o>=</span> <span class=n>f</span><span class=p>(</span><span class=n>x</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=n>y</span> <span class=o>=</span> <span class=n>f</span><span class=p>(</span><span class=n>f</span><span class=p>(</span><span class=n>y</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>        <span class=n>d</span> <span class=o>=</span> <span class=n>gcd</span><span class=p>(</span><span class=nb>abs</span><span class=p>(</span><span class=n>x</span> <span class=o>-</span> <span class=n>y</span><span class=p>),</span> <span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>d</span> <span class=k>if</span> <span class=n>d</span> <span class=o>&lt;</span> <span class=n>N</span> <span class=k>else</span> <span class=o>-</span><span class=mi>1</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><p>また素因数分解の結果をデータベースとして保管しているサイトがあって実戦で便利です。
+<a href=http://www.factordb.com/ rel=noopener>http://www.factordb.com/</a></p><a href=#近い値の素数を用いてはいけない-fermats-method><h4 id=近い値の素数を用いてはいけない-fermats-method><span class=hanchor arialabel=Anchor># </span>近い値の素数を用いてはいけない (Fermat&rsquo;s method)</h4></a><p>$p, q$ が近いと中心から順に調べることで素数の組を見つけられます。様々な探索の方法がありますが、以下のような方法がよく用いられています。</p><p>$$
+\begin{aligned}
+N &= pq \\ &= (x + y)(x - y) \\ &= x^2 - y^2 \\ y^2 &= x^2 - N \\ \end{aligned}
+$$</p><p>より初期値を $x = \lceil\sqrt N\rceil, y = 0$ として $x$ の値を1ずつ上げながら $y$ の値も上げていき、右辺と左辺の計算結果が一致したとき $p, q$ が求まるという仕掛けです。</p><p>さらに、このままだと素数 $p, q$ が近い値のときしか対応できませんが、素数同士の近似比を与えればその付近で探索することが出来ます。素数 $p, q$ の近似比が $a : b$ と与えられれば次のように計算できます。</p><p>$$
+\begin{aligned}
+\frac{a}{b} &\approx \frac{p}{q} \\ aq &\approx bp \\ aq \times bp &= abN
+\end{aligned}
+$$</p><p>これより $abN$ に対し Fermat&rsquo;s method を適用することで $p, q$ が求まります。</p><p>また、$p, q$ についてより複雑な関係がある場合には Coppersmith method が適用できます。</p><p>:::details ライブラリ</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>fermat</span><span class=p>(</span><span class=n>N</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>x</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>sqrt</span><span class=p>(</span><span class=n>N</span><span class=p>))</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>y</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>sqrt</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=n>x</span> <span class=o>-</span> <span class=n>N</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>w</span> <span class=o>=</span> <span class=n>x</span> <span class=o>*</span> <span class=n>x</span> <span class=o>-</span> <span class=n>N</span> <span class=o>-</span> <span class=n>y</span> <span class=o>*</span> <span class=n>y</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>w</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>break</span>
+</span></span><span class=line><span class=cl>        <span class=k>elif</span> <span class=n>w</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>y</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>x</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>(</span><span class=n>x</span> <span class=o>-</span> <span class=n>y</span><span class=p>,</span> <span class=n>x</span> <span class=o>+</span> <span class=n>y</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><a href=#eの値が小さすぎてはいけない-low-public-exponent-attack><h4 id=eの値が小さすぎてはいけない-low-public-exponent-attack><span class=hanchor arialabel=Anchor># </span>eの値が小さすぎてはいけない (Low Public Exponent Attack)</h4></a><p>$e$ が小さいとき、$m^e &lt; N$ となって、累乗根を取ればそのまま平文になることがあります。</p><p>$$
+\begin{aligned}
+c &≡ m^e \pmod N \\ c &= m^e \\ m &= \sqrt[e] c
+\end{aligned}
+$$</p><p>累乗根はニュートン法と呼ばれる近似法を用いると高速に求められます。これはPythonパッケージのgmpy2で実装されているのでそれを使います。</p><p>$$
+\begin{aligned}
+f(x) &= x^e - c \\ 0 &= f&rsquo;(x_n)(x_n - x_{n+1}) + f(x_n) \\ x_{n+1} &= x_n - \frac{f(x_n)}{f&rsquo;(x_n)} \\ x_{n+1} &= x_n - \frac{x_n}{e} + \frac{c}{ex_n^{e-1}}
+\end{aligned}
+$$</p><p>:::details ライブラリ</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>gmpy2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>iroot</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>e</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><a href=#eの値が大きすぎてはいけない-wieners-attack><h4 id=eの値が大きすぎてはいけない-wieners-attack><span class=hanchor arialabel=Anchor># </span>eの値が大きすぎてはいけない (Wiener&rsquo;s Attack)</h4></a><p>$e$ が大きいとき $(e \approx N)$ 、秘密鍵 $d = e^{-1}$ が小さくなり $d$ を求められます。</p><p>次のように $e/N$ に対してユークリッドの互除法を用いて連分数展開し、適当な場所で打ち切って再構成することで近似分数を作ることが出来ます。そしてこの近似分数が $k/d$ と一致するとき秘密鍵 $d$ が求まります。</p><p>$$
+\begin{aligned}
+ed &≡ 1 \pmod{\phi(N)} \\ ed &= k\phi(N) + 1 = k(N - p - q + 1) + 1 \\ \frac{e}{N} &= \frac{k}{d}(1-\delta) &\delta = \frac{p + q - 1 - \frac{1}{k}}{N} \approx \frac{1}{2^{512}} \\ \frac{e}{N} &\approx q_0 + \cfrac{1}{q_1 + \cfrac{1}{q_2 + \cfrac{1}{\ddots \cfrac{}{q_{m-1} + \cfrac{1}{q_m}}}}} = \frac{k_m}{d_m} \\ \end{aligned}
+$$</p><p>$q_i, k_i, d_i$ については次の漸化式を用いて計算できます。形式的に数列の $-1, -2$ 番目も定義することで分かりやすく計算できます。</p><p>$$
+\begin{aligned}
+r_{-2} &= e & k_{-2} &= 0 &d_{-2} &= 1 \\ r_{-1} &= N & k_{-1} &= 1 &d_{-1} &= 0 \\ r_{i-2} \div r_{i-1} &= q_{i} \cdots r_{i} & k_i &= q_i k_{i−1} + k_{i−2} &d_i &= q_i d_{i−1}+d_{i−2} \\ \end{aligned}
+$$</p><p>$q_i, k_i, d_i$ の計算をどこで打ち切るかは2次方程式 $x^2 - (p + q)x + pq = 0$ の判別式を用いて判定します。判別式が正となるとき解 $p, q$ のが存在し、 $p+q$ が整数ならば $p, q$ も整数となるという方法です。</p><p>$$
+\begin{aligned}
+p + q &= N - \frac{ed_i - 1}{k_i} + 1 \in \mathbb{N} \\ pq &= N \\ D &= (p + q)^2 - 4N \geq 0 \\ \end{aligned}
+$$</p><p>この攻撃は以下のように $d$ が十分小さいときしか成立しません。 $e$ が大きいと $d$ が小さくなりやすいという性質がある為、公開鍵 $e$ が大きいときと表現しますが、$d$ がこれ以上であれば攻撃は成立しません。</p><p>$$
+d &lt; \frac{N^{\frac{1}{4}}}{3}
+$$</p><p>:::details ライブラリ</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>gmpy2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>WienersAttack</span><span class=p>(</span><span class=n>n</span><span class=p>,</span> <span class=n>e</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>r0</span><span class=p>,</span> <span class=n>r1</span> <span class=o>=</span> <span class=n>e</span><span class=p>,</span> <span class=n>n</span>
+</span></span><span class=line><span class=cl>    <span class=n>k0</span><span class=p>,</span> <span class=n>k1</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>    <span class=n>d0</span><span class=p>,</span> <span class=n>d1</span> <span class=o>=</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>while</span> <span class=n>r1</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>q</span> <span class=o>=</span> <span class=n>r0</span> <span class=o>//</span> <span class=n>r1</span>
+</span></span><span class=line><span class=cl>        <span class=n>r0</span><span class=p>,</span> <span class=n>r1</span> <span class=o>=</span> <span class=n>r1</span><span class=p>,</span> <span class=n>r0</span> <span class=o>%</span> <span class=n>r1</span>
+</span></span><span class=line><span class=cl>        <span class=n>k0</span><span class=p>,</span> <span class=n>k1</span> <span class=o>=</span> <span class=n>k1</span><span class=p>,</span> <span class=n>q</span><span class=o>*</span><span class=n>k1</span> <span class=o>+</span> <span class=n>k0</span>
+</span></span><span class=line><span class=cl>        <span class=n>d0</span><span class=p>,</span> <span class=n>d1</span> <span class=o>=</span> <span class=n>d1</span><span class=p>,</span> <span class=n>q</span><span class=o>*</span><span class=n>d1</span> <span class=o>+</span> <span class=n>d0</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>i</span> <span class=o>%</span> <span class=mi>2</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>k</span> <span class=o>=</span> <span class=n>k1</span> <span class=o>+</span> <span class=n>k0</span>
+</span></span><span class=line><span class=cl>            <span class=n>d</span> <span class=o>=</span> <span class=n>d1</span> <span class=o>+</span> <span class=n>d0</span>
+</span></span><span class=line><span class=cl>        <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>k</span> <span class=o>=</span> <span class=n>k1</span>
+</span></span><span class=line><span class=cl>            <span class=n>d</span> <span class=o>=</span> <span class=n>d1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>        <span class=n>i</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>k</span> <span class=o>==</span> <span class=mi>0</span> <span class=ow>or</span> <span class=p>(</span><span class=n>e</span> <span class=o>*</span> <span class=n>d</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>%</span> <span class=n>k</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>continue</span>
+</span></span><span class=line><span class=cl>        <span class=n>s</span> <span class=o>=</span> <span class=n>n</span> <span class=o>-</span> <span class=p>(</span><span class=n>e</span> <span class=o>*</span> <span class=n>d</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>//</span> <span class=n>k</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>        <span class=n>D</span> <span class=o>=</span> <span class=n>s</span><span class=o>*</span><span class=n>s</span> <span class=o>-</span> <span class=mi>4</span><span class=o>*</span><span class=n>n</span>
+</span></span><span class=line><span class=cl>        <span class=n>sD</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>isqrt</span><span class=p>(</span><span class=n>D</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>D</span> <span class=o>&gt;</span> <span class=mi>0</span> <span class=ow>and</span> <span class=n>sD</span> <span class=o>*</span> <span class=n>sD</span> <span class=o>==</span> <span class=n>D</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=n>d</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=o>-</span><span class=mi>1</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><p>さらにWiener&rsquo;s Attackより強い攻撃としてBoneh-Durfee Attackがあります。まず以下のように変形します。</p><p>$$
+\begin{aligned}
+ed &= 1 & \pmod{\phi} \\ ed &= k \phi + 1 & (over \\ \mathbb{Z}) \\ 0 &= k \phi + 1 & \pmod e \\ &= k (N + 1 - p - q) + 1 & \pmod e \\ &= 2k \left(\frac{N + 1}{2} + \frac{-p -q}{2}\right) + 1 & \pmod e \\ \end{aligned}
+$$</p><p>この方程式について $f(x,y) = x (A + y) + 1$ とおき、関数 $f(x,y)$ に対して Multivariate Coppersmith Method を用いることで $p + q$ が求まり、解くことができます。</p><p>:::details ライブラリ
+SageMath は標準に Multivariate Coppersmith Method を使うことができません。
+<a href=https://github.com/defund/coppersmith rel=noopener>defund/coppersmith</a> というリポジトリにそれが実装されているので、それを用いて攻撃することが多いです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>load</span><span class=p>(</span><span class=s1>&#39;coppersmith.sage&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>boneh_durfee</span><span class=p>(</span><span class=n>N</span><span class=p>,</span> <span class=n>e</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>	<span class=n>bounds</span> <span class=o>=</span> <span class=p>(</span><span class=n>floor</span><span class=p>(</span><span class=n>N</span><span class=o>^</span><span class=mf>.25</span><span class=p>),</span> <span class=mi>2</span><span class=o>^</span><span class=mi>1024</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=n>P</span><span class=o>.&lt;</span><span class=n>k</span><span class=p>,</span> <span class=n>s</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>PolynomialRing</span><span class=p>(</span><span class=n>Zmod</span><span class=p>(</span><span class=n>e</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>	<span class=n>f</span> <span class=o>=</span> <span class=mi>2</span><span class=o>*</span><span class=n>k</span><span class=o>*</span><span class=p>((</span><span class=n>N</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span><span class=o>//</span><span class=mi>2</span> <span class=o>-</span> <span class=n>s</span><span class=p>)</span> <span class=o>+</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>	<span class=nb>print</span><span class=p>(</span><span class=n>small_roots</span><span class=p>(</span><span class=n>f</span><span class=p>,</span> <span class=n>bounds</span><span class=p>,</span> <span class=n>m</span><span class=o>=</span><span class=mi>3</span><span class=p>,</span> <span class=n>d</span><span class=o>=</span><span class=mi>4</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><a href=#同一の平文を異なるeで暗号化した暗号文を与えてはいけない-common-modulus-attack><h4 id=同一の平文を異なるeで暗号化した暗号文を与えてはいけない-common-modulus-attack><span class=hanchor arialabel=Anchor># </span>同一の平文を異なるeで暗号化した暗号文を与えてはいけない (Common Modulus Attack)</h4></a><p>異なる $e$ で暗号化するとユークリッドの互除法を用いてより小さな $e$ の暗号文を作れて、解読できてしまいます。</p><p>$$
+\begin{aligned}
+c_1 &≡ m^{e_1} \pmod N \\ c_2 &≡ m^{e_2} \pmod N \\ \end{aligned}
+$$</p><p>$e_1, e_2$ について $\gcd(e_1, e_2) = g$ のとき、拡張ユークリッドの互除法を用いることで次を満たす $s_1, s_2$ を求められます。</p><p>$$
+\begin{aligned}
+s_1e_1 + s_2e_2 &= g \\ c_1^{s_1} c_2^{s_2} = m^{s_1e_1 + s_2e_2} &= m^g \pmod N \\ \end{aligned}
+$$</p><p>これによって $e_1, e_2$ が互いに素のとき、または $g$ が小さいならばLow Public Exponent Attackを用いて $m$ を求められます。</p><a href=#同一の平文を異なるnで暗号化した暗号文を与えてはいけない-håstads-broadcast-attack><h4 id=同一の平文を異なるnで暗号化した暗号文を与えてはいけない-håstads-broadcast-attack><span class=hanchor arialabel=Anchor># </span>同一の平文を異なるnで暗号化した暗号文を与えてはいけない (Håstad&rsquo;s Broadcast Attack)</h4></a><p>$n_1, \ldots, n_e$ が互いに素ならば中国剰余定理を用いて $m$ を求められる。Garnerのアルゴリズムを用いて $m^e$ を計算する。</p><p>$$
+\begin{aligned}
+c_1 &≡ m^e \pmod{N_1} \\ c_2 &≡ m^e \pmod{N_2} \\ \vdots \\ c_e &≡ m^e \pmod{N_e} \\ m^e &≡ CRT(c_1, c_2, \dots , c_e) \pmod{N_1N_2\cdots N_e} \\ m^e &= CRT(c_1, c_2, \dots , c_e)
+\end{aligned}
+$$</p><p>:::details ライブラリ</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>gmpy2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=p>[</span><span class=n>c1</span><span class=p>,</span> <span class=n>c2</span><span class=p>,</span> <span class=n>c3</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>N</span> <span class=o>=</span> <span class=p>[</span><span class=n>N1</span><span class=p>,</span> <span class=n>N2</span><span class=p>,</span> <span class=n>N3</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>me</span> <span class=o>=</span> <span class=n>crt</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>iroot</span><span class=p>(</span><span class=n>me</span><span class=p>,</span> <span class=n>e</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><a href=#任意の暗号文を復号した結果を知られてはいけない-適応的選択暗号文攻撃><h4 id=任意の暗号文を復号した結果を知られてはいけない-適応的選択暗号文攻撃><span class=hanchor arialabel=Anchor># </span>任意の暗号文を復号した結果を知られてはいけない (適応的選択暗号文攻撃)</h4></a><p>任意の暗号を復号した結果を知っているとき、ある暗号文の復号結果を防がれていたとしても他の暗号を送ることで解読できます。
+$2^e$ を暗号文に掛けて復号した結果を $2$ で割ればその平文がわかります。</p><p>$$
+\begin{aligned}
+Dec(2^ec) = 2m \pmod N
+\end{aligned}
+$$</p><p>これに対する防御方法として平文にパディングを施し、復号化した際にパディング形式が違うときは相手に渡さないようにするという方法があります。これによって正当な暗号文しか受け入れず、適応的選択暗号文攻撃を防げます。</p><p>パディング形式の1つにPKCS #1 v1.5があります。</p><p><code>0002&lt;random>00&lt;hashprefix>&lt;message></code></p><p>これについてパディングが合っているかどうかを相手に送ってしまうとPadding Oracle Attackで攻撃でき、PKCS #1 v1.5では200万程度送ると平文が読めてしまいます。</p><p>対してPadding Oracle Attackで破られないようなパディング形式はInD-CCA2と呼びます。</p><p>その1つであるOAEP(Optimal Asymmetric Encryption Padding)については次の記事を読むとよいです。</p><a href=#参考文献><h5 id=参考文献><span class=hanchor arialabel=Anchor># </span>参考文献</h5></a><p><a href=https://inaz2.hatenablog.com/entry/2016/01/26/222303 rel=noopener>https://inaz2.hatenablog.com/entry/2016/01/26/222303</a></p><a href=#暗号文を復号した結果の偶奇を知られてはいけない-lsb-decryption-oracle-attack><h4 id=暗号文を復号した結果の偶奇を知られてはいけない-lsb-decryption-oracle-attack><span class=hanchor arialabel=Anchor># </span>暗号文を復号した結果の偶奇を知られてはいけない (LSB Decryption Oracle Attack)</h4></a><p>全てが分かっていなくとも偶奇さえ分かれば任意の暗号文を復号できる。
+ある暗号文 $c$ に対し、$2^e$ をx回掛けた値を復号した下位1bitを得て平文を求めます。得られる下位1bitは次の関数 $f(x)$ を用いて $f(x) \bmod 2$ と表せられます。decは復号化関数です。</p><p>$$
+\begin{aligned}
+f(x) &= Dec(2^{ex}c \bmod N) = 2^xm \bmod N \\ \end{aligned}
+$$</p><p>$x = 1$ のとき
+まず $0 \leq m &lt; N$ であるから $f(1)$ は $2m \bmod N = 2m, 2m - N$ のどちらかとなる。また $2m$ は偶数、$N$ は奇数であるから $f(1)$ が偶数か奇数かで $2m, 2m - N$ のどちらかが分かります。すると $m$ が存在する区間が分かります。</p><p>$$
+\begin{aligned}
+&f(1) = 2m \bmod N \\ &
+\begin{cases}
+f(1) \bmod 2 = 1 \Leftrightarrow f(1) = 2m - N & \Leftrightarrow \frac{N}{2} \leq m &lt; N \\ f(1) \bmod 2 = 0 \Leftrightarrow f(1) = 2m & \Leftrightarrow 0 \leq m &lt; \frac{N}{2} \\ \end{cases}
+\end{aligned}
+$$</p><p>つまり $m$ は $[0, N)$ の範囲に対して最下位ビットが1のとき区間の右半分、0のとき区間の左半分だと言えます。</p><p>$x = 2$ のとき
+前の結果を用いて場合分けして考えると同様の考え方で次のように導けます。</p><p>$$
+\begin{aligned}
+f(2) &= 2(2m \bmod N) \bmod N \\ f(1) &= 2m - N \Rightarrow f(2) = 4m - 2N \bmod N \\ &
+\begin{cases}
+f(2) \bmod 2 = 1 \Leftrightarrow f(2) = 4m - 3N & \Leftrightarrow \frac{3N}{4} \leq m &lt; N \\ f(2) \bmod 2 = 0 \Leftrightarrow f(2) = 4m - 2N & \Leftrightarrow \frac{N}{2} \leq m &lt; \frac{3N}{4} \\ \end{cases}
+\\ f(1) &= 2m \Rightarrow f(2) = 4m \bmod N \\ &
+\begin{cases}
+f(2) \bmod 2 = 1 \Leftrightarrow f(2) = 4m - N & \Leftrightarrow \frac{N}{4} \leq m &lt; \frac{N}{2} \\ f(2) \bmod 2 = 0 \Leftrightarrow f(2) = 4m & \Leftrightarrow 0 \leq m &lt; \frac{N}{4} \\ \end{cases}
+\end{aligned}
+$$</p><p>つまり $m$ は $[0, N/2)$ 、 $[N/2, N)$ のそれぞれの範囲に対して最下位ビットが1のとき区間の右半分、0のとき区間の左半分だと言えます。</p><p>$x \geq 3$ のときも同様に行って $m$ の値を求めることができます。</p><a href=#rsaにバグがあってはならない-rsa-crt-fault-attack><h4 id=rsaにバグがあってはならない-rsa-crt-fault-attack><span class=hanchor arialabel=Anchor># </span>RSAにバグがあってはならない (RSA-CRT Fault Attack)</h4></a><p>RSAの復号をする際に $c^d$ を計算しますが、 $d = e^{-1} \pmod {\phi (N)}$ は比較的大きいので処理が重くなります。これに対してRSA-CRTは中国剰余定理(CRT)を利用して高速化を図っています。</p><p>$$
+\begin{aligned}
+m_p &= c^{d \\ \bmod \\ p−1} & \pmod p \\ m_q &= c^{d \\ \bmod \\ q−1} & \pmod q \\ m &= \mathrm{CRT}(m_p, m_q) & \pmod {N} \\ &= m_q + (m_p - m_q) (q^{-1} \bmod p) q & \pmod {N} \\ \end{aligned}
+$$</p><p>これより下の値を秘密鍵として持つことになります。</p><p>$$
+\begin{aligned}
+d_p &= d \bmod p−1 \\ d_q &= d \bmod q−1 \\ q_{inv} &= q^{-1} \bmod p \\ \end{aligned}
+$$</p><p>しかし $d_p, d_q$ のどちらかが何らかの方法で書き換えられてしまったとき次のようにできます。</p><p>$$
+\begin{aligned}
+m_p &= c^{d_p} \pmod p \\ m_q&rsquo; &= c^{d_q&rsquo;} \pmod q \\ m &= CRT(m_p, m_q) = kp + m_p \\ m&rsquo; &= CRT(m_p, m_q&rsquo;) = k&rsquo;p + m_p \\ m - m&rsquo; &= (k - k&rsquo;)p \\ p &= \gcd(m - m&rsquo;, N) \\ \end{aligned}
+$$</p><p>これより平文 $m, m&rsquo;$ を知ることができれば解くことができます。</p><a href=#秘密鍵の上位ビットまたは下位ビットが知られてはいけない-partial-key-exposure-attack><h4 id=秘密鍵の上位ビットまたは下位ビットが知られてはいけない-partial-key-exposure-attack><span class=hanchor arialabel=Anchor># </span>秘密鍵の上位ビットまたは下位ビットが知られてはいけない (Partial Key Exposure Attack)</h4></a><p>秘密鍵を部分的に知っていさえいれば、Coppersmith Method を用いて解けてしまう。
+$n$ を $N$ のビット数とする。</p><a href=#p-q-のどちらかを-n4-ビット程度知っているとき-1><h5 id=p-q-のどちらかを-n4-ビット程度知っているとき-1><span class=hanchor arialabel=Anchor># </span>p, q のどちらかを n/4 ビット程度知っているとき</h5></a><p>$$
+\begin{aligned}
+f(x) &= p_{upper} + x & \pmod N \\ f(x) &= 2^{k}x + p_{lower} & \pmod N \\ f(x,y) &= 2^kx + p_{mid} + y & \pmod N \\ \end{aligned}
+$$</p><a href=#d-を-n4-ビット程度知っているとき-1><h5 id=d-を-n4-ビット程度知っているとき-1><span class=hanchor arialabel=Anchor># </span>d を n/4 ビット程度知っているとき</h5></a><p>$e$ が総当り出来るくらい小さいときに $d$ を $n/4$ ビットだけ知っていれば元の $d$ を構成できる。大体の場合は $e = 65537$ であるから十分可能である。$d &lt; \phi(N)$ より $0 &lt; k \leq e$ となり、この $k$ に対して総当たりする。</p><ul><li>上位ビットの場合
+$d$ と $p, q$ の関係式を立てる。</li></ul><p>$$
+\begin{aligned}
+ed &= 1 & \pmod{\phi(N)} \\ ed &= 1 + k(N - p - q + 1) \\ d &= \frac{kN}{e} - \frac{k(p+q-1) -1}{e} \\ e(d_{upper} + x) &= - k (y - 1) + 1 & \pmod N \\ \end{aligned}
+$$</p><p>第三式について $p + q \approx \sqrt{N}$ より第二項は上位ビットに関連する情報を持たない。これより第一項の $k$ について総当りして上位ビットと一致する $k$ を見つければよい。すると第4式に対し Multivariate CopperSmith を用いて、$d$ がわかる。</p><ul><li>下位ビットの場合
+$d$ の下位ビットから $k$ について総当りして $p$ の下位ビットを求める。すると先程の問題に帰着できて $p$ がわかり $d$ がわかる。</li></ul><p>$$
+\begin{aligned}
+ed &= 1 + k\left(N - p - \frac{N}{p} + 1\right) \\ edp &= p + kp(N - p + 1) - kN & \pmod {2^{n/4}} \\ \end{aligned}
+$$</p><a href=#crtの秘密鍵-d-のビットを-n4-程度知っているとき><h5 id=crtの秘密鍵-d-のビットを-n4-程度知っているとき><span class=hanchor arialabel=Anchor># </span>CRTの秘密鍵 d のビットを n/4 程度知っているとき</h5></a><p>上と同様にして解けます。</p><p>$$
+\begin{aligned}
+ed_p &= 1 & \pmod{p-1} \\ ed_p &= 1 + k_p(p − 1) \\ \end{aligned}
+$$</p><a href=#平文-m-のビットを-1-1en-程度知っているとき><h5 id=平文-m-のビットを-1-1en-程度知っているとき><span class=hanchor arialabel=Anchor># </span>平文 m のビットを (1-1/e)n 程度知っているとき</h5></a><p>$$
+\begin{aligned}
+f(x) &= (m_{upper} + x)^e - c & \pmod N \\ f(x) &= (2^kx + m_{lower})^e - c & \pmod N \\ f(x,y) &= (2^kx + m_{mid} + y)^e - c & \pmod N \\ \end{aligned}
+$$</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=k>def</span> <span class=nf>partial_p</span><span class=p>(</span><span class=n>p0</span><span class=p>,</span> <span class=n>kbits</span><span class=p>,</span> <span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>PR</span><span class=o>.&lt;</span><span class=n>x</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>PolynomialRing</span><span class=p>(</span><span class=n>Zmod</span><span class=p>(</span><span class=n>n</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>nbits</span> <span class=o>=</span> <span class=n>n</span><span class=o>.</span><span class=n>nbits</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>f</span> <span class=o>=</span> <span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=o>*</span><span class=n>x</span> <span class=o>+</span> <span class=n>p0</span>
+</span></span><span class=line><span class=cl>    <span class=n>f</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>monic</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>roots</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>small_roots</span><span class=p>(</span><span class=n>X</span><span class=o>=</span><span class=mi>2</span><span class=o>^</span><span class=p>(</span><span class=n>nbits</span><span class=o>//</span><span class=mi>2</span><span class=o>-</span><span class=n>kbits</span><span class=p>),</span> <span class=n>beta</span><span class=o>=</span><span class=mf>0.3</span><span class=p>)</span>  <span class=c1># find root &lt; 2^(nbits//2-kbits) with factor &gt;= n^0.3</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>roots</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>x0</span> <span class=o>=</span> <span class=n>roots</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>        <span class=n>p</span> <span class=o>=</span> <span class=n>gcd</span><span class=p>(</span><span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=o>*</span><span class=n>x0</span> <span class=o>+</span> <span class=n>p0</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=n>ZZ</span><span class=p>(</span><span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>find_p</span><span class=p>(</span><span class=n>d0</span><span class=p>,</span> <span class=n>kbits</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>n</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=n>X</span> <span class=o>=</span> <span class=n>var</span><span class=p>(</span><span class=s1>&#39;X&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=c1># edx - kx(n-x+1) + kn = x mod 2^k</span>
+</span></span><span class=line><span class=cl>	<span class=c1># (ed - 1)x - kx(n-x+1) + kn = 0 mod 2^k</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>k</span> <span class=ow>in</span> <span class=n>xrange</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=n>e</span><span class=o>+</span><span class=mi>1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>results</span> <span class=o>=</span> <span class=n>solve_mod</span><span class=p>([</span><span class=n>e</span><span class=o>*</span><span class=n>d0</span><span class=o>*</span><span class=n>X</span> <span class=o>-</span> <span class=n>k</span><span class=o>*</span><span class=n>X</span><span class=o>*</span><span class=p>(</span><span class=n>n</span><span class=o>-</span><span class=n>X</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span> <span class=o>+</span> <span class=n>k</span><span class=o>*</span><span class=n>n</span> <span class=o>==</span> <span class=n>X</span><span class=p>],</span> <span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>x</span> <span class=ow>in</span> <span class=n>results</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>            <span class=n>p0</span> <span class=o>=</span> <span class=n>ZZ</span><span class=p>(</span><span class=n>x</span><span class=p>[</span><span class=mi>0</span><span class=p>])</span>
+</span></span><span class=line><span class=cl>            <span class=n>p</span> <span class=o>=</span> <span class=n>partial_p</span><span class=p>(</span><span class=n>p0</span><span class=p>,</span> <span class=n>kbits</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>            <span class=k>if</span> <span class=n>p</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>                <span class=k>return</span> <span class=n>p</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>n</span> <span class=o>=</span> <span class=mh>0x00bef498e6eb2cffe71312da47ab89d2c47db7438ea2cfa992ddddbc2a01978001fc51e286e6ebf028396cdb8b3323c60e6b9d50cd84187cf7f48e3875a2f0890f70b02333ad89db2923863ce146562286f63fb0a1d0198e3a6862ba5ac12e85a5c6d0d27cb1c81bdf69cc5bc95b8001a2f744517f9437b4ddd5a076fc0e9a5de1a7a268c40f31aa29e8dc27c0b3a182299ca7a9335b4bd4585452f6107c238e486c98dd73a5f9862e9e80b152f53381c72f897107551c281259ac3ee32c4b4f46cc03127d1bf699acd0266f3c6729253c70da0c69b1560fa172735709866b375b6eba294e1ce8b46fba798ba380080b4bf9603998cac199d9cd46e30ae8da9e7f</span>
+</span></span><span class=line><span class=cl>    <span class=n>e</span> <span class=o>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>    <span class=n>d</span> <span class=o>=</span> <span class=mh>0x7f4dbb449cc8aa9a0cb73c2fc7b1372da924d7b46c8a710c93e9281c010faaabfd8bec59ef47f5702648925cccc284099d138b33ad65a8a54db425a3c1f5b0b4f5cac22273b13cc617aed340d98ec1af4ed5206be011097c459726e72b7459192f35e1a8768567ea46883d30e7aaabc1fa2d8baa62cfcde93915a4a809bc3e9547bb07e1ecca16e51078312e89f0561e31b55db8b0ea5bc87a6ca7464a3d7c28a68c60e2ba88fe6a7d2b300d723e549910a987da89fc0a1c0de197a3d62c501b1f0e819891b1c32a0d6c233f2a285df87bb9e5c6c72d983ff3e706696bba639f573f9c3646968f02f3a615a438e20bb7c38d53621079f2899547a95350f3abeb</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>beta</span> <span class=o>=</span> <span class=mf>0.5</span>
+</span></span><span class=line><span class=cl>    <span class=n>epsilon</span> <span class=o>=</span> <span class=n>beta</span><span class=o>^</span><span class=mi>2</span><span class=o>/</span><span class=mi>7</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>nbits</span> <span class=o>=</span> <span class=n>n</span><span class=o>.</span><span class=n>nbits</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>kbits</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>nbits</span><span class=o>*</span><span class=p>(</span><span class=n>beta</span><span class=o>^</span><span class=mi>2</span><span class=o>+</span><span class=n>epsilon</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=n>d0</span> <span class=o>=</span> <span class=n>d</span> <span class=o>&amp;</span> <span class=p>(</span><span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=s2>&#34;lower </span><span class=si>%d</span><span class=s2> bits (of </span><span class=si>%d</span><span class=s2> bits) is given&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>kbits</span><span class=p>,</span> <span class=n>nbits</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=n>p</span> <span class=o>=</span> <span class=n>find_p</span><span class=p>(</span><span class=n>d0</span><span class=p>,</span> <span class=n>kbits</span><span class=p>,</span> <span class=n>e</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=s2>&#34;found p: </span><span class=si>%d</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>p</span>
+</span></span><span class=line><span class=cl>    <span class=n>q</span> <span class=o>=</span> <span class=n>n</span><span class=o>//</span><span class=n>p</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=n>d</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span> <span class=n>inverse_mod</span><span class=p>(</span><span class=n>e</span><span class=p>,</span> <span class=p>(</span><span class=n>p</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span><span class=o>*</span><span class=p>(</span><span class=n>q</span><span class=o>-</span><span class=mi>1</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::details 例題</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>n</span> <span class=o>=</span> <span class=n>p</span> <span class=o>*</span> <span class=n>q</span>
+</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mi>3</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>beta</span> <span class=o>=</span> <span class=mf>0.5</span>
+</span></span><span class=line><span class=cl><span class=n>epsilon</span> <span class=o>=</span> <span class=n>beta</span><span class=o>^</span><span class=mi>2</span><span class=o>/</span><span class=mi>7</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>pbits</span> <span class=o>=</span> <span class=n>p</span><span class=o>.</span><span class=n>nbits</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>kbits</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>n</span><span class=o>.</span><span class=n>nbits</span><span class=p>()</span> <span class=o>*</span> <span class=p>(</span><span class=n>beta</span><span class=o>^</span><span class=mi>2</span> <span class=o>-</span> <span class=n>epsilon</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=c1># p upper</span>
+</span></span><span class=line><span class=cl><span class=n>pbar</span> <span class=o>=</span> <span class=n>p</span> <span class=o>&amp;</span> <span class=p>(</span><span class=mi>2</span><span class=o>^</span><span class=n>pbits</span> <span class=o>-</span> <span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;upper </span><span class=si>{</span><span class=n>pbits</span> <span class=o>-</span> <span class=n>kbits</span><span class=si>}</span><span class=s2> bits (of </span><span class=si>{</span><span class=n>pbits</span><span class=si>}</span><span class=s2> bits) is given&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>PR</span><span class=o>.&lt;</span><span class=n>x</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>PolynomialRing</span><span class=p>(</span><span class=n>Zmod</span><span class=p>(</span><span class=n>n</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=n>x</span> <span class=o>+</span> <span class=n>pbar</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>x0</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>small_roots</span><span class=p>(</span><span class=n>X</span><span class=o>=</span><span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=p>,</span> <span class=n>beta</span><span class=o>=</span><span class=mf>0.3</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>x0</span> <span class=o>+</span> <span class=n>pbar</span><span class=p>)</span>
+</span></span></code></pre></td></tr></table></div></div><p>:::</p><a href=#上位ビットが共通する二つの平文に対する暗号文を知られてはいけない-franklin-reiter-related-message-attack><h4 id=上位ビットが共通する二つの平文に対する暗号文を知られてはいけない-franklin-reiter-related-message-attack><span class=hanchor arialabel=Anchor># </span>上位ビットが共通する二つの平文に対する暗号文を知られてはいけない (Franklin-Reiter Related Message Attack)</h4></a><p>$f(m_1) = m_2$
+$m_1 = pad_1 + m, m_2 = pad_2 + m, m_2 = m_1 + (pad_2 - pad_1)$</p><p>$$
+\begin{aligned}
+c_1 &= m_1^{e_1} & \pmod N \\ c_2 &= m_2^{e_2} = f(m_1)^{e_2} & \pmod N \\ x - m_1 &= \gcd(x^{e_1} - c_1, f(x)^{e_2} - c_2) & \pmod N \\ \end{aligned}
+$$</p><p>Half GCD</p><a href=#coppersmiths-short-pad-attack><h4 id=coppersmiths-short-pad-attack><span class=hanchor arialabel=Anchor># </span>Coppersmith&rsquo;s Short Pad Attack</h4></a><p>二つの暗号文について平文の上位bitがnのbit数の (1-1/e2) 程度共通する場合、これらからそれぞれの平文を求めることができる。 具体的には、次のような手順となる。</p><ol><li><code>g1 = x^e - c1</code>と<code>g2 = (x+y)^e - c2</code>の
+<a href=https://ja.wikipedia.org/wiki/%E7%B5%82%E7%B5%90%E5%BC%8F rel=noopener>終結式（resultant）</a>を求め、その根としてyの値を得る</li><li>yの値を代入した上でg1(x)とg2(x)の最大公約式を求め、その根としてm1を得る</li><li><code>m2 = m1 + y</code>よりm2を得る
+多項式GCD $O(n\log^2n)$ を使う
+Franklin-Reiter Related Message Attack</li></ol><p>$$
+\begin{aligned}
+m_1 &= pad_1 + m \\ m_2 &= pad_2 + m \\ &= m_1 + pad_2 - pad_1 \\ c_1 &= m_1^e \pmod N \\ c_2 &= m_2^e = (m_1 + pad_2 - pad_1)^e \pmod N \\ f_1(x) &= x^e - c_1 \\ &= (x - m_1)h_1(x) \\ f_2(x) &= (x + pad_2 - pad_1)^e - c_2 \\ &= (x - m_1)h_2(x) \\ x - m_1 &= \gcd(f_1, f_2) \\ \end{aligned}
+$$</p><p><a href=https://inaz2.hatenablog.com/entry/2016/01/20/022936 rel=noopener>https://inaz2.hatenablog.com/entry/2016/01/20/022936</a></p><p>RTACTF
+<a href=https://xagawa.hatenablog.com/entry/2021/12/20/232133 rel=noopener>https://xagawa.hatenablog.com/entry/2021/12/20/232133</a>
+CryptoのWriteupをまとめてる人
+<a href=https://mystiz.hk rel=noopener>https://mystiz.hk</a></p><a href=#実践編まとめ><h2 id=実践編まとめ><span class=hanchor arialabel=Anchor># </span>実践編まとめ</h2></a><p>今回はRSA暗号に絞りましたが実際のCTFはもっと広くて自由です！RSAに似てるけど解法が違う暗号やぱっと見RSAではなさそうな暗号もRSAに帰着させることが出来たりする暗号など様々あります。それでもここで扱った概念はそれらの基礎になります。</p><p>あなたもCTFに出て暗号の世界を堪能してみませんか。</p><a href=#参考文献-1><h3 id=参考文献-1><span class=hanchor arialabel=Anchor># </span>参考文献</h3></a><p><a href=https://project-euphoria.dev/blog/27-rsa-attacks/ rel=noopener>RSA暗号攻撃で他でも使える n のこと</a>
+<a href=https://furutsuki.hatenablog.com/entry/2021/03/16/095021 rel=noopener>CTF crypto 逆引き</a>
+<a href=https://eprint.iacr.org/2020/1506.pdf rel=noopener>Recovering cryptographic keys from partial information, by example</a>
+<a href=https://crypto.stanford.edu/~dabo/pubs/papers/RSA-survey.pdf rel=noopener>Twenty Years of Attacks on the RSA Cryptosystem</a></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/_jzhao>Twitter</a></li><li><a href=https://github.com/jackyzha0>Github</a></li></ul></footer></div></div></body></html>
