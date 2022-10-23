@@ -7,11 +7,15 @@ enableToc: false
 
 # これはなに？
 
-CTFのライブラリ/知識集らしいです。(現在はLYTに近い思想で書いてる)
+CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想で書いてる)
 
-競プロはライブラリ化されたものがよく出回ってるけど、CTFの方はほとんど閉じた場所でしか共有されてないよな～と思ったのであんこ(将来的にtraPのCTF班)がCTFに関するライブラリやCTFに必要な知識をまとめたものです。編集したい方は大歓迎です！気軽にプルリク投げてください～
+競プロはライブラリ化されたものがよく出回ってるけど、CTF の方はほとんど閉じた場所でしか共有されてないよな～と思ったのであんこ(将来的に traP の CTF 班)が CTF に関するライブラリや CTF に必要な知識をまとめたものです。編集したい方は大歓迎です！気軽にプルリク投げてください～
 
-これらはCC0ライセンスとします。自由にコピペしてOKです！
+これらは CC0 ライセンスとします。自由にコピペして OK です！
+
+## 競プロ
+
+- [テンプレート](./other/template.md)
 
 ## データ構造
 
@@ -111,6 +115,7 @@ CTFのライブラリ/知識集らしいです。(現在はLYTに近い思想で
 
 使用言語はPythonまたはC言語です。
 
+- [テンプレート](./pwn/pwn.md)
 - Format String Attack
 - Stack Exploit
   - ret2xxx
@@ -151,6 +156,7 @@ CTFのライブラリ/知識集らしいです。(現在はLYTに近い思想で
   - [ゼロ知識証明](./crypto/cryptography/ZeroKnowledgeProof.md)
   - [Fujisaki-Okamoto Transformation](./crypto/cryptography/Fujisaki-Okamoto_Transformation.md)
   - [準同型暗号](./crypto/cryptography/homomorphism.md)
+- [SageMathチートシート](./crypto/sagemath.md)
 - [格子](./crypto/Lattice/tour_of_Lattice.md)
   - [Gram-Schmidt](./crypto/Lattice/GSO.md)
   - SVP (Shortest Vector Problem)
@@ -256,9 +262,9 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 ## Misc
 
 - [Pyjail](./misc/Pyjail.md)
-- [forensics](./misc/forensics/forensics.md)
+- [Forensics](./misc/forensics/forensics.md)
   - [Windows](./misc/forensics/windows.md)
-- [osint](./misc/osint/tools.md)
+- [OSINT](./misc/osint/tools.md)
 
 ## 量子アルゴリズム
 
@@ -321,12 +327,3 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [Deep Learning](./other/Application/DeepLearning.md)
 - [【画像処理入門】アルゴリズム＆プログラミング](https://algorithm.joho.info/programming/image-processing/)
 - 超解像
-- [高速化](./other/fast.md)
-
-## テンプレート
-
-- [競プロ](template.md)
-- [ヒューリスティック](./heuristic/heuristic.md)
-- [pwn](./pwn/pwn.md)
-- [Kernel exploit](./pwn/kernel_exploit.md)
-- [SageMathチートシート](./crypto/sagemath.md)
