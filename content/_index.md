@@ -159,9 +159,9 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 - 暗号構成基盤
   - [Diffie-Hellman 鍵交換](./crypto/cryptography/Diffie-Hellman.md)
-  - Fiat-Shamir 変換
+  - [Fiat-Shamir 変換](./crypto/cryptography/Fiat-Shamir.md)
     - [Schnorr 署名](./crypto/cryptography/Schnorr.md)
-    - Frozen Heart
+    - [Frozen Heart](./crypto/cryptography/FrozenHeart.md)
   - Lamport 署名
   - [ゼロ知識証明](./crypto/cryptography/ZeroKnowledgeProof.md)
   - [Fujisaki-Okamoto Transformation](./crypto/cryptography/Fujisaki-Okamoto_Transformation.md)
