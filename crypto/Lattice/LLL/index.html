@@ -10,7 +10,7 @@
 <script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
 <script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
 <script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
-<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.2bc85b1a88e7db15560d93ef42fc353c.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.645eef8a2d629f6df4dbcd31d258f6a7.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.2bc85b1a88e7db15560d93ef42fc353c.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.63bc88f23f7002179091285aef1384bf.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
     import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
     attachSPARouting(init, render)
   </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
@@ -22,4 +22,82 @@ Oct 23, 2022
 $$
 \delta|\mathbf{b}<em>{k-1}^*| \leq |\pi</em>{k-1}(\mathbf{b}_{k-1})|
 $$
-を満たす。ただし、各 $1 \leq l \leq n$ に対して、$\pi_l$ は $\mathbb{R}$-ベクトル空間 $\langle\mathbf{b} _1,\ldots,\mathbf{b} _{l-1}\rangle _\mathbb{R}$ の直交補空間への直交射影とする。</li></ol><p>これに対し、LLL 基底簡約アルゴリズムは次のように行う。</p><ol><li>サイズ簡約する。</li><li>Lovasz条件を満たすように隣り合う基底ベクトルを交換する。</li></ol><p>基底ベクトルを交換した際に GSO ベクトルも更新しなければならない。高速化出来る。</p><p>さらに LLL について精度を上げたり、機能を拡張することができ、DeepLLLやMLLLなどの手法がある。</p><ul><li>LLL は隣り合う基底ベクトルのみを比較するが、DeepLLL は全ての基底ベクトルを比較する。</li><li>MLLL は一次従属なベクトルでも適用できる。</li></ul><a href=#計算量><h2 id=計算量><span class=hanchor arialabel=Anchor># </span>計算量</h2></a><a href=#実装><h2 id=実装><span class=hanchor arialabel=Anchor># </span>実装</h2></a><p>{% include python.html code=&ldquo;crypto/Lattice/LLL_reduction.sage&rdquo; %}</p><a href=#使用例><h2 id=使用例><span class=hanchor arialabel=Anchor># </span>使用例</h2></a><a href=#参考><h2 id=参考><span class=hanchor arialabel=Anchor># </span>参考</h2></a></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/Anko_9801>Twitter</a></li><li><a href=https://github.com/anko9801>Github</a></li></ul></footer></div></div></body></html>
+を満たす。ただし、各 $1 \leq l \leq n$ に対して、$\pi_l$ は $\mathbb{R}$-ベクトル空間 $\langle\mathbf{b} _1,\ldots,\mathbf{b} _{l-1}\rangle _\mathbb{R}$ の直交補空間への直交射影とする。</li></ol><p>これに対し、LLL 基底簡約アルゴリズムは次のように行う。</p><ol><li>サイズ簡約する。</li><li>Lovasz条件を満たすように隣り合う基底ベクトルを交換する。</li></ol><p>基底ベクトルを交換した際に GSO ベクトルも更新しなければならない。高速化出来る。</p><p>さらに LLL について精度を上げたり、機能を拡張することができ、DeepLLLやMLLLなどの手法がある。</p><ul><li>LLL は隣り合う基底ベクトルのみを比較するが、DeepLLL は全ての基底ベクトルを比較する。</li><li>MLLL は一次従属なベクトルでも適用できる。</li></ul><a href=#計算量><h2 id=計算量><span class=hanchor arialabel=Anchor># </span>計算量</h2></a><a href=#実装><h2 id=実装><span class=hanchor arialabel=Anchor># </span>実装</h2></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>def LLL(B, delta):
+</span></span><span class=line><span class=cl>    n = len(B)
+</span></span><span class=line><span class=cl>    assert 1 / 4 &lt; delta &lt; 1
+</span></span><span class=line><span class=cl>    B = matrix(B)
+</span></span><span class=line><span class=cl>    i = 1
+</span></span><span class=line><span class=cl>    G, mu = B.gram_schmidt()
+</span></span><span class=line><span class=cl>    while i &lt; n:
+</span></span><span class=line><span class=cl>        for j in range(i - 1, -1, -1):
+</span></span><span class=line><span class=cl>            print(i, j)
+</span></span><span class=line><span class=cl>            if mu[i][j].abs() &gt; 1 / 2:
+</span></span><span class=line><span class=cl>                q = mu[i][j].round()
+</span></span><span class=line><span class=cl>                B[i] -= q * B[j]
+</span></span><span class=line><span class=cl>                mu[i] -= q * mu[j]
+</span></span><span class=line><span class=cl>        if B[i].norm() &gt;= (delta - mu[i][i - 1] ^ 2) * B[i - 1].norm():
+</span></span><span class=line><span class=cl>            i += 1
+</span></span><span class=line><span class=cl>        else:
+</span></span><span class=line><span class=cl>            B[i - 1], B[i] = B[i], B[i - 1]
+</span></span><span class=line><span class=cl>            mu = GSOUpdate(B, mu, i)
+</span></span><span class=line><span class=cl>            i = max(i - 1, 1)
+</span></span><span class=line><span class=cl>    return B
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>def GSOUpdate(B, mu, i):
+</span></span><span class=line><span class=cl>    n = B.nrows()
+</span></span><span class=line><span class=cl>    nu = mu[i][i - 1]
+</span></span><span class=line><span class=cl>    b = B[i] + nu ^ 2 * B[i - 1]
+</span></span><span class=line><span class=cl>    print(nu, B[i - 1], b)
+</span></span><span class=line><span class=cl>    mu[i][i - 1] = nu * B[i - 1] / b
+</span></span><span class=line><span class=cl>    B[i] = B[i] * B[i - 1] / b
+</span></span><span class=line><span class=cl>    B[i - 1] = b
+</span></span><span class=line><span class=cl>    for j in range(i - 1):
+</span></span><span class=line><span class=cl>        mu[i - 1][j], mu[i][j] = mu[i][j], mu[i - 1][j]
+</span></span><span class=line><span class=cl>    for k in range(i + 1, n):
+</span></span><span class=line><span class=cl>        t = mu[k][i]
+</span></span><span class=line><span class=cl>        mu[k][i] = mu[k][i - 1] - nu * t
+</span></span><span class=line><span class=cl>        mu[k][i - 1] = t + mu[i][i - 1] * mu[k][i]
+</span></span><span class=line><span class=cl>    return mu
+</span></span></code></pre></td></tr></table></div></div><a href=#使用例><h2 id=使用例><span class=hanchor arialabel=Anchor># </span>使用例</h2></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>B</span> <span class=o>=</span> <span class=p>[</span><span class=n>vector</span><span class=p>([</span><span class=mi>5</span><span class=p>,</span> <span class=o>-</span><span class=mi>3</span><span class=p>,</span> <span class=o>-</span><span class=mi>7</span><span class=p>]),</span> <span class=n>vector</span><span class=p>([</span><span class=mi>2</span><span class=p>,</span> <span class=o>-</span><span class=mi>7</span><span class=p>,</span> <span class=o>-</span><span class=mi>7</span><span class=p>]),</span> <span class=n>vector</span><span class=p>([</span><span class=mi>3</span><span class=p>,</span> <span class=o>-</span><span class=mi>10</span><span class=p>,</span> <span class=mi>0</span><span class=p>])]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>LLL</span><span class=p>(</span><span class=n>B</span><span class=p>,</span> <span class=mf>0.8</span><span class=p>))</span>
+</span></span></code></pre></td></tr></table></div></div><a href=#参考><h2 id=参考><span class=hanchor arialabel=Anchor># </span>参考</h2></a></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/Anko_9801>Twitter</a></li><li><a href=https://github.com/anko9801>Github</a></li></ul></footer></div></div></body></html>
