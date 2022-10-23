@@ -1,8 +1,7 @@
 <!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="説明 環境 64bit
-glibc のデータ領域に main_arena
-binには沢山の種類がある
- tcache fastbins unsorted bins small bins large bins  ヒープ領域
-   bins fd bk     tcache next tcache_key   fastbins next null   unsorted bins &main_arena."><title>glibc malloc</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://anko9801.github.io/blog//icon.png><link href=https://anko9801.github.io/blog/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://anko9801.github.io/blog/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://anko9801.github.io/blog/js/darkmode.5777cdbea4ccb2b68cacc7e904cabb5c.min.js></script>
+glibc のデータ領域に main_arena malloc_state
+1  m   binには沢山の種類がある
+ tcache fastbins unsorted bins small bins large bins  ヒープ領域"><title>glibc malloc</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://anko9801.github.io/blog//icon.png><link href=https://anko9801.github.io/blog/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://anko9801.github.io/blog/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://anko9801.github.io/blog/js/darkmode.5777cdbea4ccb2b68cacc7e904cabb5c.min.js></script>
 <script src=https://anko9801.github.io/blog/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
 <script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
@@ -13,7 +12,7 @@ binには沢山の種類がある
 <script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
 <script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
 <script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
-<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.b6dd0956ee8b268a622802d84203bd51.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.47f9cd1826f930dfc800f8e4b9e8160c.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.d5cc6e10e139cb3d88eeb674918ffc9c.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.f8643697230d03b29ec24a2254e2599a.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
     import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
     attachSPARouting(init, render)
   </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
@@ -21,7 +20,186 @@ binには沢山の種類がある
 <script defer src=https://anko9801.github.io/blog/js/full-text-search.24827f874defbbc6d529926cbfcfb493.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://anko9801.github.io/blog/>🪴 あやめHex</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
 <label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>glibc malloc</h1><p class=meta>Last updated
 Oct 23, 2022
-<a href=https://github.com/jackyzha0/quartz/tree/hugo/content/pwn/glibc/malloc.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#説明>説明</a></li><li><a href=#参考>参考</a></li></ol></nav></details></aside><a href=#説明><h2 id=説明><span class=hanchor arialabel=Anchor># </span>説明</h2></a><p>環境
-64bit</p><p>glibc のデータ領域に main_arena</p><p>binには沢山の種類がある</p><ul><li>tcache</li><li>fastbins</li><li>unsorted bins</li><li>small bins</li><li>large bins</li></ul><p>ヒープ領域</p><table><thead><tr><th style=text-align:center>bins</th><th style=text-align:left>fd</th><th style=text-align:left>bk</th></tr></thead><tbody><tr><td style=text-align:center>tcache</td><td style=text-align:left>next</td><td style=text-align:left>tcache_key</td></tr><tr><td style=text-align:center>fastbins</td><td style=text-align:left>next</td><td style=text-align:left>null</td></tr><tr><td style=text-align:center>unsorted bins</td><td style=text-align:left>&main_arena.top</td><td style=text-align:left></td></tr><tr><td style=text-align:center>small bins</td><td style=text-align:left></td><td style=text-align:left></td></tr><tr><td style=text-align:center>large bins</td><td style=text-align:left></td><td style=text-align:left></td></tr></tbody></table><p>libc 2.29 tcache_key
-tcacheでdouble freeはできない</p><a href=#参考><h2 id=参考><span class=hanchor arialabel=Anchor># </span>参考</h2></a><p><a href=https://www.valinux.co.jp/technologylibrary/document/linux/malloc0001/ rel=noopener>malloc(3)のメモリ管理構造</a>
+<a href=https://github.com/jackyzha0/quartz/tree/hugo/content/pwn/glibc/malloc.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#説明>説明</a></li><li><a href=#tcache>tcache</a><ol><li></li><li><a href=#雑なexploit>雑〜なexploit</a></li></ol></li><li><a href=#heading></a></li><li><a href=#参考>参考</a></li></ol></nav></details></aside><a href=#説明><h2 id=説明><span class=hanchor arialabel=Anchor># </span>説明</h2></a><p>環境
+64bit</p><p>glibc のデータ領域に main_arena
+malloc_state</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=n>m</span>
+</span></span></code></pre></td></tr></table></div></div><p>binには沢山の種類がある</p><ul><li>tcache</li><li>fastbins</li><li>unsorted bins</li><li>small bins</li><li>large bins</li></ul><p>ヒープ領域</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=k>struct</span> <span class=nc>malloc_chunk</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>size_t</span> <span class=n>prev_size</span><span class=p>;</span> <span class=c1>// malloc中に必要！
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=n>size_t</span> <span class=n>size</span><span class=p>;</span> <span class=c1>// malloc中に必要！ 下3bitはフラグ
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=c1>// userに渡されるアドレスはここ
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=o>*</span><span class=n>fd</span><span class=p>;</span> <span class=c1>// next
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>void</span> <span class=o>*</span><span class=n>bk</span><span class=p>;</span> <span class=c1>// key
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=c1>// for large size
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>void</span> <span class=o>*</span><span class=n>fd_nextsize</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kt>void</span> <span class=o>*</span><span class=n>bk_nextsize</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><table><thead><tr><th style=text-align:center>bins</th><th style=text-align:left>fd</th><th style=text-align:left>bk</th></tr></thead><tbody><tr><td style=text-align:center>tcache</td><td style=text-align:left>next</td><td style=text-align:left>tcache_key</td></tr><tr><td style=text-align:center>fastbins</td><td style=text-align:left>next</td><td style=text-align:left>null</td></tr><tr><td style=text-align:center>unsorted bins</td><td style=text-align:left>&main_arena.top</td><td style=text-align:left></td></tr><tr><td style=text-align:center>small bins</td><td style=text-align:left></td><td style=text-align:left></td></tr><tr><td style=text-align:center>large bins</td><td style=text-align:left></td><td style=text-align:left></td></tr></tbody></table><a href=#tcache><h2 id=tcache><span class=hanchor arialabel=Anchor># </span>tcache</h2></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cm>/* We overlay this structure on the user-data portion of a chunk when
+</span></span></span><span class=line><span class=cl><span class=cm>   the chunk is stored in the per-thread cache.  */</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=nc>tcache_entry</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>struct</span> <span class=nc>tcache_entry</span> <span class=o>*</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=cm>/* This field exists to detect double frees.  */</span>
+</span></span><span class=line><span class=cl>  <span class=n>uintptr_t</span> <span class=n>key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>tcache_entry</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/* There is one of these for each thread, which contains the
+</span></span></span><span class=line><span class=cl><span class=cm>   per-thread cache (hence &#34;tcache_perthread_struct&#34;).  Keeping
+</span></span></span><span class=line><span class=cl><span class=cm>   overall size low is mildly important.  Note that COUNTS and ENTRIES
+</span></span></span><span class=line><span class=cl><span class=cm>   are redundant (we could have just counted the linked list each
+</span></span></span><span class=line><span class=cl><span class=cm>   time), this is for performance reasons.  */</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=nc>tcache_perthread_struct</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>uint16_t</span> <span class=n>counts</span><span class=p>[</span><span class=n>TCACHE_MAX_BINS</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=n>tcache_entry</span> <span class=o>*</span><span class=n>entries</span><span class=p>[</span><span class=n>TCACHE_MAX_BINS</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=p>}</span> <span class=n>tcache_perthread_struct</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>本質は next つまり単方向連結リスト</p><a href=#mitigations><h4 id=mitigations><span class=hanchor arialabel=Anchor># </span>mitigations</h4></a><p><strong>counts</strong>
+初期値 0, free すると +1, malloc すると -1 される値
+上限7個 これを超えると fastbin へ
+連結リストとは独立にカウントされることで malloc の回数と free の回数の非整合性を検知する(counts は負の数となることはない).</p><p>ex)
+B: 攻撃者が指定するchunk</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>entry:空 -&gt; entry: A -&gt;改ざん！ -&gt; entry: A-&gt;B -&gt;malloc-&gt; entry: B
+</span></span><span class=line><span class=cl>count:0 -&gt; count: 1 -----------&gt; count:1 -------------&gt; count: 0
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>このmitigationのbypass例
+</span></span><span class=line><span class=cl>entry:空 -&gt; entry: A ... entry: A_1-&gt;A_2 -&gt;改ざん！ -&gt; entry: A_1-&gt;B -&gt;malloc-&gt; entry: B
+</span></span><span class=line><span class=cl>count:0 -&gt; count: 1 ... count: 2 ------------------&gt; count:2 --------------------&gt; count: 1
+</span></span></code></pre></td></tr></table></div></div><p><strong>key</strong>
+freeする度にentry.keyに&tcacheを代入する
+free するときに entry.keyの位置に&tcache がある場合に限り
+entryのリストを探索しdouble free を検知する.</p><p>mallocしてきた chunk A{.a = 0x12345678, .b = 0x90abcdef}
+-> free ->
+freeされた tcache chunk A{.next = (次のchunkのアドレス) .key= &tcache}</p><p>mallocしてきた chunk B{.a = 0x12345678, .b = &tcache} たまたまkeyの位置が&tcacheになってる！
+-> free -> double free(擬陽性)</p><p>tcache.entry[0x10] -> A -> B -> C</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>struct malloc_chunk{
+</span></span><span class=line><span class=cl>  size_t prev_size; // malloc中に必要！
+</span></span><span class=line><span class=cl>  size_t size; // malloc中に必要！ 下3bitはフラグ
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  // userに渡されるアドレスはここ
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  void *fd; // next
+</span></span><span class=line><span class=cl>  void *bk; // key
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  // for large size
+</span></span><span class=line><span class=cl>  void *fd_nextsize;
+</span></span><span class=line><span class=cl>  void *bk_nextsize;
+</span></span><span class=line><span class=cl>}
+</span></span></code></pre></td></tr></table></div></div><p>struct tcache_entryはこの構造体のfdの位置にoverlapしてtcache_perthread_structで管理してる</p><a href=#雑なexploit><h3 id=雑なexploit><span class=hanchor arialabel=Anchor># </span>雑〜なexploit</h3></a><ul><li>余分にfreeをしてcountを増やした後、対象のfree済みchunkに対してkeyをごちゃごちゃにしnext改ざん</li><li>これでentryの連結リストの中に攻撃者指定のアドレスが入るため、このままmallocしていけば任意アドレス書き込み可能</li></ul><p>libc 2.29 tcache_key
+tcacheでdouble freeはできない</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cm>/* Caller must ensure that we know tc_idx is valid and there&#39;s room
+</span></span></span><span class=line><span class=cl><span class=cm>   for more chunks.  */</span>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=n>__always_inline</span> <span class=kt>void</span>
+</span></span><span class=line><span class=cl><span class=nf>tcache_put</span> <span class=p>(</span><span class=n>mchunkptr</span> <span class=n>chunk</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>tc_idx</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=n>tcache_entry</span> <span class=o>*</span><span class=n>e</span> <span class=o>=</span> <span class=p>(</span><span class=n>tcache_entry</span> <span class=o>*</span><span class=p>)</span> <span class=n>chunk2mem</span> <span class=p>(</span><span class=n>chunk</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=cm>/* Mark this chunk as &#34;in the tcache&#34; so the test in _int_free will
+</span></span></span><span class=line><span class=cl><span class=cm>     detect a double free.  */</span>
+</span></span><span class=line><span class=cl>  <span class=n>e</span><span class=o>-&gt;</span><span class=n>key</span> <span class=o>=</span> <span class=n>tcache_key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>e</span><span class=o>-&gt;</span><span class=n>next</span> <span class=o>=</span> <span class=n>PROTECT_PTR</span> <span class=p>(</span><span class=o>&amp;</span><span class=n>e</span><span class=o>-&gt;</span><span class=n>next</span><span class=p>,</span> <span class=n>tcache</span><span class=o>-&gt;</span><span class=n>entries</span><span class=p>[</span><span class=n>tc_idx</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  <span class=n>tcache</span><span class=o>-&gt;</span><span class=n>entries</span><span class=p>[</span><span class=n>tc_idx</span><span class=p>]</span> <span class=o>=</span> <span class=n>e</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=o>++</span><span class=p>(</span><span class=n>tcache</span><span class=o>-&gt;</span><span class=n>counts</span><span class=p>[</span><span class=n>tc_idx</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=heading></h2><p>glibc-2.35
+PROTECT_PTR</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-cpp data-lang=cpp><span class=line><span class=cl><span class=cm>/* Safe-Linking:
+</span></span></span><span class=line><span class=cl><span class=cm>   Use randomness from ASLR (mmap_base) to protect single-linked lists
+</span></span></span><span class=line><span class=cl><span class=cm>   of Fast-Bins and TCache.  That is, mask the &#34;next&#34; pointers of the
+</span></span></span><span class=line><span class=cl><span class=cm>   lists&#39; chunks, and also perform allocation alignment checks on them.
+</span></span></span><span class=line><span class=cl><span class=cm>   This mechanism reduces the risk of pointer hijacking, as was done with
+</span></span></span><span class=line><span class=cl><span class=cm>   Safe-Unlinking in the double-linked lists of Small-Bins.
+</span></span></span><span class=line><span class=cl><span class=cm>   It assumes a minimum page size of 4096 bytes (12 bits).  Systems with
+</span></span></span><span class=line><span class=cl><span class=cm>   larger pages provide less entropy, although the pointer mangling
+</span></span></span><span class=line><span class=cl><span class=cm>   still works.  */</span>
+</span></span><span class=line><span class=cl><span class=cp>#define PROTECT_PTR(pos, ptr) \
+</span></span></span><span class=line><span class=cl><span class=cp>  ((__typeof (ptr)) ((((size_t) pos) &gt;&gt; 12) ^ ((size_t) ptr)))
+</span></span></span><span class=line><span class=cl><span class=cp>#define REVEAL_PTR(ptr)  PROTECT_PTR (&amp;ptr, ptr)
+</span></span></span></code></pre></td></tr></table></div></div><p><code>(pos >> 12) ^ ptr</code>
+攻撃者側は最初heapのアドレスがわからない状態から始まる
+ページは4k単位なので下位3nibble(12bit)は何度実行しても変わらない(randomizeされない)
+だから3nibble分右にずらしてxorすると最大限の効果を得られる</p><p>ただfree済み tcacheを読めたとき
+A{
+.next = 0x7ffabcdef;
+}
+Aの上位9nibble分はとれる。</p><p>メモリの確保量が小さいとき、すなわちheapが1ページで収まっているとき
+Aでとれた上位9nibble分の情報をそのまま使える。
+-> nextに対して復元するようなXORを掛ければお終い</p><a href=#参考><h2 id=参考><span class=hanchor arialabel=Anchor># </span>参考</h2></a><p><a href=https://www.valinux.co.jp/technologylibrary/document/linux/malloc0001/ rel=noopener>malloc(3)のメモリ管理構造</a>
 <a href=https://sourceware.org/glibc/wiki/MallocInternals rel=noopener>MallocInternals - glibc wiki (sourceware.org)</a></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/Anko_9801>Twitter</a></li><li><a href=https://github.com/anko9801>Github</a></li></ul></footer></div></div></body></html>
