@@ -123,7 +123,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
   - ROP: Return Oriented Programming
 - GOT overwrite
 - glibc
-  - [malloc](./pwn/malloc.md)
+  - [malloc](./pwn/glibc/malloc.md)
 - Heap Exploit
   - tcache poisoning
   - tcache double free
@@ -216,7 +216,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 - [楕円曲線暗号](./crypto/ECC/ECC.md)
   - 楕円曲線
     - Millar のアルゴリズム
-    - Schoof のアルゴリズム
+    - [Schoof のアルゴリズム](./crypto/ECC/Schoof.md)
     - Tate pairing / Weil pairing
     - [ECFFT](./crypto/ECC/ECFFT.md)
     - 超楕円曲線
@@ -227,6 +227,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
     - [Invalid Curve Attack](./crypto/ECC/Invalid-Curve-Attack.md)
     - [GHS Attack](./crypto/ECC/GHS-Attack.md)
     - Dual EC DRBG
+    - [Attacks on SIKE](./crypto/ECC/SIKE.md)
 - [AES](./crypto/AES/AES.md)
   - Padding Oracle Attack
   - BEAST Attack

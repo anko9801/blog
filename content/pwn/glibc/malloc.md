@@ -7,8 +7,8 @@ title: "glibc malloc"
 環境
 64bit
 
-ヒープ領域にmalloc_state
-glibcのデータ領域にmain_arena
+glibc のデータ領域に main_arena
+
 binには沢山の種類がある
 - tcache
 - fastbins
@@ -16,7 +16,17 @@ binには沢山の種類がある
 - small bins
 - large bins
 
-libc 2.29
+ヒープ領域
+
+| bins   | fd | bk |
+|:------:|:---|:---|
+| tcache | next | tcache_key |
+| fastbins | next | null |
+| unsorted bins | &main_arena.top |  |
+| small bins |  |  |
+| large bins |  |  |
+
+libc 2.29 tcache_key
 tcacheでdouble freeはできない
 
 ## 参考
