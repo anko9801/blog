@@ -299,7 +299,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - サーバー
   - [RDBMS](./other/Application/Server/RDBMS.md)
   - [RDBMS 最適化](./other/Application/Server/rdbms-optimization.md)
-  - [リバースプロキシ](./other/Application/Server/ReverseProxy.md)
+  - [リバースプロキシ](./other/Application/Server/reverse-proxy.md)
   - [リバースプロキシ最適化](./other/Application/Server/reverse-proxy-optimization.md)
   - [フロントエンド最適化](./other/Application/Server/frontend-optimization.md)
 - [ネットワーク構成](./other/Application/Network/network.md)
