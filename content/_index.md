@@ -122,15 +122,15 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
     - ret2libc
   - ROP: Return Oriented Programming
 - GOT overwrite
-- glibc
+- [glibc](./pwn/glibc/glibc.md)
   - [malloc](./pwn/glibc/malloc.md)
 - Heap Exploit
   - tcache poisoning
   - tcache double free
   - fastbin attack
   - House of XXX
+    - [House of Orange](./pwn/HouseOfXXX/house_of_orange.md)
     - [House of botcake](./pwn/HouseOfXXX/House_of_botcake.md)
-    - House of Orange
     - House of Spirit
     - House of Lore
     - House of Storm
@@ -238,7 +238,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 - [その他の暗号](./crypto/cryptography/other.md)
 - [Hash](./crypto/Hash/hash.md)
   - 誕生日攻撃
-  - Differencial cryptanalysis
+  - [Differencial cryptanalysis](./crypto/Hash/DifferencialCryptoanalysis.md)
 - 疑似乱数生成器 (PRNG)
   - Xorshift
   - [Mersenne twister](./crypto/PRNG/MersenneTwister.md)
