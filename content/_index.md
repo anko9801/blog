@@ -212,7 +212,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
   - [Franklin-Reiter Related Message Attack](./crypto/RSA/Franklin-ReiterRelatedMessageAttack.md)
   - [Partial Key Exposure Attack](./crypto/RSA/PartialKeyExposureAttack.md)
   - [逆元が存在しないとき](./crypto/RSA/NoInverse.md)
-  - ROCA Attack
+  - [ROCA Attack](./crypto/RSA/ROCA.md)
 - [楕円曲線暗号](./crypto/ECC/ECC.md)
   - 楕円曲線
     - Millar のアルゴリズム
