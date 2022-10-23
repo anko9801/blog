@@ -203,7 +203,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 - [RSA暗号](./crypto/RSA/RSA.md)
   - [Wiener's Attack](./crypto/RSA/WienersAttack.md)
   - [Boneh-Durfee Attack](./crypto/RSA/Boneh-DurfeeAttack.md)
-  - [Common Modulus Attack](./crypto/RSA/CommonModulus.md)
+  - [Common Modulus Attack](./crypto/RSA/CommonModulusAttack.md)
   - [Håstad's Broadcast Attack](./crypto/RSA/HåstadsBroadcastAttack.md)
   - [Small Common Private Exponent Attack](./crypto/RSA/SmallCommonPrivateExponentAttack.md)
   - [適応的選択暗号文攻撃](./crypto/RSA/RSA-CCA.md)
