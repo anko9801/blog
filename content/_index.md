@@ -89,6 +89,8 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
   - オイラーの$\phi$関数
   - メビウスの$\mu$関数
   - カーマイケルの$\lambda$関数
+- bit trick
+  - XOR swap
 
 ## 幾何
 
@@ -277,50 +279,22 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
   - [Windows](./misc/forensics/windows.md)
 - [OSINT](./misc/osint/tools.md)
 
-## 量子アルゴリズム
+## コンピュータ・アーキテクチャ
 
-- 各ゲートの紹介と量子計算の方法
-- Shor のアルゴリズム
-- 量子暗号通信
-- 量子中継ネットワーク
-
-## 電子回路
-
-- SDR
-- SPI
-- JTAG
-
-## 脆弱性集
-
-- [CVEs for the Rust standard library](https://rustrepo.com/repo/Qwaz-rust-cve-rust-security-tools)
-  - [Rustのunsound hole issue #25860を理解する](https://speakerdeck.com/moratorium08/rustfalseunsound-hole-issue-number-25860woli-jie-suru)
-  - [str::repeat - stable wildcopy exploit](https://saaramar.github.io/str_repeat_exploit/)
-
-## 雑学
-
-- ピッキング
-- Tamper Evident
-- Social Engineering
-- Car Hacking
-- 航空技術
-- 構造探検隊
-  - [ELF](./other/Application/Structure/ZIP.md)
-  - JPEG
-  - [FAT32](./other/Application/Structure/FAT32.md)
-  - [ZIP](./other/Application/Structure/ZIP.md)
+- 物理
+- 素子
+- アナログ回路
+- デジタル回路
 - [CPU / GPU](./other/Application/Processor.md)
   - Spectre / Meltdown
   - [TEE](./other/Circuit/TEE.md)
-- [rootkit](./other/Circuit/Rootkit.md)
+  - [rootkit](./other/Circuit/Rootkit.md)
+- 論理
+- マイクロアーキテクチャ
+- アーキテクチャ
 - 仮想化技術
   - [コンテナ仮想化技術](./other/Application/Container.md)
   - [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
-- bit trick
-  - XOR swap
-- [プログラミング言語](./other/Application/Programming.md)
-  - [型推論](./other/Application/Type.md)
-- 未定義動作
-- [デバッガ](./pwn/Debugger.md)
 - [OS](./other/Application/OS.md)
 - サーバー
   - [RDBMS](./other/Application/Server/RDBMS.md)
@@ -330,6 +304,35 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
   - [フロントエンド最適化](./other/Application/Server/frontend-optimization.md)
 - [ネットワーク構成](./other/Application/Network/network.md)
   - [SDR](./other/Application/Network/SDR.md)
+
+## 量子アルゴリズム
+
+- 各ゲートの紹介と量子計算の方法
+- Shor のアルゴリズム
+- 量子暗号通信
+- 量子中継ネットワーク
+
+## 雑学
+
+- ピッキング
+- Tamper Evident
+- Social Engineering
+- Car Hacking
+- 航空技術
+- [プログラミング言語](./other/Application/Programming.md)
+  - [型推論](./other/Application/Type.md)
+  - 未定義動作
+- 電子回路
+  - SPI
+  - I2C
+  - UART
+  - JTAG
+- 構造探検隊
+  - [ELF](./other/Application/Structure/ZIP.md)
+  - JPEG
+  - [FAT32](./other/Application/Structure/FAT32.md)
+  - [ZIP](./other/Application/Structure/ZIP.md)
+- [デバッガ](./pwn/Debugger.md)
 - [SAT/SMT](./other/Application/SAT-SMT/SAT-SMT.md)
   - [シンボリック実行エンジン](./other/Application/SAT-SMT/symbolic_execution.md)
   - [定理証明支援系](./other/Application/SAT-SMT/proof_assistant.md)
@@ -340,3 +343,9 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [Deep Learning](./other/Application/DeepLearning.md)
 - [【画像処理入門】アルゴリズム＆プログラミング](https://algorithm.joho.info/programming/image-processing/)
 - 超解像
+
+## 脆弱性集
+
+- [CVEs for the Rust standard library](https://rustrepo.com/repo/Qwaz-rust-cve-rust-security-tools)
+  - [Rustのunsound hole issue #25860を理解する](https://speakerdeck.com/moratorium08/rustfalseunsound-hole-issue-number-25860woli-jie-suru)
+  - [str::repeat - stable wildcopy exploit](https://saaramar.github.io/str_repeat_exploit/)
