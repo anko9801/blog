@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blogs on</title><link>https://anko9801.github.io/blog/blog/</link><description>Recent content in Blogs on</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://anko9801.github.io/blog/blog/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://anko9801.github.io/blog/blog/security_camp/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/blog/security_camp/</guid><description>セキュリティ・キャンプ全国大会2022 オンライン 専門コース C【脅威解析クラス】応募課題
+以下の問1から問8について、それぞれ5,000文字以内で回答してください。
+問5および問6については配布ファイルを使用します。以下に配布ファイルのSHA-256ハッシュ値を記載しますので、正しいファイルを取得できていることを確認した上で課題に取り組んでください。
+sc2022_challenge05.zip
+0292b1972845b6c3a57129acfd0de403f6f8080a4e2a3eef93c3913c63efe0df sc2022_20220322T230402.zip
+088e8fb04f486bae5d2dca1ccf9e5b971044c297bd03f7a5bd05bfaded6f27c3 なお、正解がある設問については、&amp;ldquo;正解していること&amp;quot;よりも&amp;quot;正解にたどり着くまでのプロセスや熱意&amp;quot;を重要視しています。答えにたどり着くまでの試行錯誤や自分なりの工夫等を書いて、精一杯アピールしてください。</description></item><item><title/><link>https://anko9801.github.io/blog/blog/Vim/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/blog/Vim/</guid><description>Matering Vim Language https://www.youtube.com/watch?v=wlR5gYd6um0
+https://vim.help/12-clever-tricks#12.2 https://career.levtech.jp/guide/knowhow/article/29/
+僕がVimで愛用しているプラグイン30連発 https://liginc.co.jp/469142
+Vim の operator プラグインをまとめた https://qiita.com/rbtnn/items/a47ed6684f1f0bc52906
+vimcolorschemes https://vimcolorschemes.com</description></item></channel></rss>
