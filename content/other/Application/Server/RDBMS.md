@@ -301,3 +301,17 @@ ex.) gorm
 参照トランザクションIDが `DB_TRX_ID` より大きいなら変更後の値を参照, 小さいなら undo log record から探して参照, 追加したトランザクションIDより小さいなら参照できない.
 
 [MySQLのMVCC - Qiita](https://qiita.com/nkriskeeic/items/24b7714b749d38bba87b)
+
+### Conflict-free replicated data type
+
+CAPの定理
+-   Partition Tolerance: ネットワークが故障しても
+-   Consistency: データの整合性をもって
+-   Availability: 読書が常にできる
+
+3つ同時に満たすことはできなくて、満たせても2つまでという定理
+
+APを満たす -> Conflict-free replicated data type
+
+可換な操作のみ扱い、後でマージする -> ネットワークに繋がっていなくても操作可能！
+それぞれのDBがgitのブランチみたいな気持ち

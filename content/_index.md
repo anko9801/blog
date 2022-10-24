@@ -118,7 +118,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 使用言語はPythonまたはC言語です。
 
 - Linux Userland
-  - [テンプレート](./pwn/pwn.md)
+  - [テンプレート](pwn/template.md)
   - Format String Attack
   - Stack Exploit
     - ret2xxx
