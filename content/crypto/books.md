@@ -74,6 +74,7 @@ The Arithmetic of Elliptic Curves (著: Silverman)
 CODE BLUE
 GCC
 SecHack365
+ジュニア会員は学士3年まで
 
 ## Crypto Paper
 [Breaking SIDH in polynomial time (iacr.org)](https://eprint.iacr.org/2022/1038)
