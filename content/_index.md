@@ -33,6 +33,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
   - Treap
 - Wavelet Matrix
 - 座標圧縮
+- スライド最小値
 - [slope trick](./data_structure/slope_trick.md)
 
 ## グラフ
@@ -61,36 +62,32 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 ## 算数
 
-- modulo
-  - [Modint](./arithmetic/modulo/modint.md)
-  - [任意Modint](./arithmetic/modulo/arbitrary_modint.md)
-  - sqrt (Tonelli Shanks)
-- 進数変換
-- [gcd / lcm / 拡張 Euclid の互除法](./arithmetic/gcd.md)
-- [中国剰余定理](./arithmetic/crt.md)
-- スライド最小値
-- floor sum
-- 行列演算
-  - [行列](./arithmetic/matrix/matrix.md)
-  - LU分解
-  - 固有値・固有ベクトル
-- 素数
-  - [素因数分解](./arithmetic/primes/factorize.md)
-  - [高速素因数分解 (Pollard-$\rho$法/Millar-Rabin)](./arithmetic/primes/fast_factorize.md)
-  - 素数判定
-  - [素数列挙 (エラトステネスの篩)](./arithmetic/primes/primes.md)
+- bit trick
+  - XOR swap
+- 整数
+  - [gcd / lcm / 拡張 Euclid の互除法](./arithmetic/gcd.md)
+  - 素数
+    - [素因数分解](./arithmetic/primes/factorize.md)
+    - [高速素因数分解 (Pollard-$\rho$法/Millar-Rabin)](./arithmetic/primes/fast_factorize.md)
+    - [素数列挙 (エラトステネスの篩)](./arithmetic/primes/primes.md)
+    - 素数判定
+  - 進数変換
+  - 剰余
+    - [Modint](./arithmetic/modulo/modint.md)
+    - [任意Modint](./arithmetic/modulo/arbitrary_modint.md)
+  - 数論的関数
+    - オイラーの$\phi$関数
+    - メビウスの$\mu$関数
+    - カーマイケルの$\lambda$関数
+  - [中国剰余定理](./arithmetic/crt.md)
+  - floor sum
+- [行列](./arithmetic/matrix/matrix.md)
 - [高速ゼータ変換/高速メビウス変換](./arithmetic/zeta.md)
 - [高速フーリエ変換(FFT)](./arithmetic/fft.md)
 - [数論変換(NTT)](./arithmetic/ntt.md)
 - 多項式GCD
 - 形式的冪級数
 - 任意mod畳み込み
-- 数論的関数
-  - オイラーの$\phi$関数
-  - メビウスの$\mu$関数
-  - カーマイケルの$\lambda$関数
-- bit trick
-  - XOR swap
 
 ## 幾何
 
