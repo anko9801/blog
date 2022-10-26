@@ -36,5 +36,5 @@ std::vector<std::pair<T, int>> factors(T N) {
 
 
 ## 関連項目
-- [高速素因数分解 (Pollard-ρ法/Miller-Rabin法)](./fast_factorize)
-- [素数列挙](./primes)
+- [高速素因数分解 (Pollard-ρ法/Miller-Rabin法)](/arithmetic/primes/fast_factorize)
+- [素数列挙](/arithmetic/primes/primes)
