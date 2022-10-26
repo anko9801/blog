@@ -65,20 +65,16 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 - bit trick
   - XOR swap
 - 整数
-  - [gcd / lcm / 拡張 Euclid の互除法](./arithmetic/gcd.md)
+  - [Euclid の互除法](./arithmetic/gcd.md)
+  - [数論的関数/進数変換](./arithmetic/arithmetical_function)
   - 素数
     - [素因数分解](./arithmetic/primes/factorize.md)
     - [高速素因数分解 (Pollard-$\rho$法/Millar-Rabin)](./arithmetic/primes/fast_factorize.md)
     - [素数列挙 (エラトステネスの篩)](./arithmetic/primes/primes.md)
     - 素数判定
-  - 進数変換
   - 剰余
     - [Modint](./arithmetic/modulo/modint.md)
     - [任意Modint](./arithmetic/modulo/arbitrary_modint.md)
-  - 数論的関数
-    - オイラーの$\phi$関数
-    - メビウスの$\mu$関数
-    - カーマイケルの$\lambda$関数
   - [中国剰余定理](./arithmetic/crt.md)
   - floor sum
 - [行列](./arithmetic/matrix/matrix.md)
