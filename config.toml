@@ -1,7 +1,7 @@
 baseURL = "https://anko9801.github.io/blog/"
 languageCode = "en-us"
 googleAnalytics = "G-XYFD95KB4J"
-relativeURLs = true
+relativeURLs = false
 disablePathToLower = true
 ignoreFiles = [
     "/content/templates/*",
