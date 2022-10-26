@@ -84,3 +84,6 @@ inline Modint catalan(ll n){ reserve(n * 2 + 1); return fac[n * 2] * inv[n] * in
 ## 使用例
 
 [ABC262 D - I Hate Non-integer Number](https://atcoder.jp/contests/abc262/submissions/33693576)
+
+## 関連項目
+- [任意Modint](./arbitrary_modint)

@@ -127,3 +127,6 @@ runtime_modint dfs(ll x) {
 ```
 
 ## 使用例
+
+## 関連項目
+- [Modint](./modint)
