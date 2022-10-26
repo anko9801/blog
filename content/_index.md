@@ -141,10 +141,10 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
       - House of Lore
       - House of Storm
       - House of Force
-- Kernel Code Reading
-  - セキュリティ機構
 - Linux Kernel
   - [テンプレート](./pwn/kernel_exploit.md)
+  - Kernel Code Reading
+    - セキュリティ機構
   - カーネルモジュール
   - Heap Spray
   - Dirty Pipe
