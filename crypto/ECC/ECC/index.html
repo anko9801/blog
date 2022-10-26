@@ -12,7 +12,7 @@ $$ y^2 = x^3 + ax + b $$"><title>楕円曲線暗号</title><meta name=viewport c
 <script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
 <script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
 <script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
-<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.a1622439dac36e687fb70d8b7095f0be.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.5afb9abbdcf12ea9ecc5dc4c95807c01.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.a1622439dac36e687fb70d8b7095f0be.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.10b85bcbd189ca687869375340018a4d.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
     import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
     attachSPARouting(init, render)
   </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
@@ -24,7 +24,7 @@ Oct 23, 2022
 y^2 = f(x)
 $$</p><p>$x, y$ 線形変換によって2次の項は消すことができ、</p><p>$$
 y^2 = x^3 + ax + b
-$$</p><ul><li>グラフ(一般性なし)</li><li>特異性 -> 無限遠点</li><li>和</li></ul><p><img src="/blog/Pasted image 20220907220335.png" width=auto></p><p>$C: F(x, y) = 0$ について
+$$</p><ul><li>グラフ(一般性なし)</li><li>特異性 -> 無限遠点</li><li>和</li></ul><p><img src="../../../blog/Pasted image 20220907220335.png" width=auto></p><p>$C: F(x, y) = 0$ について
 $C$ が点 $(x_0, y_0)$ で非特異であるとは2つの偏微分 $\partial F/\partial x, \partial F/\partial y$ のうちの1つが $(x_0, y_0)$ で $0$ でないということである。$K&rsquo;$ が実数体 $\mathbb{R}$ であるとき $C$ がその点で接線を持つための条件と一致する。 $F(x, y) = y^2 - f(x)$ の場合、偏微分は $- f&rsquo;(x_0)$ と $2y_0$ である。2つの微分が同時に $0$ であるためには、 $y_0 = 0$ かつ $x_0$ は $f(x)$ の重解であることが必要十分である。この理由の為に楕円曲線の定義において、$f(x)$ が相違なる根を持つということを仮定したのである。つまり楕円曲線はすべての点において非特異である。</p><p>楕円曲線上の点全体に加えてその曲線上に存在すると考えたいきわめて重要な無限遠点と呼ばれるものがある。これは複素関数論において、複素平面に無限遠点を添加してリーマン球面を形成することと同じようなものである。このことを正確に扱う為に今、射影座標を導入する。</p><p>単項式 $x^iy^j$ の全次数(total degree) とは $i + j$ を意味する。多項式 $F(x,y)$ の全次数とは、 $0$ でない係数を持って出てくる単項式の全次数の最大値を意味する。$F(x,y)$ の全次数が $n$ のとき、対応する $3$ 変数の同次多項式 $\widetilde{F}(x,y,z)$ を $F(x,y)$ における各多項式 $x^iy^j$ に、 $x, y, z$ に関する全次数が $n$ になるように $z^{n-i-j}$ を掛けて得られる多項式と定義する。言い換えると</p><p>$$
 \widetilde{F}(x,y,z) = z^nF\left(\frac{x}{z}, \frac{y}{z}\right)
 $$</p><p>となる。例えば楕円曲線の1つ $F(x, y) = y^2 - (x^3 + ax + b)$</p><p>$$
@@ -36,7 +36,7 @@ $$</p><p>$\widetilde{F}(x, y, 1) = F(x, y)$ とか $\widetilde{F}(\lambda x,\lam
 $(x,y,z)$ の同値類
 ${(x,1,0)\\ |\\ x \in K}$ は $y = 1$ の直線と無限遠点 $(1,0,0)$ の和として視覚化できる。</p><p>和の定義
 群構造をなす証明</p><p>和の定義
-楕円曲線上の点 $P, Q$ に対し、直線 $PQ$ と曲線との交点の $y$ 座標を符号反転した点を $P + Q$ とします。</p><p><img src="/blog/Pasted image 20220907220413.png" width=auto></p><p>この定義を踏まえて、具体的に式を立てて計算すると $P(x_1, y_1), Q(x_2, y_2)$ として $R(x_3, y_3) = P + Q$ は次のように計算できます。ただし、$P = Q$ のときの直線 $PQ$ は曲線に対する点 $P$ の接線と考えます。</p><p>$$
+楕円曲線上の点 $P, Q$ に対し、直線 $PQ$ と曲線との交点の $y$ 座標を符号反転した点を $P + Q$ とします。</p><p><img src="../../../blog/Pasted image 20220907220413.png" width=auto></p><p>この定義を踏まえて、具体的に式を立てて計算すると $P(x_1, y_1), Q(x_2, y_2)$ として $R(x_3, y_3) = P + Q$ は次のように計算できます。ただし、$P = Q$ のときの直線 $PQ$ は曲線に対する点 $P$ の接線と考えます。</p><p>$$
 \begin{aligned}
 x_3 &= \lambda^2 - x_1 - x_2 \\ y_3 &= \lambda(x_1 - x_3) - y_1 \\ \lambda &=
 \begin{dcases}
@@ -63,7 +63,7 @@ $$</p><p>$$
 $$</p><p>$$
 \begin{aligned}
 \wp(z) &= \frac{1}{z^2} + \frac{g_2}{20}z^2 + \frac{g_3}{28}z^4 + \mathcal{O}(z^6) \\ \wp&rsquo;(z) &= -\frac{2}{z^3} + \frac{g_2}{10}z + \frac{g_3}{7}z^3 + \mathcal{O}(z^5) \\ \wp^3(z) &= \frac{1}{z^6} + \frac{3g_2}{20}\frac{1}{z^2} + \frac{3g_3}{28} + \mathcal{O}(z^2) \\ \wp&rsquo;^2(z) &= \frac{4}{z^6} - \frac{2g_2}{5}\frac{1}{z^2} - \frac{4g_3}{7} + \mathcal{O}(z^2) \\ \end{aligned}
-$$</p><p><img src="/blog/Pasted image 20220907220319.png" width=auto></p><p><img src="/blog/Pasted image 20220907220303.png" width=auto>
+$$</p><p><img src="../../../blog/Pasted image 20220907220319.png" width=auto></p><p><img src="../../../blog/Pasted image 20220907220303.png" width=auto>
 楕円関数体
 楕円曲線</p><a href=#ペアリング><h2 id=ペアリング><span class=hanchor arialabel=Anchor># </span>ペアリング</h2></a><p>weil pairing
 tate pairing
