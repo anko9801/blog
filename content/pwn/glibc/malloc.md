@@ -4,6 +4,8 @@ title: "glibc malloc"
 
 ## 説明
 
+malloc動画と呼ばれている [The 67th Yokohama kernel reading party - YouTube](https://www.youtube.com/watch?v=0-vWT-t0UHg) は必見です！
+
 glibc のデータ領域に main_arena
 malloc_state
 

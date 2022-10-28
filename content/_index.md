@@ -11,6 +11,8 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 競プロはライブラリ化されたものがよく出回ってるけど、CTF の方はほとんど閉じた場所でしか共有されてないよな～と思ったのであんこ(将来的に traP の CTF 班)が CTF に関するライブラリや CTF に必要な知識をまとめたものです。編集したい方は大歓迎です！気軽にプルリク投げてください～
 
+説明を読めば機能最小限の同じものを自作できること以上、研究的な部分は自分が面白いとか知識が整理されたなとか思えば載せます。
+
 これらは CC0 ライセンスとします。自由にコピペして OK です！
 
 ## 競プロ
@@ -135,7 +137,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
       - House of Storm
       - House of Force
 - Linux Kernel
-  - [テンプレート](./pwn/kernel_exploit.md)
+  - [テンプレート](kernel_exploit.md)
   - Kernel Code Reading
     - セキュリティ機構
   - カーネルモジュール
@@ -289,7 +291,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - 仮想化技術
   - [コンテナ仮想化技術](./other/Application/Container.md)
   - [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
-- [OS](./other/Application/OS.md)
+- [OS](OS.md)
 - サーバー
   - [RDBMS](./other/Application/Server/RDBMS.md)
   - [RDBMS 最適化](./other/Application/Server/rdbms-optimization.md)

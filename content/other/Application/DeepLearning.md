@@ -5,6 +5,7 @@ title: "ディープラーニング"
 ## モデル
 ### GPT
 ### BERT
+[Tiiiger/bert_score: BERT score for text generation (github.com)](https://github.com/Tiiiger/bert_score)
 ### Transformer
 [作って理解する Transformer / Attention - Qiita](https://qiita.com/halhorn/items/c91497522be27bde17ce)
 
