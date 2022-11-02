@@ -289,7 +289,8 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - マイクロアーキテクチャ
 - アーキテクチャ
 - 仮想化技術
-  - [コンテナ仮想化技術](./other/Application/Container.md)
+  - [エミュレータ](Emulator.md)
+  - [コンテナ仮想化技術](Container.md)
   - [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
 - [OS](OS.md)
 - サーバー
@@ -315,8 +316,8 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - Social Engineering
 - Car Hacking
 - 航空技術
-- [プログラミング言語](./other/Application/Programming.md)
-  - [型推論](./other/Application/Type.md)
+- [プログラミング言語](Programming.md)
+  - [型推論](Type.md)
   - 未定義動作
 - 電子回路
   - SPI
