@@ -7,17 +7,16 @@ title: "準同型暗号"
 - レベルnはn次方程式を計算できる
 - レベル2準同型なら乗算が1度だけ可能
 
-### Unpadded RSA
+## Unpadded RSA
 乗法準同型
 $$
 \begin{aligned}
-\mathcal{E}(m_1)\times\mathcal{E}(m_2) &= m_1^em_2^e \bmod n \\
-&= (m_1m_2)^e \bmod n \\
+\mathcal{E}(m_1)\times\mathcal{E}(m_2) &= m_1^em_2^e & \bmod n \\
+&= (m_1m_2)^e & \bmod n \\
 &= \mathcal{E}(m_1m_2)
 \end{aligned}
 $$
-
-### ElGamal暗号
+## ElGamal暗号
 乗法準同型
 $$
 \begin{aligned}
@@ -26,19 +25,19 @@ $$
 &= \mathcal{E}(m_1m_2)
 \end{aligned}
 $$
-### Paillier暗号
+## Paillier暗号
 加法準同型
 $$
 \begin{aligned}
-\mathcal{E}(m_1)\times\mathcal{E}(m_2) &= (g^{m_1}r_1^n)(g^{m_2}r_2^n) \bmod n^2 \\
-&= g^{m_1+m_2}(r_1r_2)^n \bmod n^2 \\
+\mathcal{E}(m_1)\times\mathcal{E}(m_2) &= (g^{m_1}r_1^n)(g^{m_2}r_2^n) & \bmod n^2 \\
+&= g^{m_1+m_2}(r_1r_2)^n & \bmod n^2 \\
 &= \mathcal{E}(m_1+m_2)
 \end{aligned}
 $$
-### 岡本・内山暗号
+## 岡本・内山暗号
 加法準同型
 
-### Lifted-ElGamal暗号
+## Lifted-ElGamal暗号
 レベル2準同型暗号
 位数 $p$ の楕円曲線 $E$, と生成元 $P\in E$
 秘密鍵 $s\in\mathbb{F}_p$ と公開鍵 $sP$
@@ -46,7 +45,6 @@ $$
 $c = (S, T)$ に対して $S-sT = (mP+rsP)-s(rP)=mP$ としDLPを解いて $m$ を得る
 
 加法準同型性
-
 $$
 \begin{aligned}
 \mathcal{E}(m_1)+\mathcal{E}(m_2) &= (m_1P+r_1sP,r_1P)+(m_2P+r_2sP,r_2P) \\
@@ -55,9 +53,7 @@ $$
 \end{aligned}
 $$
 乗法準同型性
-
 $\mathcal{E}(m_1)\times\mathcal{E}(m_2) := (e(S_1, S_2), e(S_1, T_2), e(T_1, S_2), e(T_1, T_2))$
-
 $$
 \begin{aligned}
 \mathcal{D}(c_1,c_2,c_3,c_4) &= \frac{c_1c_4^{s_1s_2}}{c_2^{s_2}c_3^{s_1}} = \frac{e(S_1,s_2)e(s_1T_1,s_2T_2)}{e(S_1,s_2T_2)e(s_1T_1,S_2)} \\
@@ -71,7 +67,7 @@ $$
 
 
 完全準同型 ex. Gentry, 格子ベース
-### Gentry
+## Gentry
 完全準同型
-### TFHE
+## TFHE
 完全準同型
