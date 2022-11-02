@@ -2,16 +2,15 @@
 title: "ツールチェーン"
 ---
 
+# toolchain
 
-## Compiler
-AST
+ツールチェーンとはソースコードを実行する一連の処理に必要なソフトウェアのこと。要はどんな開発にも必要なツールセットである。
 
-## Linker
+![[toolchain.svg]]
 
-## Loader
+## コンパイラ
 
-## assembler
-
+![[compiler.svg]]
 ## disassembler
 
 ## decompiler
