@@ -138,7 +138,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
       - House of Storm
       - House of Force
 - Linux Kernel
-  - [テンプレート](kernel_exploit.md)
+  - [テンプレート](./pwn/Kernel/kernel_exploit.md)
   - Kernel Code Reading
     - セキュリティ機構
   - カーネルモジュール
