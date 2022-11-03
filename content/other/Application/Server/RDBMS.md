@@ -282,6 +282,7 @@ tmpfs
 ### ORM O/Rマッパー
 開発効率を上げる為のSQLのラッパー(クエリービルダー)
 ex.) gorm
+[O/Rマッパーによるトラブルを未然に防ぐ (slideshare.net)](https://www.slideshare.net/kwatch/how-topreventorm-troubles)
 
 ### isolation level
 複数のトランザクションが1つのテーブルを操作するときの不整合についてどの程度許容するか

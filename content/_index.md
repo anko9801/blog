@@ -90,6 +90,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 ## 幾何
 
 - [幾何ライブラリ](./geometry/geometry.md)
+- 凸包
 - 偏角ソート
 
 ## 文字列
@@ -283,7 +284,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - デジタル回路
 - [CPU / GPU](./other/Application/Processor.md)
   - Spectre / Meltdown
-  - [TEE](./other/Circuit/TEE.md)
+  - [TEE](TEE.md)
   - [rootkit](./other/Circuit/Rootkit.md)
 - 論理
 - マイクロアーキテクチャ

@@ -87,3 +87,5 @@ Energy-aware scheduling(v5.0): スマートフォンなどで使われるbig.LIT
 - 処理性能が高いが消費電力が大きいCPU
 - 処理性能が低いが消費電力が小さいCPU
 重いタスクは前者に、軽いタスクは後者に実行させる。重いタスクがなければ全射のコアの動作周波数を下げたり、電源を切ったりすることによって消費電力を少なくするのが狙い。
+
+[A journey into the Linux scheduler | Maxgio's blog](https://blog.maxgio.me/posts/linux-scheduler-journey/)
