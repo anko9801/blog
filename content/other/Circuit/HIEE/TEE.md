@@ -6,6 +6,7 @@ Trusted Execution Environment: TEE とはプロセッサ上に隔離された実
 - Normal Mode
 - Secure Mode
 
+TEE の機能
 - OSやアプリケーションの改竄を検知
 - 公開鍵証明書による端末識別，認証
 - ストレージデータの安全な暗号化
@@ -15,7 +16,7 @@ Trusted Execution Environment: TEE とはプロセッサ上に隔離された実
 - Remote Attestation
 - ForeShadow
 - [IAIK/AEPIC (github.com)](https://github.com/IAIK/AEPIC)
-[Intel SGX - Remote Attestation概説 - Qiita](https://qiita.com/Cliffford/items/095b1df450583b4803f2)
+- [Intel SGX - Remote Attestation概説 - Qiita](https://qiita.com/Cliffford/items/095b1df450583b4803f2)
 
 ## ARM TrustZone
 - [Boomerang](https://github.com/ucsb-seclab/boomerang/)
