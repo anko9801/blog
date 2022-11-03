@@ -316,3 +316,6 @@ APを満たす -> Conflict-free replicated data type
 
 可換な操作のみ扱い、後でマージする -> ネットワークに繋がっていなくても操作可能！
 それぞれのDBがgitのブランチみたいな気持ち
+
+
+[Goにおける型によってSQLインジェクションを防ぐ方法 (zenn.dev)](https://zenn.dev/tenntenn/articles/b452911b4200ff#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB)

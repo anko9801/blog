@@ -38,3 +38,5 @@ TensorFlowのLambdaレイヤーで任意コード実行ができるので事前�
 Mitigation
 - 信頼できないドメインから入手した事前学習モデルを使用しない
 - サンドボックス内での実行
+
+[AIディフェンス研究所 (jpsec.ai)](https://jpsec.ai/)
