@@ -285,18 +285,18 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [CPU / GPU](./other/Application/Processor.md)
   - Spectre / Meltdown
   - HIEE
-    - [TEE](TEE.md)
-    - [TPM](TPM.md)
-    - [DRM](DRM.md)
+    - [TEE](./other/Circuit/HIEE/TEE.md)
+    - [TPM](./other/Circuit/HIEE/TPM.md)
+    - [DRM](./other/Circuit/HIEE/DRM.md)
   - [rootkit](./other/Circuit/Rootkit.md)
 - 論理
 - マイクロアーキテクチャ
 - アーキテクチャ
 - 仮想化技術
-  - [エミュレータ](Emulator.md)
-  - [コンテナ仮想化技術](Container.md)
+  - [エミュレータ](./other/Application/Virtualization/Emulator.md)
+  - [コンテナ仮想化技術](./other/Application/Virtualization/Container.md)
   - [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
-- [OS](OS.md)
+- [OS](./other/Application/OS/OS.md)
 - サーバー
   - [RDBMS](./other/Application/Server/RDBMS.md)
   - [RDBMS 最適化](./other/Application/Server/rdbms-optimization.md)
@@ -320,8 +320,8 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - Social Engineering
 - Car Hacking
 - 航空技術
-- [プログラミング言語](Programming.md)
-  - [型推論](Type.md)
+- [プログラミング言語](./other/Application/Programming/Programming.md)
+  - [型推論](./other/Application/Programming/Type.md)
   - 未定義動作
 - 電子回路
   - SPI
