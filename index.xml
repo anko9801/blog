@@ -102,11 +102,8 @@ USRP B205mini-i HackRF GNU Radioで遊ぶ超高速ディジタル無線スター
 ed448 ed25519
 Gnu Privacy Guard: GPG master key sub key Pritty Good Privacy: PGP鍵 GPGで自分用の秘密鍵を1つに統一する · JoeMPhilips</description></item><item><title>SSSA Attack</title><link>https://anko9801.github.io/blog/crypto/ECC/SSSA-Attack/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/crypto/ECC/SSSA-Attack/</guid><description>説明 $$ \newcommand{\calO}{\mathcal{O}} \newcommand{\FF}{\mathbb{F}} \newcommand{\tE}{\tilde{E}} \newcommand{\ZZ}{\mathbb{Z}} \newcommand{\QQ}{\mathbb{Q}} \DeclareMathOperator{\Ker}{Ker} \DeclareMathOperator{\ord}{ord} $$
 Definition $\FF_p$ 素数$p$に対して$p$個の元からなる有限体 素数$p$の剰余群 $\mathbb{Z}/p\mathbb{Z}$ $\mathbb{Q}_p$ p進数体 $27=2.</description></item><item><title>TEE</title><link>https://anko9801.github.io/blog/other/Circuit/HIEE/TEE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Circuit/HIEE/TEE/</guid><description>Trusted Execution Environment: TEE とはプロセッサ上に隔離された実行環境を用意することでセキュリティを高める技術です。
-Normal Mode
-Secure Mode
-OSやアプリケーションの改竄を検知
-公開鍵証明書による端末識別，認証
-ストレージデータの安全な暗号化</description></item><item><title>TFHE (Torus Fully Homomorphic Encryption)</title><link>https://anko9801.github.io/blog/crypto/Lattice/TFHE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/crypto/Lattice/TFHE/</guid><description>説明 完全準同型暗号の1つ
+Normal Mode Secure Mode TEE の機能
+OSやアプリケーションの改竄を検知 公開鍵証明書による端末識別，認証 ストレージデータの安全な暗号化 ほぼほぼ暗号化処理をするため, 秘密鍵をそこにppm Intel SGX Remote Attestation ForeShadow IAIK/AEPIC (github.</description></item><item><title>TFHE (Torus Fully Homomorphic Encryption)</title><link>https://anko9801.github.io/blog/crypto/Lattice/TFHE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/crypto/Lattice/TFHE/</guid><description>説明 完全準同型暗号の1つ
 完全なる Zero Trust なサーバーを作れる。
 参考 セキュキャンの資料</description></item><item><title>Tour of Lattice</title><link>https://anko9801.github.io/blog/crypto/Lattice/tour_of_Lattice/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/crypto/Lattice/tour_of_Lattice/</guid><description>格子暗号を極める！ 無限工事編
 はじめに // TODO 説明 耐量子暗号です！あとはセキュキャンで話題のTFHEとか紹介したいな

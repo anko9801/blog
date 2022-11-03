@@ -26,11 +26,8 @@ $((a\land\lnot b\land\lnot c)\lor(b\land c\land\lnot d))\land(\lnot b\lor\lnot c
 ![[Pasted image 20220924223810.png]]
 GNU Radio
 USRP B205mini-i HackRF GNU Radioで遊ぶ超高速ディジタル無線スタータキット “USRP B205mini-i” (zep.co.jp)</description></item><item><title>TEE</title><link>https://anko9801.github.io/blog/other/Circuit/HIEE/TEE/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Circuit/HIEE/TEE/</guid><description>Trusted Execution Environment: TEE とはプロセッサ上に隔離された実行環境を用意することでセキュリティを高める技術です。
-Normal Mode
-Secure Mode
-OSやアプリケーションの改竄を検知
-公開鍵証明書による端末識別，認証
-ストレージデータの安全な暗号化</description></item><item><title>TPM</title><link>https://anko9801.github.io/blog/other/Circuit/HIEE/TPM/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Circuit/HIEE/TPM/</guid><description>TPM 2.0 TPM (Trusted Platform Module)
+Normal Mode Secure Mode TEE の機能
+OSやアプリケーションの改竄を検知 公開鍵証明書による端末識別，認証 ストレージデータの安全な暗号化 ほぼほぼ暗号化処理をするため, 秘密鍵をそこにppm Intel SGX Remote Attestation ForeShadow IAIK/AEPIC (github.</description></item><item><title>TPM</title><link>https://anko9801.github.io/blog/other/Circuit/HIEE/TPM/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Circuit/HIEE/TPM/</guid><description>TPM 2.0 TPM (Trusted Platform Module)
 暗号化用アルゴリズムエンジン、ハッシュエンジン、鍵生成器、乱数生成器、不揮発性メモリ(鍵などを保管)などを備えたモジュールで、TPM内への暗号キーの作成や使用制限をするために利用される。
 TPM (Trust) ハードウェアとして開発
 Windows BitLocker A Bad Dream TPM 2.</description></item><item><title>ZIP</title><link>https://anko9801.github.io/blog/other/Application/Structure/ZIP/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Structure/ZIP/</guid><description>1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 [local file header 1] [file data 1] [data descriptor 1] .</description></item><item><title>エミュレータ</title><link>https://anko9801.github.io/blog/other/Application/Virtualization/Emulator/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Virtualization/Emulator/</guid><description>エミュレータとはハードウェアをソフトウェアで再現するプログラム。</description></item><item><title>コンテナ仮想化技術</title><link>https://anko9801.github.io/blog/other/Application/Virtualization/Container/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Virtualization/Container/</guid><description>マルチステージビルド ビルド環境と実行環境のコンテナを分けることでサイズを抑えられる.
