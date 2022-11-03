@@ -27,7 +27,7 @@ Project ZeroはSpectre見つけた
 
 ### Android KeyStore
 Android の SoC には ARM TrustZone があり、その上で KeyStore を動かしている.
-androidのFull Disk EncryptionをTEEを介さずにdecrypt.  FBIでもできなかった
+Android の Full Disk Encryption を TEE を介さずに Decrypt.  FBIでもできなかった
 - [Bits, Please!: Extracting Qualcomm's KeyMaster Keys - Breaking Android Full Disk Encryption (bits-please.blogspot.com)](http://bits-please.blogspot.com/2016/06/extracting-qualcomms-keymaster-keys.html)
 
 ## RISC-V Keystone

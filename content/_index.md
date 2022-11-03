@@ -284,7 +284,10 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - デジタル回路
 - [CPU / GPU](./other/Application/Processor.md)
   - Spectre / Meltdown
-  - [TEE](TEE.md)
+  - HIEE
+    - [TEE](TEE.md)
+    - [TPM](TPM.md)
+    - [DRM](DRM.md)
   - [rootkit](./other/Circuit/Rootkit.md)
 - 論理
 - マイクロアーキテクチャ
