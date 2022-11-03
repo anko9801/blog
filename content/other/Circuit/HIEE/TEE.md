@@ -19,11 +19,9 @@ Enclave では Ring 3 でしか動作しない, つまり syscall が使えな�
 ![[Pasted image 20220927024448.png]]
 
 - [Intel SGX入門 - SGX基礎知識編 - Qiita](https://qiita.com/Cliffford/items/2f155f40a1c3eec288cf)
-- [Graphene-SGX](https://www.usenix.org/system/files/conference/atc17/atc17-tsai.pdf)
-- [IAIK/AEPIC (github.com)](https://github.com/IAIK/AEPIC)
 
 ### Remote Attestation
-
+ECDH
 - [Intel SGX - Remote Attestation概説 - Qiita](https://qiita.com/Cliffford/items/095b1df450583b4803f2)
 
 ### Foreshadow
@@ -34,9 +32,11 @@ L1データキャッシュに存在するデータならなんでも読み取る
 ### AEPIC Leak
 最初のアーキテクチャ由来のCPUのバグ. インテル製10~12世代のCPUの脆弱性を利用して, プロセッサ本体から機密情報を漏洩させる。APIC MMIOでの未定義範囲のアクセスによりキャッシュ階層から古いデータを参照できる。APIC MMIOのアクセスには管理者権限が必要であるから安全であるが, Intel SGXのような管理者権限を持つ攻撃者からデータを守るようなシステムはリスクとなる。
 未初期化メモリの読み取りのようなもの
+- [元論文](https://aepicleak.com/aepicleak.pdf)
+- https://github.com/IAIK/AEPIC
 
-[元論文](https://aepicleak.com/aepicleak.pdf)
-https://github.com/IAIK/AEPIC
+### Graphene-SGX
+- [Graphene-SGX](https://www.usenix.org/system/files/conference/atc17/atc17-tsai.pdf)
 
 ## ARM TrustZone
 Cortex-A シリーズの拡張機能
