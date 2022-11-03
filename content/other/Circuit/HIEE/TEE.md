@@ -13,10 +13,9 @@ TEE の機能
 - ほぼほぼ暗号化処理をするため, 秘密鍵をそこにppm
 
 ## Intel SGX
-- Remote Attestation
-- ForeShadow
-- [IAIK/AEPIC (github.com)](https://github.com/IAIK/AEPIC)
 - [Intel SGX - Remote Attestation概説 - Qiita](https://qiita.com/Cliffford/items/095b1df450583b4803f2)
+- [IAIK/AEPIC (github.com)](https://github.com/IAIK/AEPIC)
+- ForeShadow
 
 ## ARM TrustZone
 - [Boomerang](https://github.com/ucsb-seclab/boomerang/)
