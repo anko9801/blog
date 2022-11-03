@@ -14,6 +14,10 @@ title: "Network"
 ## TCP/IP
 ### TCP BBR
 
+### QUIC
+[shigeki/ask_nishida_about_quic_jp: QUICトランスポート機能に関して tcpm/mptcp wg chair の西田先生にいろいろ聞いてみる会 (github.com)](https://github.com/shigeki/ask_nishida_about_quic_jp)
+[aws/s2n-quic: An implementation of the IETF QUIC protocol (github.com)](https://github.com/aws/s2n-quic)
+
 ## Network Interface Card: NIC
 
 ## Data Plane Development Kit: DPDK
