@@ -2,8 +2,6 @@
 title: "SAT SMT"
 ---
 
-
-
 ## SAT
 SAT (SATisfiability Problem)
 SATを解くには指数時間掛かると信じられている. 指数時間の中でも高速化していく技術を学ぶ.
@@ -11,7 +9,6 @@ SATを解くには指数時間掛かると信じられている. 指数時間の
 $((a\land\lnot b\land\lnot c)\lor(b\land c\land\lnot d))\land(\lnot b\lor\lnot c) \to (a,b,c,d)=(t,f,f,t)$
 
 ### 単純な探索
-
 まずは SAT に関する全探索を考える. 以下の方法は DPLL (Davis Putnam Logemann Loveland) アルゴリズムと呼ばれている.
 リテラルが1つしかない節を単位節と呼ぶ.
 
@@ -61,6 +58,7 @@ CDCL (Constrait-Driven Clause Learning) アルゴリズム
 殆どのSATソルバは連言標準形(CNF)を入力として受け取る.
 任意の命題論理式をCNFに変換する為のアルゴリズム(Tseitin Encoding)
 CNFの入力形式 DIMACS
+
 ### Tseitin Encoding
 $$
 \begin{aligned}
@@ -76,6 +74,13 @@ x_2\leftrightarrow p\lor q &= (x_2\to(p\lor q))\land((p\lor q)\to x_2) \\
 &= (\lnot x_2\lor p\lor q)\land(\lnot p\lor x_2)\land(\lnot q\lor x_2) \\
 \end{aligned}
 $$
+
+### Tableaux
+SAT において恒真命題, 矛盾命題について考える
+1955年に Evert William Beth によって提案, Raymond Smullyan が analytic tableau へ発展させた。
+**Tableauxの基礎** 
+**Propositional Tableaux** 
+**First-Order Tableaux** 
 
 ## SMT
 SMT ソルバ全般
