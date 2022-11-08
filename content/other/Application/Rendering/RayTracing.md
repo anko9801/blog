@@ -143,7 +143,7 @@ P(\phi\mid\theta) &= \int_0^\phi p(\phi\mid\theta)dt = \frac{\phi}{2\pi} & P_\ph
 \end{aligned}
 $$
 
-となるので $\theta, \phi$ のサンプルは乱数 $u, v$ を用いて
+となるので $\theta, \phi$ のサンプルは乱数 $u, v$ を用いて次のように計算すればよい。
 
 $$
 \begin{dcases}
@@ -152,7 +152,7 @@ $$
 \end{dcases}
 $$
 
-と計算すればよい。これを方向ベクトルとするには
+ちなみに極座標系から直交座標系に戻すには以下の式に代入すればよい。
 
 $$
 \begin{dcases}
@@ -161,8 +161,6 @@ y = \cos\theta \\
 z = \sin\theta\sin\phi
 \end{dcases}
 $$
-
-とする。
 
 ### 完全鏡面反射モデル
 反射についての関係式は次のようになる。

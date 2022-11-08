@@ -27,72 +27,69 @@ TODO: なぜここで型を説明するのか
 
 ### データの表現方法
 - 直積型 $A_1\times A_2$
-ex.) 構造体, メソッドのないクラス, 配列, Vectorなど
+	- ex.) 構造体, メソッドのないクラス, 配列, Vectorなど
 - 直和型 $A_1+A_2$
-ex.) Rustのenum
+	- ex.) Rustのenum
 - ユニオン型 $A_1\cup A_2$
-直和型とほぼ同じであるが、反例としてすべての型に null や undefined などがある TypeScript は直和型と同値ではない。
-ex.) Cのunion
+	- 直和型とほぼ同じであるが、反例としてすべての型に null や undefined などがある TypeScript は直和型と同値ではない。
+	- ex.) Cのunion
 - 篩型 (refinement types) $\{x\in A\mid P(x)\}$
-データに制約を持たせることができる。
-実装を篩型に分け与えてシンプルに出来る
-ex.) Liquid Haskell
+	- データに制約を持たせることができる。
+	- 実装を篩型に分け与えてシンプルに出来る
+	- ex.) Liquid Haskell
 
 ### ロジックの表現方法
 - 関数型 $f\colon A_1\to A_2 \to\ldots\to A_n \to R$
-カリー化
+	- カリー化
 - クラス $(A, f_1,\ldots,f_n)\,\mbox{s.t.}\,f_i\colon A\to\ldots\to R$
 
 ### 型の順序
 順序、数でいう不等号を型に与えます。
 
-- 関数と型の集合の部分集合として定義できる
-部分型
-$A_1 \subset A_1\cup A_2$
-$A_1 \subset A_1\times A_2$
-$(f_1, f_2) \subset (f_1)$
+- 部分型
+	- 関数と型の集合の部分集合として定義できる
+	- $A_1 \subset A_1\cup A_2$
+	- $A_1 \subset A_1\times A_2$
+	- $(f_1, f_2) \subset (f_1)$
 
+部分型の性質
 - 共変性 $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
 - 反変性 $A_1 \subset A_2 \implies I[A_1] \supset I[A_2]$
-関数の引数
-Goの継承とかが分かりやすいかな
-$A_1\to R \supset A_2\to R$
-`type X interface {F()}`
-`type Y interface {F();G()}`
-YがXのサブタイプ
+	- 関数の引数
+	- Goの継承とかが分かりやすいかな
+	- $A_1\to R \supset A_2\to R$
+	- `type X interface {F()}`
+	- `type Y interface {F();G()}`
+	- YがXのサブタイプ
 - 双対性 共変かつ反変
-- 非変性 どれでもない
+- 非変性 共変でも反変でもない
 
 ### 型の構成と分類
 - 依存型 $\Pi_{x\colon A}B(x)$
 - 依存和型 $\sum_{x\colon A}B(x)$
 - 型演算子
-多相カインドのこと
+	- 多相カインドの抽象化
 - 型クラス trait $\{A\in\mathcal{U}\mid f_1,\ldots,f_n \in A\}$
 - Row Type
 
 ### 型の意味を捉える
 - モナド
-自己関手の圏におけるモノイド対象
-`(>>=) :: m a -> (a -> m b) -> m b`
-`(>=>) :: (a -> m b) -> (b -> m c) -> (a -> m c)`
-`f >=> g = \x -> f x >>= g`
-`f :: a -> m a`
-Effモナド
-Affモナド
-Free モナド
+	- 自己関手の圏におけるモノイド対象
+	- `(>>=) :: m a -> (a -> m b) -> m b`
+	- `(>=>) :: (a -> m b) -> (b -> m c) -> (a -> m c)`
+	- `f >=> g = \x -> f x >>= g`
+	- `f :: a -> m a`
+	- Effモナド
+	- Affモナド
+	- Free モナド
 - コモナド
 
-型レベル○○
-型を用いてある代数と同値な型を定義すること
-型レベル自然数
-例えば $A_0 = A$, $A_{n+1}=A_0\times \ldots\times A_n$ と定義すると加算、減算、乗算、順序などを埋め込むことができ、自然数と同型な代数となる。
-型レベル文字列
-TypeScript にはもともとある。この依存型
-
-### 継続
-#### Continuation-Passing Style: CPS変換
-#### call/cc
+- 型レベル○○
+	- 型を用いてある代数と同値な型を定義すること
+	- 型レベル自然数
+		- 例えば $A_0 = A$, $A_{n+1}=A_0\times \ldots\times A_n$ と定義すると加算、減算、乗算、順序などを埋め込むことができ、自然数と同型な代数となる。
+	- 型レベル文字列
+		- TypeScript にはもともとある
 
 ## 第二章 内部実装
 コード解析などで解決する問題はよくNP完全な問題であることが多い。
@@ -100,61 +97,77 @@ TypeScript にはもともとある。この依存型
 
 ### Stack & Heap
 
-### 関数の実装
+### 関数
+generator
+
+### 継続
+- Continuation-Passing Style: CPS変換
+- call/cc
 
 ### 多相性 (polymorphism)
 具体的に依存型を実装する多相性を紹介する。
-アドホック多相 (ad hoc polymorphism)
-オーバーロード
-パラメータ多相 (parametric polymorphism)
-静的に呼び出された関数の引数の型を解析して自動で実装する
-サブタイピング多相 (subtyping polymorphism)
-クラスの継承 オーバーライド
+- アドホック多相 (ad hoc polymorphism)
+	- オーバーロード
+- パラメータ多相 (parametric polymorphism)
+	- 静的に呼び出された関数の引数の型を解析して自動で実装する
+- サブタイピング多相 (subtyping polymorphism)
+	- クラスの継承 オーバーライド
+	- vtable
 
 これらの実装にはディスパッチを用いる
-静的ディスパッチ
-動的ディスパッチ
+- 静的ディスパッチ
+- 動的ディスパッチ
 
 ### JIT
+実行時に中間言語から
 
 ### 最適化
 現代の主要なコンパイラの最適化は巨大となっているが最もクリティカルな8つの最適化を実装すれば最大80%の性能まで向上する。
 
 SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ理論を持ち込んでより深い最適化を考えられる。
 
-#### インライン展開
-#### ループ展開, ベクトル化
-#### 共通部分式除去 (CSE; Common Subexpression Elimination)
-#### デッドコード除去 (DCE; Dead Code Elimination)
-#### コード移動
-#### 定数畳み込み (Constant Fold)
-#### Peephole最適化
+- インライン展開
+- ループ展開, ベクトル化
+- 共通部分式除去 (CSE; Common Subexpression Elimination)
+- デッドコード除去 (DCE; Dead Code Elimination)
+- コード移動
+- 定数畳み込み (Constant Fold)
+- Peephole最適化
 
 [CompilerTalkFinal (venge.net)](http://venge.net/graydon/talks/CompilerTalk-2019.pdf)
 
-### toolchain リンカ・ローダ
-toolchainで紹介する。
-
 ### 動的ライブラリ
+glibc
 
 
-## 第三章 わかりやすいとミスカバー
+## 第三章 開発体験
 思想が混じりやすい話題なので極力様々な意見を取り込むべき
 
-わかりやすい 階層構造と情報隠蔽
-ミスカバー コンパイルエラー
+開発体験が良い状態とは, 短期的にも長期的にも最短時間でコードを読み, 書くことができることとする. これには2つの軸で考える.
 
-階層構造 import classの継承
-情報隠蔽 カプセル化 private public
+- わかりやすさ
+- フェイルセーフ
 
-abstraction leak
-うまく抽象化したつもりでも、どこかに必ず漏れが出てきてしまう
+これに対して以下のような問題を考えることが出来る.
 
-Result<Vec<>>
-Vec<Result<>>
+- Abstraction leak
+	- うまく抽象化したつもりでも、どこかに必ず漏れが出てきてしまう
+- 幾何的, 編集距離
+
+これを解決するには次のような方法がある.
+
+- 階層構造
+	- import classの継承
+- 情報隠蔽
+	- カプセル化 private public
+- 依存性注入
+- 情報の粗密, 独立性
+- 具体的で正確で簡潔な文章
+- 一貫性
+- エコシステム
+- パターン
 
 ### オブジェクト指向
-
 カプセル化 getter/setter
 本来は、値引き判定のロジックをどのオブジェクトに配するかを決めるにあたって、どのような知識を隠蔽すべきか、あるいは裏返して言えば、どのような知識は開示して構わないかという点に思いをめぐらすべきでした。
 解決策は、「データとロジックを一体に」という、どちらかというとゲームのルールのような具体的で単純なルールから視点を引き上げ、「情報隠蔽（＝知識隠蔽）」のような、より本質的な、目的志向的な設計原則に立ち帰って考えることです。
@@ -163,17 +176,29 @@ Vec<Result<>>
 Visitorパターン
 
 ### 関数型言語
-
 2階で十分なぜか
 
-編集距離
-幾何的
-
-デバッグ
+### エコシステム
+- 静的解析
+	- LSP (補完, ハイライト, 定義ジャンプ, 型チェックなど)
+	- formatter, linter
+	- コード生成
+	- 脆弱性スキャン
+	- コールグラフ
+- 動的解析
+	- デバッガ
+	- プロファイラ
+	- fuzzer
+	- Concolic Execution
+- テスト
+	- CI/CD
+- VSCode拡張機能
+- パッケージマネージャ
+- ランタイム
+- FFI
+- ライブラリ
 
 ## 第四章 Immutable, Lifetime, Concurrency
-機能
-並列プログラミングは
 ErlangVM
 
 Concurrency
@@ -194,9 +219,9 @@ async iterator
 - Arc/Rc
 
 意味論
-happens-before 実行順序
-data race free
-sequentially consistent atomics(素直なatomics)
-- Javaのvolatile, C++のdefault atomics, Goのsync/atomic, JavaScript
+- happens-before 実行順序
+- data race free
+- sequentially consistent atomics(素直なatomics)
+	- Javaのvolatile, C++のdefault atomics, Goのsync/atomic, JavaScript
 
 ## 第五章
