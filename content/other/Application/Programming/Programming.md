@@ -41,7 +41,7 @@ TODO: なぜここで型を説明するのか
 ### ロジックの表現方法
 - 関数型 $f\colon A_1\to A_2 \to\ldots\to A_n \to R$
 	- カリー化
-- クラス $(A, f_1,\ldots,f_n)\,\mbox{s.t.}\,f_i\colon A\to\ldots\to R$
+- クラス $(A, f_1,\ldots,f_n)\,\text{s.t.}\,f_i\colon A\to\ldots\to R$
 
 ### 型の順序
 順序、数でいう不等号を型に与えます。
