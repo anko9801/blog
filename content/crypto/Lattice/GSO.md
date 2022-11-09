@@ -56,9 +56,9 @@ $$
 
 $$
 \begin{aligned}
-\langle\mathbf{b}_ i^ * , \mathbf{b} _ {j+1}^ * \rangle &= \left\langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1} - \sum _ {k=1}^j\mu_{j+1, k}\mathbf{b} _ {k}^* \right\rangle \\
-&= \langle\mathbf{b}_i^ * , \mathbf{b} _ {j+1}\rangle - \mu_{j+1,i}\langle\mathbf{b} _ i^ * , \mathbf{b}_{i}^*\rangle \\
-&= \langle\mathbf{b} _ i^ * , \mathbf{b}_{j+1}\rangle - \frac{\langle \mathbf{b} _ {j+1}, \mathbf{b}_i^ * \rangle}{\| \mathbf{b} _ i^* \|^2}\|\mathbf{b} _ i^ * \|^2 \\
+\langle\mathbf{b}_ i^*, \mathbf{b} _ {j+1}^ * \rangle &= \left\langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1} - \sum _ {k=1}^j\mu _ {j+1, k}\mathbf{b} _ {k}^ * \right\rangle \\
+&= \langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1}\rangle - \mu _ {j+1,i}\langle\mathbf{b} _ i^ * , \mathbf{b} _ {i}^ * \rangle \\
+&= \langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1}\rangle - \frac{\langle \mathbf{b} _ {j+1}, \mathbf{b} _ i^ * \rangle}{\| \mathbf{b} _ i^ * \|^2}\|\mathbf{b} _ i^* \|^2 \\
 &= 0
 \end{aligned}
 $$
