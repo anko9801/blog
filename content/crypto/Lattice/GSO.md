@@ -4,9 +4,11 @@ title: "Gram-Schmidt 直交化"
 
 ## 説明
 
-Gram-Schmidt 直交化 (GSO; Gram-Schmidt Orthonormalization) とは実 $m$ 次元ベクトル空間 $\mathbb{R}^m$ の任意の $\mathbb{R}$ ベクトル空間としての基底を直交基底に変換する方法である. イメージは [グラム・シュミットの正規直交化法のWikipedia](https://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%A9%E3%83%A0%E3%83%BB%E3%82%B7%E3%83%A5%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E6%AD%A3%E8%A6%8F%E7%9B%B4%E4%BA%A4%E5%8C%96%E6%B3%95) のgifがわかりやすいです。$\mathbf{b} _ n$ の直交化は $\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n-1}$ すべてと直行するように元の高さのまま移動させる。
+Gram-Schmidt 直交化 (GSO; Gram-Schmidt Orthonormalization) とは実 $m$ 次元ベクトル空間 $\mathbb{R}^m$ の任意の $\mathbb{R}$ ベクトル空間としての基底を直交基底に変換する方法です. $\mathbf{b} _ n$ の直交化は $\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n-1}$ すべてと直交するように元の高さのまま移動させます. [GSOのWikipedia](https://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%A9%E3%83%A0%E3%83%BB%E3%82%B7%E3%83%A5%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E6%AD%A3%E8%A6%8F%E7%9B%B4%E4%BA%A4%E5%8C%96%E6%B3%95) のgifがわかりやすいです.
 
-**Definition** (GSOベクトル) $n$ 次元格子 $L\subseteq \mathbb{R}^m$ の順序付き基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対するGSOベクトル $\mathbf{b} _ {1}^* ,\ldots, \mathbf{b} _ {n}^ *\in\mathbb{R}^m$ を次のように定義する. また $\mu _ {i,j}$ をGSO係数と呼ぶ.
+**Definition** (GSOベクトル)
+
+$n$ 次元格子 $L\subseteq \mathbb{R}^m$ の順序付き基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対するGSOベクトル $\mathbf{b} _ {1}^* ,\ldots, \mathbf{b} _ {n}^ *\in\mathbb{R}^m$ を次のように定義する. また $\mu _ {i,j}$ をGSO係数と呼ぶ.
 
 $$
 \begin{aligned}
