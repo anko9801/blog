@@ -8,15 +8,13 @@ Gram-Schmidt 直交化 (GSO; Gram-Schmidt Orthonormalization) とは実 $m$ 次�
 
 **Definition** (GSOベクトル) $n$ 次元格子 $L\subseteq \mathbb{R}^m$ の順序付き基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対するGSOベクトル $\mathbf{b} _ {1}^* ,\ldots, \mathbf{b} _ {n}^ *\in\mathbb{R}^m$ を次のように定義する. また $\mu _ {i,j}$ をGSO係数と呼ぶ.
 
-$$
-\begin{aligned}
+$$\begin{aligned}
 &\begin{dcases}
 \mathbf{b}_1^* := \mathbf{b}_1 \\
 \mathbf{b}_i^* := \mathbf{b}_i - \sum_{j=1}^{i-1} \mu_{i, j}\mathbf{b}_j^* & (2\leq i\leq n) \\
 \end{dcases} \\
 &\quad\mu_{i, j} := \frac{\langle \mathbf{b}_i, \mathbf{b}_j^* \rangle}{\| \mathbf{b}_j^* \|^2} \qquad (1\leq j<i\leq n)
-\end{aligned}
-$$
+\end{aligned}$$
 
 行列を用いて表現すると次のように(要詳細) $B, B^* , U$ を定義したとき $B = UB^ *$ が成り立つと書ける.
 
