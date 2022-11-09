@@ -73,43 +73,43 @@ TODO: なぜここで型を説明するのか
 - Row Type
 
 ### 型の意味を捉える
-- モナド
-	- 自己関手の圏におけるモノイド対象
-	- `(>>=) :: m a -> (a -> m b) -> m b`
-	- `(>=>) :: (a -> m b) -> (b -> m c) -> (a -> m c)`
-	- `f >=> g = \x -> f x >>= g`
-	- `f :: a -> m a`
-	- Effモナド
-	- Affモナド
-	- Free モナド
-- コモナド
+- モナド/コモナド
+	- 簡潔な状態操作ができる
 
-- 型レベル○○
-	- 型を用いてある代数と同値な型を定義すること
-	- 型レベル自然数
-		- 例えば $A_0 = A$, $A_{n+1}=A_0\times \ldots\times A_n$ と定義すると加算、減算、乗算、順序などを埋め込むことができ、自然数と同型な代数となる。
-	- 型レベル文字列
-		- TypeScript にはもともとある
+型レベル○○
+- 型を用いてある代数と同値な型を定義すること
+- 型レベル自然数
+	- 例えば $A_0 = A$, $A_{n+1}=A_0\times \ldots\times A_n$ と定義すると加算、減算、乗算、順序などを埋め込むことができ、自然数と同型な代数となる。
+- 型レベル文字列
+	- TypeScript にはもともとある
 
 ## 第二章 内部実装
-コード解析などで解決する問題はよくNP完全な問題であることが多い。
-内部実装を理解すれば、よりよい言語というのが分かってくるだろう。
+コード解析などで解決する問題はよくNP完全な問題であることが多い。しかし何がNP完全で何がそうではないか区別する技術を持つ人は少ないと思う。
+また内部実装を理解すれば、よりよい言語というのが分かってくるだろう。
 
-### Stack & Heap
+よりよい言語を知る為だけに必要な内部実装とはどこまでなのか？それには今までのプログラミング言語の歴史なしで考えることはできない。私は低レイヤを抽象化し, ロジックに注目できるように改善されてきたと考えている。その為, ゼロコスト抽象化ができるかどうかの境界からが説明を与えるのに妥当であろう。
+
+### メモリ領域
+ユーザーに渡されるメモリはローダによって以下のように分けられている。
+- データ領域
+- スタック領域
+- ヒープ領域
+- コード領域
 
 ### 関数
-generator
+関数というかアセンブリ言語そのものを説明するかも。
+- 関数
+- generator
+- 継続
+	- Continuation-Passing Style: CPS変換
+	- call/cc
 
-### 継続
-- Continuation-Passing Style: CPS変換
-- call/cc
-
-### 多相性 (polymorphism)
+### 多相性 (Polymorphism)
 具体的に依存型を実装する多相性を紹介する。
 - アドホック多相 (ad hoc polymorphism)
 	- オーバーロード
 - パラメータ多相 (parametric polymorphism)
-	- 静的に呼び出された関数の引数の型を解析して自動で実装する
+	- 静的に呼び出された関数の引数の型を解析して自動で実装する。
 - サブタイピング多相 (subtyping polymorphism)
 	- クラスの継承 オーバーライド
 	- vtable
@@ -118,26 +118,47 @@ generator
 - 静的ディスパッチ
 - 動的ディスパッチ
 
-### JIT
-実行時に中間言語から
+これ説明するならC++やRustだけではなくHaskellやScalaの内部実装を見ておきたい.
 
-### 最適化
-現代の主要なコンパイラの最適化は巨大となっているが最もクリティカルな8つの最適化を実装すれば最大80%の性能まで向上する。
+### 最適化 (Optimization)
+コンパイラが行う最適化処理は低レイヤに依存するものが多い. その点, アーキテクチャの抽象化とも言える. それよりコードの読みやすさと高速化には相反する場合がよくある.
+
+何を最適化するのか?
+最適化の方法
 
 SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ理論を持ち込んでより深い最適化を考えられる。
 
+現代の主要なコンパイラの最適化は巨大となっているが, 最もクリティカルな8つの最適化さえ実装すれば最大80%の性能まで向上する。
+
 - インライン展開
 - ループ展開, ベクトル化
+	- ループを展開する
+	- 利点
+		- 分岐が減る
+		- 命令レベルの並列化を行える
+	- 欠点
+		- キャッシュミスの増加
+		- ループ内に複雑な制御フローが含まれていると分岐予測が当たりづらくなる
 - 共通部分式除去 (CSE; Common Subexpression Elimination)
 - デッドコード除去 (DCE; Dead Code Elimination)
+	- よく定数畳み込みをすると命令列が"死ぬ"ことがある. 実行時に1度も到達できないコードをデッドコードと呼び, それらは削除できる.
 - コード移動
-- 定数畳み込み (Constant Fold)
+- 定数畳み込み, 定数伝播 (Constant Fold, Constant Propagation)
+	- コンパイル時に定数の計算をする
 - Peephole最適化
 
-[CompilerTalkFinal (venge.net)](http://venge.net/graydon/talks/CompilerTalk-2019.pdf)
+資料
+- [CompilerTalkFinal (venge.net)](http://venge.net/graydon/talks/CompilerTalk-2019.pdf)
+- [A Catalogue of Optimizing Transformations (rice.edu)](https://www.clear.rice.edu/comp512/Lectures/Papers/1971-allen-catalog.pdf)
 
-### 動的ライブラリ
-glibc
+JIT (Just In Time Compiler)
+- 実行時に中間言語から
+
+### ライブラリ (Library)
+下のことを気にしないで開発できる.
+- 静的ライブラリ
+- 動的ライブラリ
+	- glibc
 
 
 ## 第三章 開発体験
@@ -153,6 +174,7 @@ glibc
 - Abstraction leak
 	- うまく抽象化したつもりでも、どこかに必ず漏れが出てきてしまう
 - 幾何的, 編集距離
+- バグ
 
 これを解決するには次のような方法がある.
 
@@ -167,6 +189,7 @@ glibc
 - 一貫性
 - エコシステム
 - パターン
+- Immutable, Lifetime
 
 ### オブジェクト指向
 カプセル化 getter/setter
@@ -199,7 +222,7 @@ Visitorパターン
 - FFI
 - ライブラリ
 
-## 第四章 Immutable, Lifetime, Concurrency
+## 第四章 Concurrency
 ErlangVM
 
 Concurrency
@@ -224,5 +247,3 @@ async iterator
 - data race free
 - sequentially consistent atomics(素直なatomics)
 	- Javaのvolatile, C++のdefault atomics, Goのsync/atomic, JavaScript
-
-## 第五章
