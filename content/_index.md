@@ -284,10 +284,10 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - デジタル回路
 - [CPU / GPU](./other/Application/Processor.md)
   - Spectre / Meltdown
-  - HIEE
-    - [TEE](./other/Circuit/HIEE/TEE.md)
-    - [TPM](./other/Circuit/HIEE/TPM.md)
-    - [DRM](./other/Circuit/HIEE/DRM.md)
+  - HIEE; Hardware-assisted Isolated Execution Environments
+    - [TEE; Trusted Execution Environment](./other/Circuit/HIEE/TEE.md)
+    - [TPM; Trusted Platform Module](./other/Circuit/HIEE/TPM.md)
+    - [DRM; Digital Rights Management](./other/Circuit/HIEE/DRM.md)
   - [rootkit](./other/Circuit/Rootkit.md)
 - 論理
 - マイクロアーキテクチャ
