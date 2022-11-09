@@ -14,6 +14,7 @@ title: "任意Modint"
 | 平方根   $\sqrt{a}$    | Tonelli Shanksのアルゴリズム  | $O(\log^2 N)$   |
 | 累乗根   $\sqrt[e]{a}$ | Tonelli Shanksのアルゴリズム     | $O(\min(N^{1/4},\sqrt{e})\log{e}\log^2{N})$     |
 | 対数     $\log_e{a}$   | 離散対数問題            | $O(\sqrt{N})$     |
+
 (参考: [整数論テクニック集のpdf](https://kirika-comp.hatenablog.com/entry/2018/03/12/210446) など)
 
 ## 実装
