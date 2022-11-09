@@ -11,7 +11,7 @@ Gram-Schmidt 直交化 (GSO; Gram-Schmidt Orthonormalization) とは実 $m$ 次�
 $$
 \begin{aligned}
 &\begin{dcases}
-\mathbf{b}_1^* := \mathbf{b}_1 \\
+\mathbf{b} _ 1^* := \mathbf{b}_1 \\
 \mathbf{b}_i^* := \mathbf{b}_i - \sum_{j=1}^{i-1} \mu_{i, j} \mathbf{b}_j^* & (2\leq i\leq n) \\
 \end{dcases} \\
 &\quad\mu_{i, j} := \frac{\langle \mathbf{b}_i, \mathbf{b}_j^* \rangle}{\| \mathbf{b}_j^* \|^2} \qquad (1\leq j<i\leq n)
@@ -56,7 +56,7 @@ $$
 
 $$
 \begin{aligned}
-\langle\mathbf{b}_ i^ * , \mathbf{b} _ {j+1}^ * \rangle &= \left\langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1} - \sum _ {k=1}^j\mu_{j+1, k}\mathbf{b} _ {k}^*\right\rangle \\
+\langle\mathbf{b}_ i^ * , \mathbf{b} _ {j+1}^ * \rangle &= \left\langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1} - \sum _ {k=1}^j\mu_{j+1, k}\mathbf{b} _ {k}^* \right\rangle \\
 &= \langle\mathbf{b}_i^ * , \mathbf{b} _ {j+1}\rangle - \mu_{j+1,i}\langle\mathbf{b} _ i^ * , \mathbf{b}_{i}^*\rangle \\
 &= \langle\mathbf{b} _ i^ * , \mathbf{b}_{j+1}\rangle - \frac{\langle \mathbf{b} _ {j+1}, \mathbf{b}_i^ * \rangle}{\| \mathbf{b} _ i^* \|^2}\|\mathbf{b} _ i^ * \|^2 \\
 &= 0
