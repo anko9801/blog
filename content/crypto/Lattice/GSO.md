@@ -8,13 +8,15 @@ Gram-Schmidt 直交化 (GSO; Gram-Schmidt Orthonormalization) とは実 $m$ 次�
 
 **Definition** (GSOベクトル) $n$ 次元格子 $L\subseteq \mathbb{R}^m$ の順序付き基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対するGSOベクトル $\mathbf{b} _ {1}^* ,\ldots, \mathbf{b} _ {n}^ *\in\mathbb{R}^m$ を次のように定義する. また $\mu _ {i,j}$ をGSO係数と呼ぶ.
 
-$$\begin{aligned}
+$$
+\begin{aligned}
 &\begin{dcases}
 \mathbf{b}_1^* := \mathbf{b}_1 \\
-\mathbf{b}_i^* := \mathbf{b}_i - \sum_{j=1}^{i-1} \mu_{i, j}\mathbf{b}_j^* & (2\leq i\leq n) \\
+\mathbf{b}_i^* := \mathbf{b}_i - \sum_{j=1}^{i-1} \mu_{i, j} \mathbf{b}_j^* & (2\leq i\leq n) \\
 \end{dcases} \\
 &\quad\mu_{i, j} := \frac{\langle \mathbf{b}_i, \mathbf{b}_j^* \rangle}{\| \mathbf{b}_j^* \|^2} \qquad (1\leq j<i\leq n)
-\end{aligned}$$
+\end{aligned}
+$$
 
 行列を用いて表現すると次のように(要詳細) $B, B^* , U$ を定義したとき $B = UB^ *$ が成り立つと書ける.
 
@@ -22,23 +24,23 @@ $$
 \begin{aligned}
 B &=
 \begin{pmatrix}
-\mathbf{b}_1 \\
+\mathbf{b} _ 1 \\
 \vdots \\
-\mathbf{b}_n \\
+\mathbf{b} _ n \\
 \end{pmatrix}
 & B^* &=
 \begin{pmatrix}
-\mathbf{b}_1^* \\
+\mathbf{b} _ 1^ * \\
 \vdots \\
-\mathbf{b}_n^* \\
+\mathbf{b} _ n^ * \\
 \end{pmatrix}
 & U &=
 \begin{pmatrix}
 1 & 0 & 0 & \cdots & 0 \\
-\mu_{2,1} & 1 & 0 & \cdots & 0 \\
-\mu_{3,1} & \mu_{3,2} & 1 & \cdots & 0 \\
+\mu _ {2,1} & 1 & 0 & \cdots & 0 \\
+\mu _ {3,1} & \mu_{3,2} & 1 & \cdots & 0 \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
-\mu_{n,1} & \mu_{n,2} & \mu_{n,3} & \cdots & 1 \\
+\mu _ {n,1} & \mu _ {n,2} & \mu _ {n,3} & \cdots & 1 \\
 \end{pmatrix}
 \end{aligned}
 $$
@@ -54,9 +56,9 @@ $$
 
 $$
 \begin{aligned}
-\langle\mathbf{b}_i^*, \mathbf{b}_{j+1}^*\rangle &= \left\langle\mathbf{b}_i^*, \mathbf{b}_{j+1} - \sum_{k=1}^j\mu_{j+1, k}\mathbf{b}_{k}^*\right\rangle \\
-&= \langle\mathbf{b}_i^*, \mathbf{b}_{j+1}\rangle - \mu_{j+1,i}\langle\mathbf{b}_i^*, \mathbf{b}_{i}^*\rangle \\
-&= \langle\mathbf{b}_i^*, \mathbf{b}_{j+1}\rangle - \frac{\langle \mathbf{b}_{j+1}, \mathbf{b}_i^* \rangle}{\| \mathbf{b}_i^* \|^2}\|\mathbf{b}_i^*\|^2 \\
+\langle\mathbf{b}_ i^ * , \mathbf{b} _ {j+1}^ * \rangle &= \left\langle\mathbf{b} _ i^ * , \mathbf{b} _ {j+1} - \sum _ {k=1}^j\mu_{j+1, k}\mathbf{b} _ {k}^*\right\rangle \\
+&= \langle\mathbf{b}_i^ * , \mathbf{b} _ {j+1}\rangle - \mu_{j+1,i}\langle\mathbf{b} _ i^ * , \mathbf{b}_{i}^*\rangle \\
+&= \langle\mathbf{b} _ i^ * , \mathbf{b}_{j+1}\rangle - \frac{\langle \mathbf{b} _ {j+1}, \mathbf{b}_i^ * \rangle}{\| \mathbf{b} _ i^* \|^2}\|\mathbf{b} _ i^ * \|^2 \\
 &= 0
 \end{aligned}
 $$
@@ -66,7 +68,7 @@ $$
 2. $i=1$ のとき $\mathbf{b} _ 1^* = \mathbf{b} _ 1$ より明らか. $i\geq 2$ のとき
 
 $$
-\|\mathbf{b}_i\|^2 = \|\mathbf{b}_i^*\|^2 + \sum_{j=1}^{i-1}\mu_{i,j}^2\|\mathbf{b}_j^*\|^2\geq\|\mathbf{b}_i^*\|^2
+\|\mathbf{b}_ i\|^2 = \|\mathbf{b} _ i^ * \|^2 + \sum_{j=1}^{i-1}\mu _ {i,j}^2\|\mathbf{b}_j^ * \|^2\geq\|\mathbf{b} _ i^ * \|^2
 $$
 
 より成り立つ.
@@ -78,9 +80,9 @@ $$
 $$
 \begin{aligned}
 \mathrm{vol}(L)^2 &= \det(BB^\top) \\
-&= \det(UB^*(B^*)^\top U^\top) \\
-&= \det(B^*(B^*)^\top) \\
-&= \prod_{i=1}^n\|\mathbf{b}_i^*\|^2
+&= \det(UB^ * (B^ * )^\top U^\top) \\
+&= \det(B^ * (B^ * )^\top) \\
+&= \prod _ {i=1}^n\|\mathbf{b} _ i^ * \|^2
 \end{aligned}
 $$
 
