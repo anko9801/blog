@@ -91,24 +91,19 @@ $$
 \mathrm{vol}(L)\leq\prod _ {i=1}^n\|\mathbf{b} _ i\|
 $$
 
-つまり, $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ が直交基底$\iff\mathrm{vol}(L)=\prod _ {i=1}^n\|\mathbf{b} _ i\|$
+つまり, $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ が直交基底$\iff\mathrm{vol}(L)=\prod _ {i=1}^n\|\mathbf{b} _ i\|$ である.
 
 **Definition 4** (射影格子)
 $n$ 次元格子 $L\subseteq\mathbb{R}^m$ の基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対し, 各 $1\leq l\leq n$ に対して $\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}$ の直交補空間への直交射影を $\pi _ l:\mathbb{R}^m\to\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}^\bot$ とする. 定理 2 の 1,3 より
 
 $$
-\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}^\bot = \langle\mathbf{b} _ {1}^ * ,\ldots, \mathbf{b} _ {l-1}^ * \rangle _ \mathbb{R}^\bot = \langle\mathbf{b} _ {l}^ * ,\ldots, \mathbf{b} _ {n}^ * \rangle _ \mathbb{R}
+\begin{aligned}
+\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}^\bot &= \langle\mathbf{b} _ {1}^ * ,\ldots, \mathbf{b} _ {l-1}^ * \rangle _ \mathbb{R}^\bot = \langle\mathbf{b} _ {l}^ * ,\ldots, \mathbf{b} _ {n}^ * \rangle _ \mathbb{R} \\
+\pi _ l(\mathbf{b}_i) &= \sum _ {j=l}^i\mu _ {i,j}\mathbf{b} _ j^ * \\
+\end{aligned}
 $$
 
-
-
-$$
-\pi _ l(\mathbf{b}_i) = \sum _ {j=l}^i\mu _ {i,j}\mathbf{b} _ j^ *
-$$
- 
-
-性質 2.1, 2.3 より次のような性質を満たす.
-
+となる. すると集合 $\pi _ l(L)$ は $\{\pi _ l(\mathbf{b} _ {l}),\ldots,\pi _ l(\mathbf{b} _ {n})\}$ を基底に持つ $n-l+1$ 次元の格子であり, $\pi _ l(L)$ を射影格子 (projected lattice) と呼ぶ.
 
 ## 計算量
 $O(N^3)$

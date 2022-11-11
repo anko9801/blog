@@ -4,20 +4,36 @@ title: "Lagrange 基底簡約 (Gauss 基底簡約)"
 
 ## 説明
 
-任意の $q \in \mathbb{Z}$ に対して
+Lagrange 基底簡約アルゴリズムは2次元格子上の SVP を解く効率的なアルゴリズムである.
+
+**Definition 1** (Lagrange 簡約)
+任意の $q \in \mathbb{Z}$ に対して $\|\mathbf{b}_1\| \leq \|\mathbf{b}_2\| \leq \|\mathbf{b}_1 + q\mathbf{b}_2\|$ を満たすとき, 2次元格子の基底 $\{\mathbf{b}_1, \mathbf{b}_2\}$ は Lagrange 簡約されているという.
+
+**Theorem 2** (Lagrange 簡約によって逐次最小基底)
+2次元格子の基底 $\{\mathbf{b}_1, \mathbf{b}_2\}$ について次の2つは同値である.
+1. 基底 $\{\mathbf{b}_1, \mathbf{b}_2\}$ は Lagrange 簡約されている.
+2. 基底 $\{\mathbf{b}_1, \mathbf{b}_2\}$ は格子 $L$ の逐次最小基底である.
+
+**Proof.**
+($\implies$)
+任意の非零ベクトル $\mathbf{v} = x _ 1\mathbf{b} _ 1 + x _ 2\mathbf{b} _ 2 \in L$ について $x _ 2 = 0$ のとき $\|\mathbf{v}\| = |x _ 1|\|\mathbf{b} _ 1\| \geq \|\mathbf{b} _ 1\|$, $x _ 2 \neq 0$ のとき $\|\mathbf{v}\| \geq \|\mathbf{b} _ 2\| \geq \|\mathbf{b} _ 1\|$ を示す.
 
 $$
-\|\mathbf{b}_1\| \leq \|\mathbf{b}_2\| \leq \|\mathbf{b}_1 + q\mathbf{b}_2\|
+\begin{aligned}
+\|\mathbf{v}\| &= \|x _ 1\mathbf{b} _ 1 + x _ 2\mathbf{b} _ 2\| \\
+&= \|r\mathbf{b} _ 1 + x _ 2(\mathbf{b} _ 2 + q\mathbf{b} _ 1)\| \\
+&\geq x _ 2\|\mathbf{b} _ 2 + q\mathbf{b} _ 1\| - r\|\mathbf{b} _ 1\| \\
+&= (x _ 2 - r)\|\mathbf{b} _ 2 + q\mathbf{b} _ 1\| + r(\|\mathbf{b} _ 2 + q\mathbf{b} _ 1\| - \|\mathbf{b} _ 1\|) \\
+&\geq \|\mathbf{b} _ 2 + q\mathbf{b} _ 1\| \\
+&\geq \|\mathbf{b} _ 2\| \geq \|\mathbf{b} _ 1\|
+\end{aligned}
 $$
-
-を満たすとき、2次元格子の基底 $\\{\mathbf{b}_1, \mathbf{b}_2\\}$ はLagrange 簡約されているという。
 
 Euclidの互除法を2次元格子に対して行うことで Lagrange 簡約されているような基底を生み出せる。
 
 ## 計算量
 
 $O(\log{N})$
-
 
 ## 実装
 
