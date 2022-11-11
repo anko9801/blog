@@ -41,6 +41,7 @@ TODO: なぜここで型を説明するのか
 ### ロジックの表現方法
 - 関数型 $f\colon A_1\to A_2 \to\ldots\to A_n \to R$
 	- カリー化
+	- optional引数を考えるとカリー化は筋が良くない.
 - クラス $(A, f_1,\ldots,f_n)\,\text{s.t.}\,f_i\colon A\to\ldots\to R$
 
 ### 型の順序
@@ -122,11 +123,40 @@ $$
 	- クラスの継承 オーバーライド
 	- vtable
 
+**アドホック多相**
+多重定義(オーバーロード)  
+オーバーロード  
+デフォルト引数  
+オーバーライド  
+マングリング  
+Cの__main__これ辛い
+型クラス(Haskell)、トレイト(Rust)、プロトコル(Swift)
+プリプロセッサ
+
+**パラメータ多相**
+ジェネリクス(総称型)  
+ジェネリクス(Java)、テンプレート(C++)、let多相(ML系言語)
+
 これらの実装にはディスパッチを用いる
 - 静的ディスパッチ
 - 動的ディスパッチ
 
 これ説明するならC++やRustだけではなくHaskellやScalaの内部実装を見ておきたい.
+
+**サブタイピング多相**
+- 公称的部分型 (nominal subtyping)
+	- Java
+- 構造的部分型 (structual subtyping)
+	- OCaml, TypeScript
+
+| 方法 |	記述法 | 複数指定 | 関数のオーバライド |
+| -------- | -------- | -------- | ------- |
+|通常の継承（extends）	|class B extends A {}	|✖	|適宜必要な関数のみ
+|abstractを利用した継承（extends）|	class B extends A {}※Aは基本的にabstractクラス|	✖	|全関数必須
+|Interfaceとは（implements）|	class B implements A {}	|○	|全関数必須|
+|Mixins（with）|	class B with A {}※Aは基本的にmixinクラス|	○|	適宜必要な関数のみ
+
+https://zenn.dev/iwaku/articles/2020-12-16-iwaku
 
 ### 最適化 (Optimization)
 コンパイラが行う最適化処理は低レイヤに依存するものが多い. その点, アーキテクチャの抽象化とも言える. それよりコードの読みやすさと高速化には相反する場合がよくある.
