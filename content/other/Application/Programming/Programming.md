@@ -104,6 +104,7 @@ $$
 - スタック領域
 - ヒープ領域
 - コード領域
+- Thread Local Storage
 
 ### 関数
 関数というかアセンブリ言語そのものを説明するかも。
@@ -183,6 +184,7 @@ SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ�
 - コード移動
 - 定数畳み込み, 定数伝播 (Constant Fold, Constant Propagation)
 	- コンパイル時に定数の計算をする
+	- 定数伝搬 constexpr, 定数畳み込み consteval
 - Peephole最適化
 
 資料
@@ -190,7 +192,19 @@ SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ�
 - [A Catalogue of Optimizing Transformations (rice.edu)](https://www.clear.rice.edu/comp512/Lectures/Papers/1971-allen-catalog.pdf)
 
 JIT (Just In Time Compiler)
-- 実行時に中間言語から
+- 実行時にコンパイルして最適化を行う.
+
+GC (Gabage Collection)
+- 参照カウントが0になったものを自動的に解放する
+
+Lifetime
+- mutable reference は Linear type を根拠にしている.
+- ダングリングポインタを無くす
+- 脆弱性の1つ, Use after free を用いることで様々な exploit ができる為, できる限り無くしたいのは嘘では
+- RAII; Resource Acquisition Is Initialization
+- smart pointer
+- miracle pointer
+- [Google Online Security Blog: Use-after-freedom: MiraclePtr (googleblog.com)](https://security.googleblog.com/2022/09/use-after-freedom-miracleptr.html)
 
 ### ライブラリ (Library)
 下のことを気にしないで開発できる.
@@ -227,7 +241,7 @@ JIT (Just In Time Compiler)
 - 一貫性
 - エコシステム
 - パターン
-- Immutable, Lifetime
+- Immutable
 
 ### オブジェクト指向
 カプセル化 getter/setter

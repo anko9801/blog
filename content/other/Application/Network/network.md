@@ -13,6 +13,8 @@ title: "Network"
 
 ## TCP/IP
 ### TCP BBR
+TCP を高速化
+[GoogleのTCP BBRでTCPを高速化しProxyもその恩恵にあずかる - Qiita](https://qiita.com/fallout/items/92b2099ab5e16cfeb1f9)
 
 ### QUIC
 [shigeki/ask_nishida_about_quic_jp: QUICトランスポート機能に関して tcpm/mptcp wg chair の西田先生にいろいろ聞いてみる会 (github.com)](https://github.com/shigeki/ask_nishida_about_quic_jp)
