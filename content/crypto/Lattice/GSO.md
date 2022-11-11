@@ -6,8 +6,9 @@ title: "Gram-Schmidt 直交化"
 
 Gram-Schmidt 直交化 (GSO; Gram-Schmidt Orthonormalization) とは実 $m$ 次元ベクトル空間 $\mathbb{R}^m$ の任意の $\mathbb{R}$ ベクトル空間としての基底を直交基底に変換する方法です. $\mathbf{b} _ n$ の直交化は $\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n-1}$ すべてと直交するように元の高さのまま移動させます. [GSOのWikipedia](https://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%A9%E3%83%A0%E3%83%BB%E3%82%B7%E3%83%A5%E3%83%9F%E3%83%83%E3%83%88%E3%81%AE%E6%AD%A3%E8%A6%8F%E7%9B%B4%E4%BA%A4%E5%8C%96%E6%B3%95) のgifがわかりやすいです.
 
-**Definition** (GSOベクトル)
+![[400px-Gram-Schmidt_orthonormalization_process.gif]]
 
+**Definition 1** (GSOベクトル)
 $n$ 次元格子 $L\subseteq \mathbb{R}^m$ の順序付き基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対するGSOベクトル $\mathbf{b} _ {1}^* ,\ldots, \mathbf{b} _ {n}^ *\in\mathbb{R}^m$ を次のように定義する. また $\mu _ {i,j}$ をGSO係数と呼ぶ.
 
 $$
@@ -47,7 +48,7 @@ B &=
 \end{aligned}
 $$
 
-**Theorem** (GSOベクトルの基本性質)
+**Theorem 2** (GSOベクトルの基本性質)
 1. 任意の $1\leq i<j\leq n$ に対して $\langle\mathbf{b}_ i^* , \mathbf{b} _j^ *\rangle = 0$ が成り立つ.
 2. 任意の $1\leq i\leq n$ に対して $\|\mathbf{b}_ i^ * \|\leq\|\mathbf{b} _i\|$ が成り立つ.
 3. 任意の $1\leq i\leq n$ に対して $\langle\mathbf{b} _ 1^* ,\ldots,\mathbf{b} _ i^ *\rangle_{\mathbb{R}} = \langle\mathbf{b} _ 1,\ldots,\mathbf{b} _ i\rangle _ {\mathbb{R}}$ が成り立つ.
@@ -82,6 +83,32 @@ $$
 &= \prod _ {i=1}^n\|\mathbf{b} _ i^ * \|^2
 \end{aligned}
 $$
+
+**Theorem 3** (Hadamardの不等式)
+GSOベクトルの基本性質 2, 4 より次のことが分かる.
+
+$$
+\mathrm{vol}(L)\leq\prod _ {i=1}^n\|\mathbf{b} _ i\|
+$$
+
+つまり, $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ が直交基底$\iff\mathrm{vol}(L)=\prod _ {i=1}^n\|\mathbf{b} _ i\|$
+
+**Definition 4** (射影格子)
+$n$ 次元格子 $L\subseteq\mathbb{R}^m$ の基底 $\{\mathbf{b} _ {1},\ldots, \mathbf{b} _ {n}\}$ に対し, 各 $1\leq l\leq n$ に対して $\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}$ の直交補空間への直交射影を $\pi _ l:\mathbb{R}^m\to\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}^\bot$ とする. 定理 2 の 1,3 より
+
+$$
+\langle\mathbf{b} _ {1},\ldots, \mathbf{b} _ {l-1}\rangle _ \mathbb{R}^\bot = \langle\mathbf{b} _ {1}^ * ,\ldots, \mathbf{b} _ {l-1}^ * \rangle _ \mathbb{R}^\bot = \langle\mathbf{b} _ {l}^ * ,\ldots, \mathbf{b} _ {n}^ * \rangle _ \mathbb{R}
+$$
+
+
+
+$$
+\pi _ l(\mathbf{b}_i) = \sum _ {j=l}^i\mu _ {i,j}\mathbf{b} _ j^ *
+$$
+ 
+
+性質 2.1, 2.3 より次のような性質を満たす.
+
 
 ## 計算量
 $O(N^3)$
