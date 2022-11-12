@@ -47,11 +47,16 @@ TODO: なぜここで型を説明するのか
 ### 型の順序
 順序、数でいう不等号を型に与えます。
 
-- 部分型
-	- 関数と型の集合の部分集合として定義できる
-	- $A_1 \subset A_1\cup A_2$
-	- $A_1 \subset A_1\times A_2$
-	- $(f_1, f_2) \subset (f_1)$
+trait
+- $(f)$ $f$ で生成されるtrait
+- ex.) Rust: trait, Swift: protocol, extension
+
+
+部分型
+- 関数と型の集合の部分集合として定義できる
+- $A_1 \subset A_1\cup A_2$
+- $A_1 \subset A_1\times A_2$
+- $(f_1, f_2) \subset (f_1)$
 
 部分型の性質
 - 共変性 $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
@@ -75,15 +80,7 @@ TODO: なぜここで型を説明するのか
 
 ### 型の意味を捉える
 - モナド/コモナド
-	- 簡潔な状態操作ができる
-
-$$
-\begin{CD}  
-   A @>a>> B \\
-@VbVV @AAcA \\
-   C @= D
-\end{CD}
-$$
+	- 簡潔な状態遷移ができる
 
 型レベル○○
 - 型を用いてある代数と同値な型を定義すること
@@ -103,7 +100,7 @@ $$
 - データ領域
 - スタック領域
 - ヒープ領域
-- コード領域
+- テキスト領域
 - Thread Local Storage
 
 ### 関数
@@ -254,6 +251,8 @@ Visitorパターン
 ### 関数型言語
 2階で十分なぜか
 
+### Clean Architecture
+
 ### エコシステム
 - 静的解析
 	- LSP (補完, ハイライト, 定義ジャンプ, 型ヒントなど)
@@ -279,12 +278,15 @@ ErlangVM
 
 Concurrency
 - coroutine
+- future
 - async/await 並行
 	- 裏でnode.jsが並列をしているから
 	- node.js が single thread は本当だが嘘
 	- event loop 1process
 	- Golang event loop 複数のprocess
 - Actor
+- atomic
+	- compare and swap
 
 async/await
 async goroutine作ってchannel渡して

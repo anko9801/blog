@@ -9,6 +9,7 @@ TPM (Trusted Platform Module)
 
 TPM (Trust) ハードウェアとして開発
 - Windows BitLocker
+	- TPM を利用してディスク全体を暗号化を行う.
 - [A Bad Dream](https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-han.pdf)
 
 [TPM 2.0 Library](https://trustedcomputinggroup.org/resource/tpm-library-specification/)
