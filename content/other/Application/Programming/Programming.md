@@ -37,7 +37,7 @@ TODO: なぜここで型を説明するのか
 	- ex.) Rustのenum
 - ユニオン型 $A_1\cup A_2$
 	- 直和型とほぼ同じであるが、反例としてすべての型に null や undefined などがある TypeScript は直和型と同値ではない。
-	- ex.) Cのunion
+	- ex.) Cのunion, タグ付き共用体, variant
 - 篩型 (refinement types) $\{x\in A\mid P(x)\}$
 	- データに制約を持たせることができる。
 	- 実装を篩型に分け与えてシンプルに出来る
@@ -45,6 +45,7 @@ TODO: なぜここで型を説明するのか
 
 パターンマッチ
 - 直積型や直和型のみならずクラスの継承関係、プレースホルダーを用いて簡潔に書ける。
+- [コンパイル技法: パターンマッチ (zenn.dev)](https://zenn.dev/blackenedgold/books/compiling-pattern-matching)
 
 ### ロジックの表現方法
 - 関数型 $f\colon A_1\to A_2 \to\ldots\to A_n \to R$
@@ -208,6 +209,9 @@ trait
 - [【Dart】abstract,mixin,extends,implements,with等の使い方基礎 (zenn.dev)](https://zenn.dev/iwaku/articles/2020-12-16-iwaku)
 - [C++と 4 つのキャスト演算 | yunabe.jp](https://www.yunabe.jp/docs/cpp_casts.html)
 
+仮想関数
+- 継承先で別々の処理をするけれども親クラスからは同じ関数として呼びたいという抽象化を行うときに使います。この処理の裏では関数が呼ばれるとvtable(仮想関数テーブル: 型と関数の対応表)を見て、的確な関数へ飛ばすようにしています。これを動的ディスパッチまたは動的ポリモーフィズムと呼びます。これはvtableを経由するので比較的遅いです。(メモリのアドレスを読んでそこへジャンプすることは分岐予測が効きにくいから、TODO:本当に効きにくい？)
+
 ### 最適化 (Optimization)
 コンパイラが行う最適化処理は低レイヤに依存するものが多い. その点, アーキテクチャの抽象化とも言える. それよりコードの読みやすさと高速化には相反する場合がよくある.
 
@@ -284,15 +288,14 @@ Lifetime/ムーブセマンティクス
 - [Google Online Security Blog: Use-after-freedom: MiraclePtr (googleblog.com)](https://security.googleblog.com/2022/09/use-after-freedom-miracleptr.html)
 
 エラー処理
-- try-catch [Java, JavaScript]  
-- Result [TypeScript, Rust]
+- try-catch (Java, JavaScript)
+- Result (TypeScript, Rust), Opaque Result Type (Swift)
 
 ### ライブラリ (Library)
 下のことを気にしないで開発できる.
 - 静的ライブラリ
 - 動的ライブラリ
 	- glibc
-
 
 ## 第三章 開発体験
 思想が混じりやすい話題なので極力様々な意見を取り込むべき
