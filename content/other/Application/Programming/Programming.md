@@ -28,6 +28,11 @@ TODO: なぜここで型を説明するのか
 ### データの表現方法
 - 直積型 $A_1\times A_2$
 	- ex.) 構造体, メソッドのないクラス, 配列, Vectorなど
+	- Intersection Type を用いても構成できる.
+	- 直積型のデータを分解して各要素を取り出す機能
+		- 構造化束縛 (Structured Bindings, C++)  
+		- 多重代入 (Multiple assignment, PythonやRuby)  
+		- 分割代入 (Destructuring assignment, JavaScript)
 - 直和型 $A_1+A_2$
 	- ex.) Rustのenum
 - ユニオン型 $A_1\cup A_2$
@@ -37,6 +42,9 @@ TODO: なぜここで型を説明するのか
 	- データに制約を持たせることができる。
 	- 実装を篩型に分け与えてシンプルに出来る
 	- ex.) Liquid Haskell
+
+パターンマッチ
+- 直積型や直和型のみならずクラスの継承関係、プレースホルダーを用いて簡潔に書ける。
 
 ### ロジックの表現方法
 - 関数型 $f\colon A_1\to A_2 \to\ldots\to A_n \to R$
@@ -49,8 +57,7 @@ TODO: なぜここで型を説明するのか
 
 trait
 - $(f)$ $f$ で生成されるtrait
-- ex.) Rust: trait, Swift: protocol, extension
-
+- ex.) Rust: trait, Swift: protocol, extension, Go: interface
 
 部分型
 - 関数と型の集合の部分集合として定義できる
@@ -59,8 +66,8 @@ trait
 - $(f_1, f_2) \subset (f_1)$
 
 部分型の性質
-- 共変性 $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
-- 反変性 $A_1 \subset A_2 \implies I[A_1] \supset I[A_2]$
+- 共変性 (covariant) $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
+- 反変性 (contravariant) $A_1 \subset A_2 \implies I[A_1] \supset I[A_2]$
 	- 関数の引数
 	- Goの継承とかが分かりやすいかな
 	- $A_1\to R \supset A_2\to R$
@@ -89,22 +96,61 @@ trait
 - 型レベル文字列
 	- TypeScript にはもともとある
 
+### 型推論
+
+例えば最も基礎的な型システムの一つである構造的型システム [Substructural Type Systems](https://www.cs.cmu.edu/~janh/courses/ra19/assets/pdf/lect04.pdf) は次のようなものがある.
+
+- Ordered Type Systems
+	- 変数と関数と型だけがある、変数は丁度1回使う
+- Linear Type Systems
+	- 変数は丁度1回だけ使えるよ
+- Affine Type Systems
+	- 変数使わなくてもいいよ
+- Relevant Type Systems
+	- 変数使わないのはダメだけど何回でも使えるよ
+- Normal Type Systems
+	- いくらでも変数使っていいよ
+
+(線形型やアフィン型などは実際にIdris 2で数量的型として、HaskellでMultiplicity Polymorphismとして導入され、多相型の表現をより良くするために使われています。)
+
+もう少し本格的な型理論だと多相型が導入されて高級感があります。次のような型理論が代表的です。https://www.slideshare.net/maruyama097/coq-31970579
+
+- フロー的な型推論
+	- この中で最も簡単で基礎的な型推論. C++, Java, TypeScriptなどで使われています.
+	- 代入演算子 `=` に対して左側と右側の型が一致することを利用して初期化時に型推論する.
+- Martin-Löf 型理論
+	- マルティンレーフと読みます。
+- Hindley-Milner 型理論
+	- 強力な型理論です。Haskell, Rust, SML, OCamlなどで使われています。
+	- 連立方程式を解くように変数の型を決定していき、決定できなければ多相性を持たせることで必ず正当に型推論できるという方法があり、Hindley-Milner型理論のアルゴリズムWと呼ばれています.
+- Homotopy Type Theory
+	- 最近だとHomotopy Type Theory(HoTT)と呼ばれる新しい型理論が話題になっています。Martin-Löf 型理論で打ち砕かれた直感主義的型理論を解決させた理論らしく、いつか理解してみたいと思っています.
+
 ## 第二章 内部実装
 コード解析などで解決する問題はよくNP完全な問題であることが多い。しかし何がNP完全で何がそうではないか区別する技術を持つ人は少ないと思う。
 また内部実装を理解すれば、よりよい言語というのが分かってくるだろう。
 
 よりよい言語を知る為だけに必要な内部実装とはどこまでなのか？それには今までのプログラミング言語の歴史なしで考えることはできない。私は低レイヤを抽象化し, ロジックに注目できるように改善されてきたと考えている。その為, ゼロコスト抽象化ができるかどうかの境界からが説明を与えるのに妥当であろう。
 
+- 静的: コンパイル時
+- 動的: 実行時
+
 ### メモリ領域
 ユーザーに渡されるメモリはローダによって以下のように分けられている。
 - データ領域
+	- 文字列など静的に決定したものが格納される
+	- 名前空間, マングリング
 - スタック領域
+	- push/popのようにLIFOでメモリを管理するシステムです。コンパイル時にサイズが確定している必要があります。
 - ヒープ領域
+	- malloc/freeで任意サイズのメモリ資源をO(1)で配るシステムです。
+	- double free, dangling pointer
 - テキスト領域
+	- コードが格納される。
 - Thread Local Storage
 
 ### 関数
-関数というかアセンブリ言語そのものを説明するかも。
+ここでの関数はある RIP に意味を与える操作と定義する. すると関数は各プログラミングで呼ばれている名前で表すと以下のようなものがある.
 - 関数
 - generator
 - 継続
@@ -115,29 +161,31 @@ trait
 具体的に依存型を実装する多相性を紹介する。
 - アドホック多相 (ad hoc polymorphism)
 	- オーバーロード
+	- オーバーライド  
 - パラメータ多相 (parametric polymorphism)
 	- 静的に呼び出された関数の引数の型を解析して自動で実装する。
 - サブタイピング多相 (subtyping polymorphism)
-	- クラスの継承 オーバーライド
+	- クラスの継承
 	- vtable
 
 **アドホック多相**
-多重定義(オーバーロード)  
-オーバーロード  
-デフォルト引数  
-オーバーライド  
-マングリング  
-Cの__main__これ辛い
-型クラス(Haskell)、トレイト(Rust)、プロトコル(Swift)
-プリプロセッサ
+デフォルト引数
+- 型クラス(Haskell)
+- トレイト(Rust)
+- プロトコル(Swift)
+- implicit (Scala)
 
 **パラメータ多相**
-ジェネリクス(総称型)  
-ジェネリクス(Java)、テンプレート(C++)、let多相(ML系言語)
+- ジェネリクス  
+	- ジェネリクス(Java)
+	- テンプレート(C++)
+	- let多相(ML系言語)
 
 これらの実装にはディスパッチを用いる
-- 静的ディスパッチ
-- 動的ディスパッチ
+- 事前バインディング
+	- 静的ディスパッチ
+	- 動的ディスパッチ
+- 遅延バインディング
 
 これ説明するならC++やRustだけではなくHaskellやScalaの内部実装を見ておきたい.
 
@@ -146,6 +194,7 @@ Cの__main__これ辛い
 	- Java
 - 構造的部分型 (structual subtyping)
 	- OCaml, TypeScript
+- ダックタイピング (Duck Typing)
 
 | 方法 |	記述法 | 複数指定 | 関数のオーバライド |
 | -------- | -------- | -------- | ------- |
@@ -154,13 +203,17 @@ Cの__main__これ辛い
 |Interfaceとは（implements）|	class B implements A {}	|○	|全関数必須|
 |Mixins（with）|	class B with A {}※Aは基本的にmixinクラス|	○|	適宜必要な関数のみ
 
-https://zenn.dev/iwaku/articles/2020-12-16-iwaku
+- [【Dart】abstract,mixin,extends,implements,with等の使い方基礎 (zenn.dev)](https://zenn.dev/iwaku/articles/2020-12-16-iwaku)
+- [C++と 4 つのキャスト演算 | yunabe.jp](https://www.yunabe.jp/docs/cpp_casts.html)
 
 ### 最適化 (Optimization)
 コンパイラが行う最適化処理は低レイヤに依存するものが多い. その点, アーキテクチャの抽象化とも言える. それよりコードの読みやすさと高速化には相反する場合がよくある.
 
-何を最適化するのか?
-最適化の方法
+TODO
+- 何を最適化するのか?
+	- メモリ最適化
+	- 実行速度最適化
+- 最適化の方法
 
 SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ理論を持ち込んでより深い最適化を考えられる。
 
@@ -184,24 +237,52 @@ SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ�
 	- 定数伝搬 constexpr, 定数畳み込み consteval
 - Peephole最適化
 
+- strength reduction
+- 末尾呼び出し最適化
+- Profile-Guided Optimization
+- Copy On Write
+- キャッシュ局所化
+
 資料
 - [CompilerTalkFinal (venge.net)](http://venge.net/graydon/talks/CompilerTalk-2019.pdf)
 - [A Catalogue of Optimizing Transformations (rice.edu)](https://www.clear.rice.edu/comp512/Lectures/Papers/1971-allen-catalog.pdf)
 
 JIT (Just In Time Compiler)
 - 実行時にコンパイルして最適化を行う.
+- method JIT
+- tracing JIT
+
+VM (Virtual Machine)
+- YARV
+- HHVM Hac
+
+RAII; Resource Acquisition Is Initialization
+- リソースの確保(Acquisition)と解放を変数の初期化(Initialization)と破棄に紐付けるという考え方を指す言葉です.
+- 生存期間はスコープ内
+- 解放のタイミングがスコープを抜けるとき
+- どんなリソースでも対応するオブジェクトを作るだけ
+- 解放処理を手で書かなくても勝手に解放してくれる
+- 解放のタイミングが明確
+- 例外送出時もちゃんと対応
+- 解放処理の失敗をトラップしたい場合にはどうしようもなく使いにくい
 
 GC (Gabage Collection)
 - 参照カウントが0になったものを自動的に解放する
+- Mark and Sweep
+- Copy GC
+- Stop the World
 
-Lifetime
+Lifetime/ムーブセマンティクス
 - mutable reference は Linear type を根拠にしている.
 - ダングリングポインタを無くす
 - 脆弱性の1つ, Use after free を用いることで様々な exploit ができる為, できる限り無くしたいのは嘘では
-- RAII; Resource Acquisition Is Initialization
 - smart pointer
 - miracle pointer
 - [Google Online Security Blog: Use-after-freedom: MiraclePtr (googleblog.com)](https://security.googleblog.com/2022/09/use-after-freedom-miracleptr.html)
+
+エラー処理
+- try-catch [Java, JavaScript]  
+- Result [TypeScript, Rust]
 
 ### ライブラリ (Library)
 下のことを気にしないで開発できる.
@@ -249,13 +330,16 @@ Lifetime
 Visitorパターン
 
 ### 関数型言語
-2階で十分なぜか
+遅延処理
+- 演算自体をthunkというもので包み、評価しろと言われるまではその状態で保持しておきます。そして評価するとなったときにそれを広げて演算します。  
+- thunkで包む分時間がかかる。
 
 ### Clean Architecture
 
 ### エコシステム
 - 静的解析
 	- LSP (補完, ハイライト, 定義ジャンプ, 型ヒントなど)
+	- type checker
 	- formatter, linter
 	- コード生成
 	- 脆弱性スキャン
@@ -274,24 +358,38 @@ Visitorパターン
 - ライブラリ
 
 ## 第四章 Concurrency
-ErlangVM
+
+プロセスは1つ以上のスレッドを持つ.
 
 Concurrency
 - coroutine
-- future
+- future/Promise
 - async/await 並行
-	- 裏でnode.jsが並列をしているから
-	- node.js が single thread は本当だが嘘
-	- event loop 1process
 	- Golang event loop 複数のprocess
 - Actor
 - atomic
 	- compare and swap
 
-async/await
-async goroutine作ってchannel渡して
-await channel待つ
-channel の queue はeventloop のqueueと同じ感じ
+- CPS変換, ステートマシンを書く
+	- とても面倒
+- 言語によるグリーンスレッド
+	- node
+		- 標準ライブラリを非同期のみにした
+		- single thread な event loop 上で並列処理を実現している.
+	- Erlang, Go, Haskell
+		- ランタイムでIOがブロックしない仕組み
+		- Erlang (ErlangVM)
+		- Go (goroutines)
+	- Algebraic Effects and Handlers
+		- IOでブロックする/しないはアプリケーションで制御できるし、IOは2系統に分かれないし、タスクを中断したり再開したりする仕組みも自動でついてきます。
+- 便利構文のサポート
+	- async/await
+		- 高階関数との親和性がよくない
+- （限定）継続
+
+- async $\iff$ goroutine作ってchannel渡して
+- await $\iff$ channel待つ
+- eventloop の queue $\iff$ channel のqueue
 
 async iterator
 - Arc/Rc
