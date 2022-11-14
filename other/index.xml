@@ -76,7 +76,7 @@ ISUCONメモ https://github.</description></item><item><title>フロントエン
 最初は抽象的で簡単なところから始まり、具体的で難しい問題に立ち向かう。 対象者
 任意の言語を素早く習得したい方 基礎から理解して安心したい方 新しい言語を実装したい方 情報に踊らされずちゃんと軸を持つには論理で情報を作り出さないといけない。
 第一章 型 TODO: なぜここで型を説明するのか 馴染み深いから？前提知識として持っていないと抽象論を展開できないから？あいまいな定義や同義な言葉が各言語にあるのでまとめて扱う為に一回必要
-ここでは公理的に計算するところはつまらんので省いて、なるべく実践的、アイデアが得られる点を紹介する。何故かというと私は計算より抽象的なことの方が好きだからです。不足分については型理論の方で説明します。($\lambda, \pi, \mu$ 計算, 線形型, Boehm-Berarducci encodingなど)</description></item><item><title>プロセッサ</title><link>https://anko9801.github.io/blog/other/Application/Processor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Processor/</guid><description>CPU 概要 CPU
+ここでは公理的に計算するところはつまらんので省いて、なるべく実践的、アイデアが得られる点を紹介する。何故かというと私は計算より抽象的なことの方が好きだからです。(正直, 型理論の話は海外大の講義資料と論文以外はナンセンスな議論しかしない資料が豊富にあってｓ)不足分については型理論の方で説明します。($\lambda, \pi, \mu$ 計算, 線形型, Boehm-Berarducci encodingなど)</description></item><item><title>プロセッサ</title><link>https://anko9801.github.io/blog/other/Application/Processor/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Processor/</guid><description>CPU 概要 CPU
 LGA BGA QFP GPU iGPU(internal) CPU内にあるグラボ dGPU(discrete) NVMe/SATA/PCIeなどで接続する外付けのグラボ eGPU(external) Thunderbolt 3/4などで接続する外付けのグラボ TPU 行列積演算 FPU GPGPU</description></item><item><title>マルウェア</title><link>https://anko9801.github.io/blog/other/Application/Malware/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Malware/</guid><description>CTF Radiooo - Episodes
 マルウェア分類 Warez
 非合法的に配布・販売されている商用ソフトウェア 日本では「ワレズ」と呼び、それが派生して「割れ」となった WannaCry
