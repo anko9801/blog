@@ -80,6 +80,8 @@ trait
 ### 型の構成と分類
 - 依存型 $\Pi_{x\colon A}B(x)$
 - 依存和型 $\sum_{x\colon A}B(x)$
+- 全称量化
+- 存在量化
 - 型演算子
 	- 多相カインドの抽象化
 - 型クラス trait $\{A\in\mathcal{U}\mid f_1,\ldots,f_n \in A\}$
@@ -237,6 +239,7 @@ SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ�
 	- 定数伝搬 constexpr, 定数畳み込み consteval
 - Peephole最適化
 
+その他の最適化
 - strength reduction
 - 末尾呼び出し最適化
 - Profile-Guided Optimization
@@ -370,6 +373,7 @@ Concurrency
 - atomic
 	- compare and swap
 
+それぞれの最適化手法
 - CPS変換, ステートマシンを書く
 	- とても面倒
 - 言語によるグリーンスレッド
@@ -387,6 +391,7 @@ Concurrency
 		- 高階関数との親和性がよくない
 - （限定）継続
 
+goroutine $\iff$ async/await
 - async $\iff$ goroutine作ってchannel渡して
 - await $\iff$ channel待つ
 - eventloop の queue $\iff$ channel のqueue
