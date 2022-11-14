@@ -59,6 +59,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
   - [木の直径](./graph/tree/diameter.md)
   - 最小共通祖先
 - Functional Graph
+- Dilworth の定理
 - 最大クリーク
 - [強連結成分分解](./graph/scc.md)
 

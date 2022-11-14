@@ -1,9 +1,19 @@
 ## Prometheus
+
+
 ## Grafana
+ビューワー
+サーバー上でgrafanaを立ててCaddyで外から見れるようにする
+docker-composeに入れればいい
+```
+{{ grafana.host }} {
+  reverse_proxy localhost:3000
+}
+```
 
 ## ログ可視化
-- Loki
 ログ保存、集計しメトリクスにする
+- Loki
 
 ## ログ転送
 - Promtail
@@ -11,6 +21,10 @@
 - Fluent Bit
 
 ## Alertmanager
+Slackにアラートを飛ばす
+docker-compose に入れればいい
+
 ## node_exporter
-## phlare
-Continuous profiling
+
+## Continuous profiling
+phlare
