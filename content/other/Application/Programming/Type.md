@@ -41,6 +41,10 @@ title: "型理論"
 - $\lambda C$: Culculus of Constructions
 
 ### Curry-Howard 同型対応
+
+$p:_PP$ が「$p$ が命題 $P$ の証明である」
+$p:_TP$ が「$p$ が型 $P$ の要素である」
+
 |論理|プログラム|
 |---|---|
 |証明|型を構成するプログラム|
