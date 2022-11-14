@@ -88,6 +88,10 @@ trait
 - 型クラス trait $\{A\in\mathcal{U}\mid f_1,\ldots,f_n \in A\}$
 - Row Type
 
+### より高度な型
+- 停止性
+- 参照透過性
+
 ### 型の意味を捉える
 - モナド/コモナド
 	- 簡潔な状態遷移ができる
@@ -101,33 +105,31 @@ trait
 
 ### 型推論
 
-例えば最も基礎的な型システムの一つである構造的型システム [Substructural Type Systems](https://www.cs.cmu.edu/~janh/courses/ra19/assets/pdf/lect04.pdf) は次のようなものがある.
+例えば最も基礎的な型システムの一つである構造的型システム [Substructural Type Systems](https://www.cs.cmu.edu/~janh/courses/ra19/assets/pdf/lect04.pdf) は次のようなものがある. 変数が使える回数と使う順番について制約のある型システムである.
 
-- Ordered Type Systems
-	- 変数と関数と型だけがある、変数は丁度1回使う
-- Linear Type Systems
-	- 変数は丁度1回だけ使えるよ
-- Affine Type Systems
-	- 変数使わなくてもいいよ
-- Relevant Type Systems
-	- 変数使わないのはダメだけど何回でも使えるよ
-- Normal Type Systems
-	- いくらでも変数使っていいよ
+| 型システム            | 0回 (Weakening) | 1回 | 2回以上 (Contraction) | Exchange | 用途                          |
+| --------------------- | -------------- | --- | -------------------- | -------- | ----------------------------- |
+| Ordered Type Systems  | x              | o   | x                    | x        | stack-based memory allocation |
+| Linear Type Systems   | x              | o   | x                    | o        | mutable reference             |
+| Affine Type Systems   | o              | o   | x                    | o        |                               |
+| Relevant Type Systems | x              | o   | o                    | o        |                               |
+| Normal Type Systems   | o              | o   | o                    | o        | 一般の型システム              |
 
 (線形型やアフィン型などは実際にIdris 2で数量的型として、HaskellでMultiplicity Polymorphismとして導入され、多相型の表現をより良くするために使われています。)
 
-もう少し本格的な型理論だと多相型が導入されて高級感があります。次のような型理論が代表的です。https://www.slideshare.net/maruyama097/coq-31970579
+もう少し本格的な型理論だと多相型が導入されて高級感があります. 次のような型理論が代表的です.
+[「型の理論」と証明支援システム -- COQの世界](https://www.slideshare.net/maruyama097/coq-31970579)
 
 - フロー的な型推論
-	- この中で最も簡単で基礎的な型推論. C++, Java, TypeScriptなどで使われています.
-	- 代入演算子 `=` に対して左側と右側の型が一致することを利用して初期化時に型推論する.
+	- この中で最も簡単で基礎的な型推論. C++, Java, TypeScript などで使われています.
+	- 初期化時に代入演算子 `=` の両辺の型が一致することを利用して型推論する.
 - Martin-Löf 型理論
-	- マルティンレーフと読みます。
+	- マルティンレーフと読みます.
 - Hindley-Milner 型理論
-	- 強力な型理論です。Haskell, Rust, SML, OCamlなどで使われています。
-	- 連立方程式を解くように変数の型を決定していき、決定できなければ多相性を持たせることで必ず正当に型推論できるという方法があり、Hindley-Milner型理論のアルゴリズムWと呼ばれています.
+	- 強力な型理論です. Haskell, Rust, SML, OCaml などで使われています.
+	- 連立方程式を解くように変数の型を決定していき, 決定できなければ多相性を持たせることで必ず正当に型推論できるという方法があり, Hindley-Milner 型理論のアルゴリズム W と呼ばれています.
 - Homotopy Type Theory
-	- 最近だとHomotopy Type Theory(HoTT)と呼ばれる新しい型理論が話題になっています。Martin-Löf 型理論で打ち砕かれた直感主義的型理論を解決させた理論らしく、いつか理解してみたいと思っています.
+	- 最近だと Homotopy Type Theory(HoTT) と呼ばれる新しい型理論が話題になっています. Martin-Löf 型理論で打ち砕かれた直感主義的型理論を解決させた理論らしく, いつか理解してみたいと思っています.
 
 ## 第二章 内部実装
 コード解析などで解決する問題はよくNP完全な問題であることが多い。しかし何がNP完全で何がそうではないか区別する技術を持つ人は少ないと思う。
@@ -261,6 +263,7 @@ JIT (Just In Time Compiler)
 
 VM (Virtual Machine)
 - YARV
+	- [YARV Maniacs 【第 1 回】 『Ruby ソースコード完全解説』不完全解説 (rubyist.net)](https://magazine.rubyist.net/articles/0006/0006-YarvManiacs.html)
 - HHVM Hac
 
 RAII; Resource Acquisition Is Initialization
