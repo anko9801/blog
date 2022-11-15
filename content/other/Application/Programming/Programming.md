@@ -100,16 +100,15 @@ trait
 	- TypeScript にはもともとある
 
 ### 型推論
-
 例えば最も基礎的な型システムの一つである構造的型システム [Substructural Type Systems](https://www.cs.cmu.edu/~janh/courses/ra19/assets/pdf/lect04.pdf) は次のようなものがある. 変数が使える回数と使う順番について制約のある型システムである.
 
-| 型システム            | 0回 (Weakening) | 1回 | 2回以上 (Contraction) | Exchange | 用途                          |
-| --------------------- | -------------- | --- | -------------------- | -------- | ----------------------------- |
-| Ordered Type Systems  | x              | o   | x                    | x        | stack-based memory allocation |
-| Linear Type Systems   | x              | o   | x                    | o        | mutable reference             |
-| Affine Type Systems   | o              | o   | x                    | o        |                               |
-| Relevant Type Systems | x              | o   | o                    | o        |                               |
-| Normal Type Systems   | o              | o   | o                    | o        | 一般の型システム              |
+| 型システム            | 0回 (Weakening) | 1回 (Base) | 2回以上 (Contraction) | 順序の可換性 (Exchange) | 用途                          |
+| --------------------- | --------------- | --- | --------------------- | ----------------------- | ----------------------------- |
+| Ordered Type Systems  | x               | o   | x                     | x                       | stack-based memory allocation |
+| Linear Type Systems   | x               | o   | x                     | o                       | mutable reference             |
+| Affine Type Systems   | o               | o   | x                     | o                       |                               |
+| Relevant Type Systems | x               | o   | o                     | o                       |                               |
+| Normal Type Systems   | o               | o   | o                     | o                       | 一般の型システム              |
 
 (線形型やアフィン型などは実際にIdris 2で数量的型として、HaskellでMultiplicity Polymorphismとして導入され、多相型の表現をより良くするために使われています。)
 
@@ -132,7 +131,6 @@ trait
 また内部実装を理解すれば、よりよい言語というのが分かってくるだろう。
 
 よりよい言語を知る為だけに必要な内部実装とはどこまでなのか？それには今までのプログラミング言語の歴史なしで考えることはできない。私は低レイヤを抽象化し, ロジックに注目できるように改善されてきたと考えている。その為, ゼロコスト抽象化ができるかどうかの境界からが説明を与えるのに妥当であろう。
-
 - 静的: コンパイル時
 - 動的: 実行時
 
@@ -162,7 +160,7 @@ trait
 具体的に依存型を実装する多相性を紹介する。
 - アドホック多相 (ad hoc polymorphism)
 	- オーバーロード
-	- オーバーライド  
+	- オーバーライド
 - パラメータ多相 (parametric polymorphism)
 	- 静的に呼び出された関数の引数の型を解析して自動で実装する。
 - サブタイピング多相 (subtyping polymorphism)
@@ -177,7 +175,7 @@ trait
 - implicit (Scala)
 
 **パラメータ多相**
-- ジェネリクス  
+- ジェネリクス
 	- ジェネリクス(Java)
 	- テンプレート(C++)
 	- let多相(ML系言語)
@@ -192,11 +190,17 @@ trait
 これ説明するならC++やRustだけではなくHaskellやScalaの内部実装を見ておきたい.
 
 **サブタイピング多相**
-- 公称的部分型 (nominal subtyping)
-	- Java
-- 構造的部分型 (structual subtyping)
-	- OCaml, TypeScript
-- ダックタイピング (Duck Typing)
+派生型の判定
+- 公称的部分型 (Nominal subtyping)
+	- 派生型として定義したもののみ派生型とみなす.
+	- C++, Java, Rust
+- 構造的部分型 (Structual subtyping)
+	- すべての要素が包括されていれば派生型とみなす.
+	- TypeScript, Haskell, OCaml, Elm
+- ダックタイピング (Duck typing)
+	- 派生型の概念はなく, 呼び出し時に同一の要素があるか検査する.
+	- 実行時エラーが検出されず, 運用時に脆弱性として発見される可能性がある.
+	- Ruby, Python
 
 | 方法 |	記述法 | 複数指定 | 関数のオーバライド |
 | -------- | -------- | -------- | ------- |
@@ -351,7 +355,7 @@ Visitorパターン
 
 ### エコシステム
 - 静的解析
-	- LSP (補完, ハイライト, 定義ジャンプ, 型ヒントなど)
+	- LSP (補完, ハイライト, 定義ジャンプ, 型ヒント (inlay hints, etc...) など)
 	- type checker
 	- formatter, linter
 	- コード生成
