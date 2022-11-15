@@ -69,12 +69,7 @@ trait
 部分型の性質
 - 共変性 (covariant) $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
 - 反変性 (contravariant) $A_1 \subset A_2 \implies I[A_1] \supset I[A_2]$
-	- 関数の引数
-	- Goの継承とかが分かりやすいかな
-	- $A_1\to R \supset A_2\to R$
-	- `type X interface {F()}`
-	- `type Y interface {F();G()}`
-	- YがXのサブタイプ
+	- 関数の引数 $A_1 \subset A_2 \implies A_1\to R \supset A_2\to R$
 - 双対性 共変かつ反変
 - 非変性 共変でも反変でもない
 
@@ -129,8 +124,8 @@ trait
 - Hindley-Milner 型理論
 	- 強力な型理論です. Haskell, Rust, SML, OCaml などで使われています.
 	- 連立方程式を解くように変数の型を決定していき, 決定できなければ多相性を持たせることで必ず正当に型推論できるという方法があり, Hindley-Milner 型理論のアルゴリズム W と呼ばれています.
-- Homotopy Type Theory
-	- 最近だと Homotopy Type Theory(HoTT) と呼ばれる新しい型理論が話題になっています. Martin-Löf 型理論で打ち砕かれた直感主義的型理論を解決させた理論らしく, いつか理解してみたいと思っています.
+- Homotopy Type Theory (HoTT)
+	- Martin-Löf 型理論で打ち砕かれた直感主義的型理論を解決させた理論らしく, いつか理解してみたいと思っています.
 
 ## 第二章 内部実装
 コード解析などで解決する問題はよくNP完全な問題であることが多い。しかし何がNP完全で何がそうではないか区別する技術を持つ人は少ないと思う。
