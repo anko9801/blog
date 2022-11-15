@@ -172,6 +172,7 @@ trait
 	- vtable
 
 **アドホック多相**
+
 デフォルト引数
 - 型クラス(Haskell)
 - トレイト(Rust)
@@ -179,6 +180,7 @@ trait
 - implicit (Scala)
 
 **パラメータ多相**
+
 - ジェネリクス
 	- ジェネリクス(Java)
 	- テンプレート(C++)
@@ -194,6 +196,7 @@ trait
 これ説明するならC++やRustだけではなくHaskellやScalaの内部実装を見ておきたい.
 
 **サブタイピング多相**
+
 部分型の判定
 - 公称的部分型 (Nominal subtyping)
 	- 部分型として定義したもののみ部分型とみなす.
@@ -222,35 +225,29 @@ trait
 - 継承先で別々の処理をするけれども親クラスからは同じ関数として呼びたいという抽象化を行うときに使います。この処理の裏では関数が呼ばれるとvtable(仮想関数テーブル: 型と関数の対応表)を見て、的確な関数へ飛ばすようにしています。これを動的ディスパッチまたは動的ポリモーフィズムと呼びます。これはvtableを経由するので比較的遅いです。(メモリのアドレスを読んでそこへジャンプすることは分岐予測が効きにくいから、TODO:本当に効きにくい？)
 
 ### 最適化 (Optimization)
-コンパイラが行う最適化処理は低レイヤに依存するものが多い. その点, アーキテクチャの抽象化とも言える. それよりコードの読みやすさと高速化には相反する場合がよくある.
+コンパイラが行う最適化処理は低レイヤに依存するものが多いです. その点, アーキテクチャの抽象化とも言えます. それよりコードの読みやすさと高速化には相反する場合がよくあります. それらをコンパイラが最適化し, その両立を目指します.
 
-TODO
-- 何を最適化するのか?
-	- メモリ最適化
-	- 実行速度最適化
-	- コードサイズ最適化
-- 最適化の方法
+単に最適化と言ったとき, 3つの最適化のどれかまたはすべてを指しています.
+- 実行速度最適化
+- メモリ最適化
+- コードサイズ最適化
 
-SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ理論を持ち込んでより深い最適化を考えられる。
+SSA形式に落とし込むとCFGと単純な同値関係になり, グラフ理論を持ち込んでより深い最適化を考えられます.
 
-現代の主要なコンパイラの最適化は巨大となっているが, 最もクリティカルな8つの最適化さえ実装すれば最大80%の性能まで向上する。
+現代の主要なコンパイラの最適化は巨大となっているが, 最もクリティカルな8つの最適化さえ実装すれば最大80%の性能まで向上します.
 
 - インライン展開
-	- ある関数が頻繁に呼び出されるとき, 関数のコードを展開し, オーバーヘッドを
+	- ある関数が頻繁に呼び出されるとき, 関数のコードを展開し, 関数呼び出しのオーバーヘッドを減らす.
 - ループ展開, ベクトル化
-	- ループを展開する
-	- 利点
-		- 分岐が減る
-		- 命令レベルの並列化を行える
-	- 欠点
-		- キャッシュミスの増加
-		- ループ内に複雑な制御フローが含まれていると分岐予測が当たりづらくなる
+	- 命令レベルの並列化を行う為にループを展開する.
+	- ループ毎の分岐は減るが, ループ内に複雑な制御フローが含まれていると分岐予測が当たりづらくなる.
+	- キャッシュミスが増加する可能性がある.
 - 共通部分式除去 (CSE; Common Subexpression Elimination)
 - デッドコード除去 (DCE; Dead Code Elimination)
 	- よく定数畳み込みをすると命令列が"死ぬ"ことがある. 実行時に1度も到達できないコードをデッドコードと呼び, それらは削除できる.
 - コード移動
 - 定数畳み込み, 定数伝播 (Constant Fold, Constant Propagation)
-	- コンパイル時に定数の計算をする
+	- コンパイル時に定数の計算をする.
 	- 定数伝搬 constexpr, 定数畳み込み consteval
 - Peephole最適化
 
@@ -261,7 +258,7 @@ SSA形式に落とし込むとCFGと単純な同値関係になり、グラフ�
 	- BOLT (Facebook)
 	- llvm-propeller (Google)
 - Copy On Write
-	- あるデータをコピーする時, 読み取り時は前データを参照すればよく, 書き込み時までコピーを遅延させればよい
+	- あるデータをコピーする時, 読み取り時は前データを参照すればよく, 書き込み時までコピーを遅延させればよいです.
 - キャッシュ局所化
 - Strength Reduction
 	- コストの高い演算を低い演算に置き換える最適化
@@ -279,6 +276,7 @@ VM (Virtual Machine)
 - YARV
 	- [YARV Maniacs 【第 1 回】 『Ruby ソースコード完全解説』不完全解説 (rubyist.net)](https://magazine.rubyist.net/articles/0006/0006-YarvManiacs.html)
 - HHVM Hac
+- ErlangVM
 
 RAII; Resource Acquisition Is Initialization
 - リソースの確保(Acquisition)と解放を変数の初期化(Initialization)と破棄に紐付けるという考え方を指す言葉です.
@@ -290,19 +288,21 @@ RAII; Resource Acquisition Is Initialization
 - 例外送出時もちゃんと対応
 - 解放処理の失敗をトラップしたい場合にはどうしようもなく使いにくい
 
+Lifetime
+
 GC (Gabage Collection)
 - 参照カウントが0になったものを自動的に解放する
 - Mark and Sweep
 - Copy GC
 - Stop the World
 
-Lifetime/ムーブセマンティクス
+ムーブセマンティクス
 - mutable reference は Linear type を根拠にしている.
 - ダングリングポインタを無くす
-- 脆弱性の1つ, Use after free を用いることで様々な exploit ができる為, できる限り無くしたいのは嘘では
 - smart pointer
 - miracle pointer
-- [Google Online Security Blog: Use-after-freedom: MiraclePtr (googleblog.com)](https://security.googleblog.com/2022/09/use-after-freedom-miracleptr.html)
+	- 脆弱性の1つ, Use after free を用いることで様々な exploit ができる為, できる限り無くしたい
+	- [Google Online Security Blog: Use-after-freedom: MiraclePtr (googleblog.com)](https://security.googleblog.com/2022/09/use-after-freedom-miracleptr.html)
 
 エラー処理
 - try-catch (Java, JavaScript)
@@ -393,7 +393,7 @@ Concurrency
 - atomic
 	- compare and swap
 
-それぞれの最適化手法
+それぞれの手法
 - CPS変換, ステートマシンを書く
 	- とても面倒
 - 言語によるグリーンスレッド
@@ -409,9 +409,9 @@ Concurrency
 - 便利構文のサポート
 	- async/await
 		- 高階関数との親和性がよくない
-- （限定）継続
+- (限定)継続
 
-goroutine $\iff$ async/await
+async/await $\iff$ goroutine
 - async $\iff$ goroutine作ってchannel渡して
 - await $\iff$ channel待つ
 - eventloop の queue $\iff$ channel のqueue
@@ -423,4 +423,4 @@ async iterator
 - happens-before 実行順序
 - data race free
 - sequentially consistent atomics(素直なatomics)
-	- Javaのvolatile, C++のdefault atomics, Goのsync/atomic, JavaScript
+	- Java (volatile), C++ (default atomics), Go (sync/atomic), JavaScript
