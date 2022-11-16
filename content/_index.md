@@ -283,6 +283,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - 素子
 - アナログ回路
 - デジタル回路
+- LSI
 - [CPU / GPU](./other/Application/Processor.md)
   - Spectre / Meltdown
   - HIEE; Hardware-assisted Isolated Execution Environments

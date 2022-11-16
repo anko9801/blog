@@ -5,6 +5,7 @@ title: "プロセッサ"
 # CPU
 
 ## 概要
+
 CPU
 - LGA
 - BGA
