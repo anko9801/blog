@@ -8,6 +8,12 @@ title: "シェル"
 Shell Shock (CVE-2014-6271)
 - [bash の脆弱性 "Shell Shock" のめっちゃ細かい話 (CVE-2014-6271) - もろず blog (hatenablog.com)](https://moro-archive.hatenablog.com/entry/2014/09/27/200553)
 
+コマンド
+- sftp
+- scp
+- rsync
+- [gum を使ってシェルスクリプトの表示をカッコよくする (zenn.dev)](https://zenn.dev/kou_pg_0131/articles/gum-introduction)
+
 ## Makefile
 - [A Tutorial on Portable Makefiles (nullprogram.com)](https://nullprogram.com/blog/2017/08/20/)
 
