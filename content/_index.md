@@ -284,12 +284,13 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - アナログ回路
 - デジタル回路
 - LSI
-- [CPU / GPU](./other/Application/Processor.md)
+- [CPU / GPU](Processor.md)
   - Spectre / Meltdown
   - HIEE; Hardware-assisted Isolated Execution Environments
     - [TEE; Trusted Execution Environment](./other/Circuit/HIEE/TEE.md)
     - [TPM; Trusted Platform Module](./other/Circuit/HIEE/TPM.md)
     - [DRM; Digital Rights Management](./other/Circuit/HIEE/DRM.md)
+    - DAA; Direct Anonymous Attestation
   - [rootkit](./other/Circuit/Rootkit.md)
 - 論理
 - マイクロアーキテクチャ
@@ -326,10 +327,6 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
   - [型推論](./other/Application/Programming/Type.md)
   - 未定義動作
 - 電子回路
-  - SPI
-  - I2C
-  - UART
-  - JTAG
 - 構造探検隊
   - [ELF](./other/Application/Structure/ZIP.md)
   - JPEG

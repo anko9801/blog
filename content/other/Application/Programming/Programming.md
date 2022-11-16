@@ -256,6 +256,7 @@ SSA形式に落とし込むとCFGと単純な同値関係になり, グラフ理
 - 末尾呼び出し最適化
 - Profile-Guided Optimization
 	- 実行しプロファイルしたデータに基づいてより良い最適化を行う
+	- [ガイド付き最適化のプロファイル | Microsoft Learn](https://learn.microsoft.com/ja-jp/cpp/build/profile-guided-optimizations?view=msvc-170)
 	- BOLT (Facebook)
 	- llvm-propeller (Google)
 - Copy On Write
