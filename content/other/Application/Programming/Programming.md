@@ -67,11 +67,16 @@ trait
 - $(f_1, f_2) \subset (f_1)$
 
 部分型の性質
-- 共変性 (covariant) $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
-- 反変性 (contravariant) $A_1 \subset A_2 \implies I[A_1] \supset I[A_2]$
+- 共変性 (covariant)
+	- $A_1 \subset A_2 \implies I[A_1] \subset I[A_2]$
+- 反変性 (contravariant)
+	- $A_1 \subset A_2 \implies I[A_1] \supset I[A_2]$
 	- 関数の引数 $A_1 \subset A_2 \implies A_1\to R \supset A_2\to R$
-- 双対性 共変かつ反変
-- 非変性 共変でも反変でもない
+- 双変性 (bivariant)
+	- 共変かつ反変
+	- $A_1 \subset A_2 \implies I[A_1] = I[A_2]$
+- 非変性 (nonvariant)
+	- 共変でも反変でもない
 
 ### 型の構成と分類
 - 依存型 $\Pi_{x\colon A}B(x)$
