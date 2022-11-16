@@ -105,12 +105,12 @@ trait
 例えば最も基礎的な型システムの一つである構造的型システム [Substructural Type Systems](https://www.cs.cmu.edu/~janh/courses/ra19/assets/pdf/lect04.pdf) は次のようなものがある. 変数が使える回数と使う順番について制約のある型システムである.
 
 | 型システム            | 0回 (Weakening) | 1回 (Base) | 2回以上 (Contraction) | 順序の可換性 (Exchange) | 用途                          |
-| --------------------- | --------------- | --- | --------------------- | ----------------------- | ----------------------------- |
-| Ordered Type Systems  | x               | o   | x                     | x                       | stack-based memory allocation |
-| Linear Type Systems   | x               | o   | x                     | o                       | mutable reference             |
-| Affine Type Systems   | o               | o   | x                     | o                       |                               |
-| Relevant Type Systems | x               | o   | o                     | o                       |                               |
-| Normal Type Systems   | o               | o   | o                     | o                       | 一般の型システム              |
+| --------------------- |:---------------:|:----------:|:---------------------:|:-----------------------:| ----------------------------- |
+| Ordered Type Systems  |        X        |     O      |           X           |            X            | stack-based memory allocation |
+| Linear Type Systems   |        X        |     O      |           X           |            O            | mutable reference             |
+| Affine Type Systems   |        O        |     O      |           X           |            O            |                               |
+| Relevant Type Systems |        X        |     O      |           O           |            O            |                               |
+| Normal Type Systems   |        O        |     O      |           O           |            O            | 一般の型システム              |
 
 (線形型やアフィン型などは実際にIdris 2で数量的型として、HaskellでMultiplicity Polymorphismとして導入され、多相型の表現をより良くするために使われています。)
 
