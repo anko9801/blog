@@ -284,7 +284,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - アナログ回路
 - デジタル回路
 - LSI
-- [CPU / GPU](Processor.md)
+- [CPU / GPU](./other/Application/Processor/Processor.md)
   - Spectre / Meltdown
   - HIEE; Hardware-assisted Isolated Execution Environments
     - [TEE; Trusted Execution Environment](./other/Circuit/HIEE/TEE.md)
@@ -328,7 +328,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
   - 未定義動作
 - 電子回路
 - 構造探検隊
-  - [ELF](./other/Application/Structure/ZIP.md)
+  - [ELF](./other/Application/Structure/ELF.md)
   - JPEG
   - [FAT32](./other/Application/Structure/FAT32.md)
   - [ZIP](./other/Application/Structure/ZIP.md)
