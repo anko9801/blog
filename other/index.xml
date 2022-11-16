@@ -53,14 +53,7 @@ bash の脆弱性 &amp;ldquo;Shell Shock&amp;rdquo; のめっちゃ細かい話 
 Concolic Execution SSA形式とCFGが対応する Taint 解析
 計算量 条件分岐数を $N$ として $O(2^N)$
 実装 レジスタ, メモリに関する制約とSSA形式のIRを条件式としてSMTソルバで解く。
-Rustでの実装 (mini_symbolic) 使用例 シンボリック実行エンジンのプロジェクト angr のサンプルコード。</description></item><item><title>ツール</title><link>https://anko9801.github.io/blog/other/Application/Tools/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Tools/</guid><description>Mac
-Raycast Windows
-PowerToys ImHex Ear Trumpet WizTree Obsidian XP-PEN
-ある単語について検索結果の要約をポップアップで表示する拡張機能
-Splunk
-PEGを正規表現の拡張として使えるようなもの
-デスクトップアプリ
-Electron (TS) Dioxus (Rust) トークナイザ</description></item><item><title>ツールチェーン</title><link>https://anko9801.github.io/blog/other/Application/Programming/toolchain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Programming/toolchain/</guid><description>toolchain ツールチェーンとはソースコードを実行する一連の処理に必要なソフトウェアのこと。要はどんな開発にも必要なツールセットである。
+Rustでの実装 (mini_symbolic) 使用例 シンボリック実行エンジンのプロジェクト angr のサンプルコード。</description></item><item><title>ツール</title><link>https://anko9801.github.io/blog/other/Application/Tools/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Tools/</guid><description> ユーティリティ PowerToys (Windows) Raycast (Mac) バイナリエディタ ImHex ランチャー Ear Trumpet ATOK ueli Podman Desktop メモ Obsidian Excalidraw パスワードマネージャー KeePassXC プロファイラ WizTree Splunk WakaTime CrystalDisk CrystalDiskMark メール Postfix SendGrid Mailgun 液タブ XP-PEN サーバー YAMAHA RTX1200 アイデア ある単語について検索結果の要約をポップアップで表示する拡張機能 PEGを正規表現の拡張として使えるようなもの ライブラリ デスクトップアプリ開発 Electron (TypeScript) Dioxus (Rust) トークナイザ MeCab vibrato</description></item><item><title>ツールチェーン</title><link>https://anko9801.github.io/blog/other/Application/Programming/toolchain/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://anko9801.github.io/blog/other/Application/Programming/toolchain/</guid><description>toolchain ツールチェーンとはソースコードを実行する一連の処理に必要なソフトウェアのこと。要はどんな開発にも必要なツールセットである。
 ![[toolchain.svg]]
 コンパイラ ![[compiler.svg]]
 glibc
