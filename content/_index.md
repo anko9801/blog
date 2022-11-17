@@ -274,7 +274,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [Pyjail](./misc/Pyjail.md)
 - [Forensics](./misc/forensics/forensics.md)
   - [Windows](./misc/forensics/windows.md)
-- [OSINT](OSINT.md)
+- [OSINT](./misc/osint/OSINT.md)
 
 ## コンピュータ・アーキテクチャ
 
@@ -339,7 +339,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [レンダリング](./other/Rendering/Rendering.md)
   - [レイトレーシング](./other/Rendering/RayTracing.md)
   - [シェーダー](./other/Rendering/Shader.md)
-- [ブロックチェーン](./other/Rendering/Blockchain.md)
+- [ブロックチェーン](./other/Blockchain.md)
 - [Deep Learning](./other/DeepLearning.md)
 - [【画像処理入門】アルゴリズム＆プログラミング](https://algorithm.joho.info/programming/image-processing/)
 - 超解像
