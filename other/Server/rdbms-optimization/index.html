@@ -1,0 +1,384 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="Cache
+Copy on Write An Overview of Query Optimization in Relational Systems 論文紹介 - Google スライド
+O/R Mapper
+ISUCONメモ  https://github."><title>バックエンド最適化</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://anko9801.github.io/blog//icon.png><link href=https://anko9801.github.io/blog/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://anko9801.github.io/blog/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://anko9801.github.io/blog/js/darkmode.5777cdbea4ccb2b68cacc7e904cabb5c.min.js></script>
+<script src=https://anko9801.github.io/blog/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://anko9801.github.io/blog/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.7bcb1a783570b55dadf0f7d44415eb8c.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.592b3cb2212e51e2f625b6a0ff6fd41e.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script defer src=https://anko9801.github.io/blog/js/semantic-search.2c776550faf6cf14399b47e62a8e9782.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://anko9801.github.io/blog/>🪴 あやめHex</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><h1>バックエンド最適化</h1><p class=meta>Last updated
+Nov 18, 2022
+<a href=https://github.com/anko9801/blog/tree/hugo/content/other/Server/rdbms-optimization.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#事前講習>事前講習</a><ol><li><a href=#開始直後>開始直後</a></li></ol></li><li><a href=#各種解析ツール-推測するな計測せよ>各種解析ツール 推測するな計測せよ</a><ol><li><a href=#パフォーマンスモニタリング>パフォーマンスモニタリング</a></li><li><a href=#メトリクス>メトリクス</a></li><li><a href=#アクセス解析>アクセス解析</a></li><li><a href=#プロファイリング>プロファイリング</a></li><li><a href=#スロークエリ>スロークエリ</a></li><li><a href=#sql全般>SQL全般</a></li><li><a href=#makefile>Makefile</a></li></ol></li><li><a href=#アプリ>アプリ</a><ol><li><a href=#プロファイラの設定>プロファイラの設定</a></li></ol></li><li><a href=#mysql-チューニング>MySQL チューニング</a><ol><li><a href=#mysql設定>MySQL設定</a></li><li><a href=#スロークエリ-1>スロークエリ</a></li><li><a href=#クエリーキャッシュ-qcache>クエリーキャッシュ Qcache</a></li><li><a href=#再起試験対策>再起試験対策</a></li><li><a href=#json>JSON</a></li></ol></li><li><a href=#http-チューニング>HTTP チューニング</a><ol><li><a href=#メモ>メモ</a></li></ol></li></ol></nav></details></aside><p>Cache</p><p>Copy on Write
+<a href="https://docs.google.com/presentation/d/1ruGYLRLeagkfv1gQBlmh_di7AviaSx0MJih4oH24AsY/edit#slide=id.p" rel=noopener>An Overview of Query Optimization in Relational Systems 論文紹介 - Google スライド</a></p><p>O/R Mapper</p><a href=#isuconメモ><h1 id=isuconメモ><span class=hanchor arialabel=Anchor># </span>ISUCONメモ</h1></a><p><a href=https://github.com/FujishigeTemma/isucon9-qualify/blob/master/go/main.go rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/blob/master/go/main.go</a>
+<a href=https://github.com/tohutohu/isucon9/blob/master/webapp/go/main.go rel=noopener>https://github.com/tohutohu/isucon9/blob/master/webapp/go/main.go</a></p><p><a href="https://www.youtube.com/watch?v=0DhBLswwcRs" rel=noopener>https://www.youtube.com/watch?v=0DhBLswwcRs</a></p><p><a href=https://gist.github.com/941/8c64842b71995a2d448315e2594f62c2 rel=noopener>https://gist.github.com/941/8c64842b71995a2d448315e2594f62c2</a>
+<a href=https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a rel=noopener>https://gist.github.com/south37/d4a5a8158f49e067237c17d13ecab12a</a>
+<a href=https://isucon.net/archives/54822761.html rel=noopener>https://isucon.net/archives/54822761.html</a></p><a href=#事前講習><h2 id=事前講習><span class=hanchor arialabel=Anchor># </span>事前講習</h2></a><p>工事中
+:::spoiler
+ssh接続
+ssh鍵
+githubで公開リポジトリに置くと失格
+マニュアルを全員読む(情報をまとめることが得意な人がいたら)
+初期ベンチ
+ベンチの振れ幅、挙動を調べる
+1コミット1ベンチ
+コミットコメントにログとか載せると良き
+キャッシュが必要以上に残るとフェイル
+タイムアウトか間違ったキャッシュならタイムアウトを取る</p><p>変更するファイル
+webapp/go
+webapp/sql
+各種設定ファイル
+nginxやmysqlの設定などはgit内に移して元の場所にシンボリックリンクを貼る</p><a href=#開始直後><h3 id=開始直後><span class=hanchor arialabel=Anchor># </span>開始直後</h3></a><p>マニュアルを全員で読む</p><ul><li>点数に関わる記述が重要情報</li><li>キャッシュの許され方<ul><li>「N秒キャッシュしてもよい」と書いてある</li></ul></li></ul><p>不要なデーモンを止める</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>cat /proc/cpuinfo
+</span></span><span class=line><span class=cl>free -h
+</span></span><span class=line><span class=cl>systemctl list-units --type=service --state=running
+</span></span></code></pre></td></tr></table></div></div><p>ssh configの設定
+ベンチ1回目
+リポジトリ内にシンボリックリンクを置く
+git init git remote git add . git commit -m &ldquo;Initial commit&rdquo;
+お昼食べる
+利用するサイトの動作確認
+忘れて無ければ全ページのスクショを撮る
+ラストのチェックのときにCSSとかをざっと見る
+使いそうなファイル群を固めてローカルに持ってくる
+tar xvcf webapp
+scp user@ip:~/webapp.tar .
+更新箇所のチェック
+エンドポイントの数
+更新があるエンドポイント
+mysqlとnginxのログ設定
+解析ツールのインストール
+ベンチ2回目
+秘伝のタレ
+ベンチ3回目</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>INDEX idx_category_id_created_at (category_id,created_at),
+</span></span><span class=line><span class=cl>INDEX idx_created_at (created_at),
+</span></span><span class=line><span class=cl>INDEX idx_buyer_id (buyer_id),
+</span></span><span class=line><span class=cl>INDEX mul_idx_seller_id_created_at (seller_id, created_at)
+</span></span></code></pre></td></tr></table></div></div><p><a href=https://github.com/reyu0722/piscon2021 rel=noopener>https://github.com/reyu0722/piscon2021</a></p><ul><li>ItemとかUserとかで取れる部分はキャッシュする -> 71500</li><li>Item以外をメモリだけで管理するようにした (他にもいくつか) -> 87840<ul><li>超大変だった
+:::</li></ul></li></ul><a href=#各種解析ツール-推測するな計測せよ><h2 id=各種解析ツール-推測するな計測せよ><span class=hanchor arialabel=Anchor># </span>各種解析ツール 推測するな計測せよ</h2></a><a href=#パフォーマンスモニタリング><h3 id=パフォーマンスモニタリング><span class=hanchor arialabel=Anchor># </span>パフォーマンスモニタリング</h3></a><p>CPU占有率の高いプロセスを特定します
+htop dstat
+dstat -tlamp</p><a href=#メトリクス><h3 id=メトリクス><span class=hanchor arialabel=Anchor># </span>メトリクス</h3></a><p>高級なパフォーマンスモニタリングツール
+<a href=https://github.com/netdata/netdata rel=noopener>netdata</a> NewRelic Splunk
+<a href=https://dev.classmethod.jp/articles/netdata/ rel=noopener>https://dev.classmethod.jp/articles/netdata/</a></p><a href=#アクセス解析><h3 id=アクセス解析><span class=hanchor arialabel=Anchor># </span>アクセス解析</h3></a><p>パスパラメータ/クエリパラメータ別のアクセス数を表示してくれます
+主に見るべきはavg 次にcount
+kataribe <strong><a href=https://github.com/tkuchiki/alp rel=noopener>alp</a></strong></p><a href=#プロファイリング><h3 id=プロファイリング><span class=hanchor arialabel=Anchor># </span>プロファイリング</h3></a><p><strong>pprof</strong> fgprof</p><a href=#スロークエリ><h3 id=スロークエリ><span class=hanchor arialabel=Anchor># </span>スロークエリ</h3></a><p>mysqldumpslow <strong>pt-query-digest</strong></p><a href=#sql全般><h3 id=sql全般><span class=hanchor arialabel=Anchor># </span>SQL全般</h3></a><p><strong><a href=https://www.s-style.co.jp/products/percona/toolkit rel=noopener>percona tool kit</a></strong>
+<a href=https://github.com/major/MySQLTuner-perl rel=noopener>mysqltuner</a></p><a href=#makefile><h3 id=makefile><span class=hanchor arialabel=Anchor># </span>Makefile</h3></a><p>TODO: 秘伝のMakefileを作る
+<a href=https://gist.github.com/azonti/dee0547cb561dfdec4a90e093a418bdc rel=noopener>https://gist.github.com/azonti/dee0547cb561dfdec4a90e093a418bdc</a>
+<a href=https://github.com/FujishigeTemma/isucon10-final/blob/master/Makefile rel=noopener>https://github.com/FujishigeTemma/isucon10-final/blob/master/Makefile</a>
+<a href=https://github.com/tohutohu/isucon9/blob/master/Makefile rel=noopener>https://github.com/tohutohu/isucon9/blob/master/Makefile</a>
+<a href=https://git.trap.jp/eiya/202008piscon/src/branch/master/go/Makefile rel=noopener>https://git.trap.jp/eiya/202008piscon/src/branch/master/go/Makefile</a></p><a href=#アプリ><h2 id=アプリ><span class=hanchor arialabel=Anchor># </span>アプリ</h2></a><ul><li>クエリ最適化</li><li>変更の少ないデータのキャッシュ化</li><li>やらなくてよい処理を省く</li><li>強いセキュリティを弱くして高速化(gorilla/sessions->自前実装 net/http->fasthttp bcrypt->SHA256など)</li><li>APIの並列化</li><li>FOR UPDATEアプリケーションで排他制御</li><li>gollira/sessionはセキュアなセッションをcookieだけで実現しているので、暗号化のコストが結構かかる -> ランダムな値とmapを使った実装に差し替え</li><li>jsonのエンコード/デコードをgo-json</li></ul><a href=#プロファイラの設定><h3 id=プロファイラの設定><span class=hanchor arialabel=Anchor># </span>プロファイラの設定</h3></a><h4 id=pprof-httpsgithubcomgooglepprof>pprof
+<a href=https://github.com/google/pprof rel=noopener>https://github.com/google/pprof</a></h4><p>標準で入っているプロファイラです。デファクトスタンダードという感じ。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=nx>_</span> <span class=err>&#39;</span><span class=nx>net</span><span class=o>/</span><span class=nx>http</span><span class=o>/</span><span class=nx>pprof</span><span class=err>&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>go</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>http</span><span class=p>.</span><span class=nf>ListenAndServe</span><span class=p>(</span><span class=s>&#34;:6060&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// &lt;code to profile&gt;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>プロファイリングした画像をdiscordやslackに届けるシェルです。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>go tool pprof -png -output pprof.png http://localhost:6060/debug/pprof/profile?seconds<span class=o>=</span><span class=m>60</span>
+</span></span><span class=line><span class=cl>curl -X POST -F <span class=nv>img</span><span class=o>=</span>@pprof.png <span class=k>$(</span>DISCORD_WEBHOOK_URL<span class=k>)</span>
+</span></span><span class=line><span class=cl>slackcat --channel general pprof.png
+</span></span></code></pre></td></tr></table></div></div><h4 id=fgprof-httpsgithubcomfelixgefgprof>fgprof
+<a href=https://github.com/felixge/fgprof rel=noopener>https://github.com/felixge/fgprof</a></h4><p>一部適切な表示とならないことがある</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;net/http&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=nx>_</span> <span class=s>&#34;net/http/pprof&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=s>&#34;github.com/felixge/fgprof&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>http</span><span class=p>.</span><span class=nx>DefaultServeMux</span><span class=p>.</span><span class=nf>Handle</span><span class=p>(</span><span class=s>&#34;/debug/fgprof&#34;</span><span class=p>,</span> <span class=nx>fgprof</span><span class=p>.</span><span class=nf>Handler</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=k>go</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>http</span><span class=p>.</span><span class=nf>ListenAndServe</span><span class=p>(</span><span class=s>&#34;:6060&#34;</span><span class=p>,</span> <span class=kc>nil</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>    <span class=p>}()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1>// &lt;code to profile&gt;
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>http://localhost:6060/debug/fgprof</code></p><a href=#mysql-チューニング><h2 id=mysql-チューニング><span class=hanchor arialabel=Anchor># </span>MySQL チューニング</h2></a><a href=#mysql設定><h3 id=mysql設定><span class=hanchor arialabel=Anchor># </span>MySQL設定</h3></a><p>別のサーバーからDBへアクセスできるようにする
+<code>/etc/mysql/mysql.conf.d/mysqld.cnf</code>
+<code>bind-address = 127.0.0.1</code>をコメントアウト
+<code>bind-address = 0.0.0.0</code></p><p><a href=http://dsas.blog.klab.org/archives/50860867.html rel=noopener>http://dsas.blog.klab.org/archives/50860867.html</a></p><ul><li>グローバルバッファ mysqld全体でそのバッファが1つだけ確保されるもの</li><li>スレッドバッファ スレッド(コネクション)ごとに確保されるもの
+チューニングの際にはグローバル/スレッドの違いを意識するようにしましょう。 なぜなら、スレッドバッファに多くのメモリを割り当てると、コネクションが増えたとたんにアッという間にメモリ不足になってしまうからです。</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>max_connections=1024
+</span></span><span class=line><span class=cl>query_cache_type=ON
+</span></span><span class=line><span class=cl># innoDB全体で一つ生成されるグローバルバッファ(別鯖なら搭載メモリの80%)
+</span></span><span class=line><span class=cl>innodb_buffer_pool_size = 1GB
+</span></span><span class=line><span class=cl># InnoDBの内部データなどを保持する足りないとエラーログが出るからその時増やす
+</span></span><span class=line><span class=cl>#innodb_additional_mem_pool_size = 30MB ←これあるとダメ
+</span></span><span class=line><span class=cl># innoDBの更新ログを保持するメモリ
+</span></span><span class=line><span class=cl>innodb_log_buffer_size = 16MB
+</span></span><span class=line><span class=cl># innodb_log_fileがいっぱいになると、メモリ上のinnodb_buffer_poolの中の更新された部分のデータを、ディスク上のInnoDBのデータファイルに書き出すしくみになっているから
+</span></span><span class=line><span class=cl>innodb_log_file_size = 128MB
+</span></span><span class=line><span class=cl># ORDER BYやGROUP BYのときに使われるメモリ上の領域
+</span></span><span class=line><span class=cl>innodb_sort_buffer_size = 4MB
+</span></span><span class=line><span class=cl>read_rnd_buffer_size = 2MB #
+</span></span><span class=line><span class=cl>key_buffer_size = 256MB
+</span></span><span class=line><span class=cl># 1に設定するとトランザクション単位でログを出力するが 2 を指定すると1秒間に1回ログを吐く。0だとログも1秒に1回。TODO違いをみる
+</span></span><span class=line><span class=cl>innodb_flush_log_at_trx_commit = 0
+</span></span><span class=line><span class=cl>innodb_flush_log_at_trx_commit = 2
+</span></span><span class=line><span class=cl># データファイル、ログファイルの読み書き方式を指定する(実験する価値はある)
+</span></span><span class=line><span class=cl>innodb_flush_method = O_DIRECT
+</span></span><span class=line><span class=cl># 再起動試験対策
+</span></span><span class=line><span class=cl>innodb_buffer_pool_dump_at_shutdown = ON
+</span></span><span class=line><span class=cl>innodb_buffer_pool_load_at_startup = ON
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>$ mysql -u isucari -p
+</span></span><span class=line><span class=cl>pass: isucari
+</span></span><span class=line><span class=cl>$ sudo journalctl -u isucari.golang
+</span></span><span class=line><span class=cl>sudo rm /var/log/mysql/mysql-slow.log
+</span></span><span class=line><span class=cl>sudo systemctl restart mysql
+</span></span><span class=line><span class=cl>sudo rm /var/log/nginx/access.log
+</span></span><span class=line><span class=cl>sudo nginx -t
+</span></span><span class=line><span class=cl>sudo systemctl reload nginx
+</span></span><span class=line><span class=cl>cd ~/isucari/webapp/go
+</span></span><span class=line><span class=cl>make
+</span></span><span class=line><span class=cl>cd -
+</span></span><span class=line><span class=cl>sudo systemctl restart isucari.golang
+</span></span></code></pre></td></tr></table></div></div><a href=#スロークエリ-1><h3 id=スロークエリ-1><span class=hanchor arialabel=Anchor># </span>スロークエリ</h3></a><p><code>/etc/mysql/mysql.conf.d/mysqld.cnf</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nv>slow_query_log</span><span class=o>=</span><span class=m>1</span>
+</span></span><span class=line><span class=cl><span class=nv>slow_query_log_file</span><span class=o>=</span>/var/log/mysql/mysql-slow.log
+</span></span><span class=line><span class=cl><span class=nv>long_query_time</span><span class=o>=</span><span class=m>0</span> <span class=c1># 全てのクエリを書き込んで解析ツールに渡す</span>
+</span></span><span class=line><span class=cl><span class=nv>log_queries_not_using_indexes</span><span class=o>=</span><span class=m>1</span> <span class=c1># インデックスを使っていないクエリも出力する</span>
+</span></span></code></pre></td></tr></table></div></div><p><code>sudo mysqldumpslow -s t -t 10 /path/to/slow.log</code>
+<code>pt-query-digest /path/to/slow.log</code></p><p>複数のSQLクエリをIN、JOIN、LIMIT句、外部キーでまとめる(N+1問題など)
+不要なカラムやクエリを削除する
+転送量を減らす。取得するカラムを減らす、特にでかいもの(<code>VARCHAR(4096)</code>など)が入っているのは削るべき
+<a href=https://qiita.com/ikenji/items/b868877492fee60d85ce rel=noopener>https://qiita.com/ikenji/items/b868877492fee60d85ce</a></p><p><strong>INDEX</strong>
+B+ツリーのインデックスを適切に設定することで検索速度を高める。二分探索ができるものなら速くなる。
+更に言えば上記のBツリーインデックスとハッシュインデックスが存在し、ハッシュインデックスの方が速いが、等価比較しかできない。MySQLは自動的にそれらの選択をしている。
+これが多すぎるとINSERTでくそおもになるので注意</p><p>ここで役立つコマンド
+<code>mysql -uユーザ名 -pパスワード DB名 -e'EXPLAIN ~~;'</code></p><p>LIKEも最初の方がワイルドカードではなければ使える</p><ul><li>速くなるもの WHERE, ORDER BY, JOIN句</li><li>効かないもの LIKE, OR, 演算, 関数処理, IS NULL, 否定形</li><li>NOT NULLを出来る限りつける</li><li>ORをUNION/UNION ALLに変換する</li><li>ORDER BYでDESCとASCの混合->MySQL 8.0では
+<a href=https://dev.mysql.com/doc/refman/8.0/ja/descending-indexes.html rel=noopener>降順インデックス</a>で適用できる</li><li><a href=https://dev.mysql.com/doc/refman/8.0/ja/creating-spatial-indexes.html rel=noopener>空間インデックス</a> <code>SRID 0</code>を付ける
+<a href=https://matsuu.hatenablog.com/entry/2020/09/13/131145 rel=noopener>https://matsuu.hatenablog.com/entry/2020/09/13/131145</a></li></ul><p>プレフィックスインデックス
+非常に長い文字列にインデックスを付ける必要がある場合、値全体ではなく最初の数文字にインデックスを付けることで、記憶域を節約し、パフォーマンスを改善することができます。</p><ul><li>プレフィックスインデックスでは、選択性も低下するため、十分な選択性が得られる長さを持ち、記憶域を節約するくらい短いプレフィックスを選択すること</li><li>欠点として、ORDER BY 句や GROUP BY 句を使用するクエリにプレフィックスインデックスを使用できない</li><li>適切なサイズは、下記クエリで選択性を計測し、収束する値を見ることで発見できる。選択性とは、インデックス付けされた値の数と、テーブル内の行の合計数の比率のこと</li></ul><p>マルチインデックス
+<a href=https://qiita.com/rm-rf-slant/items/8023500788352646b6c2 rel=noopener>クエリ文がINDEX作成時のカラム順に基づいていないと、INDEXが使えない</a></p><ul><li>等しい (=)、より大きい (>)、より小さい (&lt;)、BETWEENなどの検索条件のWHERE句で使用されるか、結合に含まれる列を、先頭に配置する</li><li>クエリによるカラム順序の制限がない場合、最も選択的な列をインデックスの先頭に配置する。カラム毎の選択性は下記クエリで計測する</li><li>ちゃんと出来てないとEXPLAIN type=index:フルインデックススキャンと言われる
+1種類の値に対し多くのデータが存在するようなカラムを先に置く
+重複の多いものを先に置く
+それに伴うようにクエリのカラムを先に置く</li></ul><p><a href=https://lukesilvia.hatenablog.com/entry/20080315/1205583930 rel=noopener>https://lukesilvia.hatenablog.com/entry/20080315/1205583930</a>
+Using filesort
+レコードをソートして取り出す方法を決定するには、MySQL はパスを余分に実行しなくてはならないことを示す。 join type に従ってすべてのレコードをスキャンし、WHERE 条件に一致する全てのレコードに、ソートキー + 行ポインタを格納して、ソートは実行される。 その後キーがソートされる。 最後に、ソートされた順にレコードが取り出される。</p><p>Using temporary
+クエリの解決に MySQL で結果を保持するテンポラリテーブルの作成が必要であることを示す。これは一般に、GROUP BY を実行したカラムセットと異なるカラムセットに対して ORDER BY を実行した場合に発生する。
+UNIONとかも&mldr;？</p><p><a href=https://qiita.com/katsukii/items/3409e3c3c96580d37c2b rel=noopener>https://qiita.com/katsukii/items/3409e3c3c96580d37c2b</a>
+<a href=https://nishinatoshiharu.com/overview-multicolumn-indexes/ rel=noopener>https://nishinatoshiharu.com/overview-multicolumn-indexes/</a></p><p>インデックスオンリースキャン
+SELECTするカラムが少ないときINDEXにそのカラムを置くとそれを取ってくるだけでよい</p><a href=#クエリーキャッシュ-qcache><h3 id=クエリーキャッシュ-qcache><span class=hanchor arialabel=Anchor># </span>クエリーキャッシュ Qcache</h3></a><p>※注意
+<a href=https://yakst.com/ja/posts/4612 rel=noopener>MySQL 8.0以降には存在しない</a>
+メモリ上にクエリのバイト列とその結果を保存して再度同じ(大文字・小文字を区別する)クエリが来たらDBを探さずそれを返す。更新がかかるとキャッシュがフラッシュされる。
+ディスクI/Oの多発の解決
+INSERT,UPDATEが少なくSELECTが多いアプリに有効</p><p><a href=https://qiita.com/ryurock/items/9f561e486bfba4221747 rel=noopener>MySQL クエリーキャッシュ 【チューニング方法とかも】</a></p><hr><p>SQLで画像を入れるとAXと呼ばれるやつが入るらしい
+<a href=https://stackoverflow.com/questions/52426874/how-do-i-extract-microsoft-sql-varbinarymax-field-to-image-using-golang rel=noopener>https://stackoverflow.com/questions/52426874/how-do-i-extract-microsoft-sql-varbinarymax-field-to-image-using-golang</a></p><p><code>キーキャッシュのヒット率 = 100 - ( key_reads / key_read_requests × 100 )</code>
+mysqlをmariadbに変える? (あまり必要はない)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>$ curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup <span class=p>|</span> sudo bash
+</span></span><span class=line><span class=cl>$ sudo apt install mariadb-server
+</span></span><span class=line><span class=cl>$ <span class=c1>#このあと/etc/mysql/mysql.conf.d/mysqld.cnfに書いてたやつを/etc/mysql/mariadb.conf.d/50-server.cnfに書く</span>
+</span></span></code></pre></td></tr></table></div></div><p><del>proxysqlを利用する？</del> <del>mariadbなら</del>そのままquery cache使えばよさそう</p><p><a href=http://dsas.blog.klab.org/archives/50860867.html rel=noopener>http://dsas.blog.klab.org/archives/50860867.html</a></p><a href=#再起試験対策><h3 id=再起試験対策><span class=hanchor arialabel=Anchor># </span>再起試験対策</h3></a><p>1台目サーバと2台目サーバの再起動タイミングがずれるとアプリからのDB接続に失敗
+<code>/etc/systemd/system/isuumo.go.service</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>[Service]
+</span></span><span class=line><span class=cl>StartLimitBurst=999 # 失敗して再起動するのを何回行うか デフォルトは5
+</span></span></code></pre></td></tr></table></div></div><p>再起動試験用DB待ち</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span> <span class=nx>main</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=p>(</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;database/sql&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;log&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
+</span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// main関数内に置く
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nf>waitDB</span><span class=p>(</span><span class=nx>db</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>go</span> <span class=nf>pollDB</span><span class=p>(</span><span class=nx>db</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>waitDB</span><span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>sql</span><span class=p>.</span><span class=nx>DB</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>err</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>Ping</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>==</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Failed to ping DB: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>log</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Retrying...&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>pollDB</span><span class=p>(</span><span class=nx>db</span> <span class=o>*</span><span class=nx>sql</span><span class=p>.</span><span class=nx>DB</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>err</span> <span class=o>:=</span> <span class=nx>db</span><span class=p>.</span><span class=nf>Ping</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>log</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Failed to ping DB: %s&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><hr><a href=#golang><h4 id=golang><span class=hanchor arialabel=Anchor># </span>golang</h4></a><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl><span class=nx>dbx</span><span class=p>.</span><span class=nf>SetMaxIdleConns</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span> <span class=c1>// デフォルトだと2
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>dbx</span><span class=p>.</span><span class=nf>SetConnMaxLifetime</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=c1>// 一応セット
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>dbx</span><span class=p>.</span><span class=nf>SetConnMaxIdleTime</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span> <span class=c1>// 一応セット go1.15以上
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=c1>// goroutineを生やしすぎてもタイムアウトする https://www.sambaiz.net/article/61/
+</span></span></span><span class=line><span class=cl><span class=c1>// Keep-AliveするとTCPコネクションを使い回し、名前解決やコネクション(3 way handshake)を毎回行わなくてよくなる
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>http</span><span class=p>.</span><span class=nx>DefaultTransport</span><span class=p>.(</span><span class=o>*</span><span class=nx>http</span><span class=p>.</span><span class=nx>Transport</span><span class=p>).</span><span class=nx>MaxIdleConns</span> <span class=p>=</span> <span class=mi>0</span> <span class=c1>// 無制限 デフォルトだと100
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>http</span><span class=p>.</span><span class=nx>DefaultTransport</span><span class=p>.(</span><span class=o>*</span><span class=nx>http</span><span class=p>.</span><span class=nx>Transport</span><span class=p>).</span><span class=nx>MaxIdleConnsPerHost</span> <span class=p>=</span> <span class=mi>1024</span> <span class=c1>// 0にすると2になっちゃう
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>http</span><span class=p>.</span><span class=nx>DefaultTransport</span><span class=p>.(</span><span class=o>*</span><span class=nx>http</span><span class=p>.</span><span class=nx>Transport</span><span class=p>).</span><span class=nx>ForceAttemptHTTP2</span> <span class=p>=</span> <span class=kc>true</span> <span class=c1>// go1.13以上
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>http</span><span class=p>.</span><span class=nx>DefaultClient</span><span class=p>.</span><span class=nx>Timeout</span> <span class=p>=</span> <span class=mi>5</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span> <span class=c1>// 問題の切り分け用
+</span></span></span></code></pre></td></tr></table></div></div><p><a href=https://qiita.com/go_sagawa/items/11929cd0883608a6888d rel=noopener>https://qiita.com/go_sagawa/items/11929cd0883608a6888d</a></p><ul><li>redis</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo add-apt-repository ppa:chris-lea/redis-server
+</span></span><span class=line><span class=cl>sudo apt update
+</span></span><span class=line><span class=cl>sudo apt install redis
+</span></span></code></pre></td></tr></table></div></div><p><code>sudo nano /etc/redis/redis.conf</code>
+<code>bind 127.0.0.1 ::1</code>のコメントアウト
+<code>protected-mode yes</code>→<code>protected-mode no</code>
+<code>requirepass hogehoge</code>に</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>sudo systemctl unmask redis-server
+</span></span><span class=line><span class=cl>sudo systemctl enable redis-server
+</span></span><span class=line><span class=cl>sudo systemctl restart redis-server
+</span></span></code></pre></td></tr></table></div></div><p><code>sudo echo never > /sys/kernel/mm/transparent_hugepage/enabled</code>
+<code>sudo nano rc.local</code>→追記: <code>echo never > /sys/kernel/mm/transparent_hugepage/enabled</code></p><a href=#json><h3 id=json><span class=hanchor arialabel=Anchor># </span>JSON</h3></a><p><a href=https://github.com/json-iterator/go rel=noopener>https://github.com/json-iterator/go</a> を試してみる</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-golang data-lang=golang><span class=line><span class=cl><span class=kd>var</span> <span class=nx>json</span> <span class=p>=</span> <span class=nx>jsoniter</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>EscapeHTML</span><span class=p>:</span>                    <span class=kc>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>ObjectFieldMustBeSimpleString</span><span class=p>:</span> <span class=kc>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>}.</span><span class=nf>Froze</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><p><a href=https://github.com/francoispqt/gojay rel=noopener>https://github.com/francoispqt/gojay</a>
+<a href=https://github.com/goccy/go-json rel=noopener>https://github.com/goccy/go-json</a>
+<a href=https://github.com/minio/simdjson-go rel=noopener>https://github.com/minio/simdjson-go</a>
+Marshal / Encoder: goccy/go-json > francoispqt/gojay
+Unmarshal: francoispqt/gojay > goccy/go-json
+Decoder: francoispqt/gojay &#187; goccy/go-json</p><ul><li><p>メモリ上にキャッシュ</p><ul><li><code>map</code><ul><li>読み込み書き込みともに多く行う -> <code>sync.Map</code></li><li>読み込み多く行う -> <code>sync.RWMutex</code> + <code>map</code></li><li>ロックが気になるならシャーディングをするとよい<ul><li><a href=https://github.com/orcaman/concurrent-map rel=noopener>https://github.com/orcaman/concurrent-map</a></li><li><a href=https://github.com/FujishigeTemma/isucon9-qualify/compare/6eaa28f77cb8bac674c0b8cfbf9794d91999d026...49cede08c6fcf59afa29857559d146abb1e96165 rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/compare/6eaa28f77cb8bac674c0b8cfbf9794d91999d026...49cede08c6fcf59afa29857559d146abb1e96165</a></li><li>15～20個ずつになるくらいがよさそう？</li></ul></li></ul></li><li>sessionメモリに持つ<ul><li><code>gorilla/sessions</code>はコピーのために<code>encoding/gob</code>が無駄に呼び出される</li></ul></li></ul></li><li><p>singleflight</p><ul><li><code>x/sync/singleflight</code></li><li><code>sync.Map</code> + <code>sync.Cond</code><ul><li><a href=https://github.com/FujishigeTemma/isucon9-qualify/compare/2fb8ff382ce2f7b083ae9f343e5ae5d543bc5e65...6d3f1ab77bd377be00fdf6d5735ffe14b8f5afd6 rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/compare/2fb8ff382ce2f7b083ae9f343e5ae5d543bc5e65...6d3f1ab77bd377be00fdf6d5735ffe14b8f5afd6</a></li></ul></li><li><code>go-chi/httpcoala</code><ul><li><a href=https://github.com/FujishigeTemma/isucon9-qualify/commit/495ae7ba4732b3bcb9c4a6795bea86dfac060c6c rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/commit/495ae7ba4732b3bcb9c4a6795bea86dfac060c6c</a></li></ul></li></ul></li><li><p>メモリ効率化</p><ul><li><code>sync.Pool</code><ul><li><a href=https://github.com/FujishigeTemma/isucon9-qualify/commit/4e7a9be6cbee699dc11db96c2134836dfd207def rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/commit/4e7a9be6cbee699dc11db96c2134836dfd207def</a></li></ul></li></ul></li><li><p>挿入後の結果をとらずに返す</p><ul><li>timeはミリ秒を四捨五入すること<code>.Round</code><ul><li>デフォルトが秒までだけど、<code>DATETIME</code>のあとに数字がある場合は異なるので要確認</li><li><a href=https://dev.mysql.com/doc/refman/5.6/ja/fractional-seconds.html rel=noopener>https://dev.mysql.com/doc/refman/5.6/ja/fractional-seconds.html</a></li></ul></li></ul></li><li><p>session</p><ul><li>自前の<code>interface</code>の変換なしの実装<ul><li><a href=https://github.com/FujishigeTemma/isucon9-qualify/commit/64d095a6400bbde6df4ed62d6ad9bd12dbc8a964 rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/commit/64d095a6400bbde6df4ed62d6ad9bd12dbc8a964</a></li></ul></li></ul></li><li><p><code>pat.Param</code></p><ul><li>自前の<code>interface</code>の変換なしの実装<ul><li><a href=https://github.com/FujishigeTemma/isucon9-qualify/compare/b87747c27f305927b40b86285b1642cbe52e1c55...68c236f9782f041bca64f185ae0a3fbec9122ee2 rel=noopener>https://github.com/FujishigeTemma/isucon9-qualify/compare/b87747c27f305927b40b86285b1642cbe52e1c55...68c236f9782f041bca64f185ae0a3fbec9122ee2</a></li></ul></li></ul></li><li><p>misc</p><ul><li>キーが100個程度までならmapよりarrayを線形探索したほうがよいらしい</li><li>sliceもmapもcapacityを指定する</li><li><code>i, item := range items</code>をすると<code>item</code>にコピーが走るので<code>items[i]</code>を使う</li><li>画像を返してる箇所はキャッシュのヘッダーを設定する</li><li>GOGC <code>400</code>～<code>1200</code>とか<ul><li>有効にしたときは<strong>毎回再起動すること</strong></li></ul></li></ul></li><li><p><a href=https://qiita.com/hmatsu47/items/354f979cde6ad91bcc6b rel=noopener>MySQL のパーティショニングで速くなる？ならない？問題、あらためて実験してみた</a></p></li><li><p>カバリングインデックス</p></li></ul><p><a href=http://akouryy.hatenablog.jp/entry/2020/09/13/130415 rel=noopener>http://akouryy.hatenablog.jp/entry/2020/09/13/130415</a></p><ul><li><a href=https://dev.mysql.com/doc/refman/5.6/ja/optimizing-innodb-bulk-data-loading.html rel=noopener>https://dev.mysql.com/doc/refman/5.6/ja/optimizing-innodb-bulk-data-loading.html</a></li></ul><a href=#mysql8><h4 id=mysql8><span class=hanchor arialabel=Anchor># </span>MySQL8</h4></a><ul><li>NOWAIT, SKIP LOCKED:
+<a href=https://qiita.com/hmatsu47/items/7675b026e65762d2445f rel=noopener>https://qiita.com/hmatsu47/items/7675b026e65762d2445f</a></li><li>HASH JOIN:
+<a href=https://qiita.com/hmatsu47/items/e473a3e566b910d61f5b rel=noopener>https://qiita.com/hmatsu47/items/e473a3e566b910d61f5b</a></li><li>Multi-valued index(jsonカラム用):
+<a href=https://qiita.com/hmatsu47/items/3e49a473bc36aeefc706 rel=noopener>https://qiita.com/hmatsu47/items/3e49a473bc36aeefc706</a></li><li>GROUP BYをLATERALにする？:
+<a href=https://qiita.com/hmatsu47/items/040d65d118d0ecec6381 rel=noopener>https://qiita.com/hmatsu47/items/040d65d118d0ecec6381</a></li></ul><p>パーティショニングとは</p><a href=#http-チューニング><h2 id=http-チューニング><span class=hanchor arialabel=Anchor># </span>HTTP チューニング</h2></a><p><a href=https://qiita.com/yumin/items/5de33b068ead564ebcbf rel=noopener>https://qiita.com/yumin/items/5de33b068ead564ebcbf</a></p><p><a href=https://github.com/go-martini/martini rel=noopener>martini</a>
+<a href=https://github.com/gin-gonic/gin rel=noopener>gin</a></p><p>fasthttp
+<a href=https://medium.com/eureka-engineering/net-http%E3%82%88%E3%82%8A10%E5%80%8D%E9%80%9F%E3%81%84valyala-fasthttp%E3%81%8C%E9%9D%A2%E7%99%BD%E3%81%9D%E3%81%86%E3%81%AA%E3%81%AE%E3%81%A7%E8%AA%BF%E6%9F%BB%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E4%BB%B6-a608fe197f1d rel=noopener>https://medium.com/eureka-engineering/net-http%E3%82%88%E3%82%8A10%E5%80%8D%E9%80%9F%E3%81%84valyala-fasthttp%E3%81%8C%E9%9D%A2%E7%99%BD%E3%81%9D%E3%81%86%E3%81%AA%E3%81%AE%E3%81%A7%E8%AA%BF%E6%9F%BB%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E4%BB%B6-a608fe197f1d</a></p><a href=#メモ><h3 id=メモ><span class=hanchor arialabel=Anchor># </span>メモ</h3></a><p><a href=https://github.com/cs3238-tsuzu/sqlx-selector rel=noopener>https://github.com/cs3238-tsuzu/sqlx-selector</a></p><p><a href=http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#if rel=noopener>http://nginx.org/en/docs/http/ngx_http_rewrite_module.html#if</a>
+<a href=https://stackoverflow.com/questions/8591600/nginx-proxy-pass-based-on-whether-request-method-is-post-put-or-delete rel=noopener>https://stackoverflow.com/questions/8591600/nginx-proxy-pass-based-on-whether-request-method-is-post-put-or-delete</a></p><p>得点につながるエンドポイントの確認
+大量アクセスかつ同じものが使える→singleflight</p><p>lockfree map</p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/Anko_9801>Twitter</a></li><li><a href=https://github.com/anko9801>Github</a></li></ul></footer></div></div></body></html>

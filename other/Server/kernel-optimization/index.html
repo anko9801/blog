@@ -1,0 +1,127 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=description content="カーネルパラメータ チューニング  【Linux】カーネルパラメータのパフォーマンスチューニングについて
+ファイルディスクリプタの上限 ulimit -l 10000
+sshだとulimitできない https://yohei-a.hatenablog.jp/entry/20090310/1236706236
+ http://ramblog.blog129.fc2.com/blog-category-4.html
+1 2 3  # /etc/systemd/system/*.service [Service] LimitNOFILE=65535   カーネルパラメータ 上ほど優先順位高い(同じ名前のfileをoverrideする) /etc/sysctl."><title>🪴 あやめHex</title><meta name=viewport content="width=device-width,initial-scale=1"><link rel="shortcut icon" type=image/png href=https://anko9801.github.io/blog//icon.png><link href=https://anko9801.github.io/blog/styles.708c2658f93e3a9d323a1f9fded8f4b2.min.css rel=stylesheet><link href=https://anko9801.github.io/blog/styles/_light_syntax.86a48a52faebeaaf42158b72922b1c90.min.css rel=stylesheet id=theme-link><script src=https://anko9801.github.io/blog/js/darkmode.5777cdbea4ccb2b68cacc7e904cabb5c.min.js></script>
+<script src=https://anko9801.github.io/blog/js/util.9825137f5e7825e8553c68ce39ac9e44.min.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css integrity=sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js integrity=sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js integrity=sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/copy-tex.min.js integrity=sha384-ww/583aHhxWkz5DEVn6OKtNiIaLi2iBRNZXfJRiY1Ai7tnJ9UXpEsyvOITVpTl4A crossorigin=anonymous></script>
+<script src=https://unpkg.com/@floating-ui/core@0.7.3></script>
+<script src=https://unpkg.com/@floating-ui/dom@0.5.4></script>
+<script src=https://anko9801.github.io/blog/js/popover.9b72b70bd35617d0635e9d15463662b2.min.js></script>
+<script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
+<script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
+<script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.7bcb1a783570b55dadf0f7d44415eb8c.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.592b3cb2212e51e2f625b6a0ff6fd41e.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+    import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
+    attachSPARouting(init, render)
+  </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-XYFD95KB4J",{anonymize_ip:!1})}</script><body><div id=search-container><div id=search-space><input autocomplete=off id=search-bar name=search type=text aria-label=Search placeholder="Search for something..."><div id=results-container></div></div></div><script defer src=https://anko9801.github.io/blog/js/semantic-search.2c776550faf6cf14399b47e62a8e9782.min.js></script><div class=singlePage><header><h1 id=page-title><a href=https://anko9801.github.io/blog/>🪴 あやめHex</a></h1><div class=spacer></div><div id=search-icon><p>Search</p><svg tabindex="0" aria-labelledby="title desc" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title id="title">Search Icon</title><desc id="desc">Icon to open search</desc><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"/><circle cx="8" cy="8" r="7"/></g></svg></div><div class=darkmode><input class=toggle id=darkmode-toggle type=checkbox tabindex=-1>
+<label id=toggle-label-light for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="dayIcon" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35"><title>Light Mode</title><path d="M6 17.5C6 16.672 5.328 16 4.5 16h-3C.672 16 0 16.672.0 17.5S.672 19 1.5 19h3C5.328 19 6 18.328 6 17.5zM7.5 26c-.414.0-.789.168-1.061.439l-2 2C4.168 28.711 4 29.086 4 29.5 4 30.328 4.671 31 5.5 31c.414.0.789-.168 1.06-.44l2-2C8.832 28.289 9 27.914 9 27.5 9 26.672 8.329 26 7.5 26zm10-20C18.329 6 19 5.328 19 4.5v-3C19 .672 18.329.0 17.5.0S16 .672 16 1.5v3C16 5.328 16.671 6 17.5 6zm10 3c.414.0.789-.168 1.06-.439l2-2C30.832 6.289 31 5.914 31 5.5 31 4.672 30.329 4 29.5 4c-.414.0-.789.168-1.061.44l-2 2C26.168 6.711 26 7.086 26 7.5 26 8.328 26.671 9 27.5 9zM6.439 8.561C6.711 8.832 7.086 9 7.5 9 8.328 9 9 8.328 9 7.5c0-.414-.168-.789-.439-1.061l-2-2C6.289 4.168 5.914 4 5.5 4 4.672 4 4 4.672 4 5.5c0 .414.168.789.439 1.06l2 2.001zM33.5 16h-3c-.828.0-1.5.672-1.5 1.5s.672 1.5 1.5 1.5h3c.828.0 1.5-.672 1.5-1.5S34.328 16 33.5 16zM28.561 26.439C28.289 26.168 27.914 26 27.5 26c-.828.0-1.5.672-1.5 1.5.0.414.168.789.439 1.06l2 2C28.711 30.832 29.086 31 29.5 31c.828.0 1.5-.672 1.5-1.5.0-.414-.168-.789-.439-1.061l-2-2zM17.5 29c-.829.0-1.5.672-1.5 1.5v3c0 .828.671 1.5 1.5 1.5s1.5-.672 1.5-1.5v-3C19 29.672 18.329 29 17.5 29zm0-22C11.71 7 7 11.71 7 17.5S11.71 28 17.5 28 28 23.29 28 17.5 23.29 7 17.5 7zm0 18c-4.136.0-7.5-3.364-7.5-7.5s3.364-7.5 7.5-7.5 7.5 3.364 7.5 7.5S21.636 25 17.5 25z"/></svg></label><label id=toggle-label-dark for=darkmode-toggle tabindex=-1><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="nightIcon" viewBox="0 0 100 100" style="enable-background='new 0 0 100 100'"><title>Dark Mode</title><path d="M96.76 66.458c-.853-.852-2.15-1.064-3.23-.534-6.063 2.991-12.858 4.571-19.655 4.571C62.022 70.495 50.88 65.88 42.5 57.5 29.043 44.043 25.658 23.536 34.076 6.47c.532-1.08.318-2.379-.534-3.23-.851-.852-2.15-1.064-3.23-.534-4.918 2.427-9.375 5.619-13.246 9.491-9.447 9.447-14.65 22.008-14.65 35.369.0 13.36 5.203 25.921 14.65 35.368s22.008 14.65 35.368 14.65c13.361.0 25.921-5.203 35.369-14.65 3.872-3.871 7.064-8.328 9.491-13.246C97.826 68.608 97.611 67.309 96.76 66.458z"/></svg></label></div></header><article><p class=meta>Last updated
+Nov 18, 2022
+<a href=https://github.com/anko9801/blog/tree/hugo/content/other/Server/kernel-optimization.md rel=noopener>Edit Source</a></p><ul class=tags></ul><aside class=mainTOC><details><summary>Table of Contents</summary><nav id=TableOfContents><ol><li><a href=#カーネルパラメータ-チューニング>カーネルパラメータ チューニング</a><ol><li><a href=#ファイルディスクリプタの上限>ファイルディスクリプタの上限</a></li><li><a href=#カーネルパラメータ>カーネルパラメータ</a></li></ol></li></ol></nav></details></aside><a href=#カーネルパラメータ-チューニング><h2 id=カーネルパラメータ-チューニング><span class=hanchor arialabel=Anchor># </span>カーネルパラメータ チューニング</h2></a><p><a href=https://ac-as.net/kernel-parameter-performance-tuning/ rel=noopener>【Linux】カーネルパラメータのパフォーマンスチューニングについて</a></p><a href=#ファイルディスクリプタの上限><h3 id=ファイルディスクリプタの上限><span class=hanchor arialabel=Anchor># </span>ファイルディスクリプタの上限</h3></a><p><code>ulimit -l 10000</code></p><p>sshだとulimitできない
+<a href=https://yohei-a.hatenablog.jp/entry/20090310/1236706236 rel=noopener>https://yohei-a.hatenablog.jp/entry/20090310/1236706236</a></p><p><a href=http://ramblog.blog129.fc2.com/blog-category-4.html rel=noopener>http://ramblog.blog129.fc2.com/blog-category-4.html</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># /etc/systemd/system/*.service
+</span></span><span class=line><span class=cl>[Service]
+</span></span><span class=line><span class=cl>LimitNOFILE=65535
+</span></span></code></pre></td></tr></table></div></div><a href=#カーネルパラメータ><h3 id=カーネルパラメータ><span class=hanchor arialabel=Anchor># </span>カーネルパラメータ</h3></a><p>上ほど優先順位高い(同じ名前のfileをoverrideする)
+<code>/etc/sysctl.d/*.conf</code>
+<code>/run/sysctl.d/*.conf</code>
+<code>/usr/lib/sysctl.d/*.conf</code>
+すべての設定ファイルは、どのディレクトリにあるかに関わらず、ファイル名の並び順で辞書順にソートされます。複数のファイルが同じオプションを指定している場合は、辞書的に最新の名前を持つファイルのエントリが優先されます。ファイルの順序を簡単にするために、すべてのファイル名の前に 2 桁の数字とダッシュを付けることをお勧めします。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># /etc/sysctl.d/100-isucon.conf
+</span></span><span class=line><span class=cl># maxconnection を増やす
+</span></span><span class=line><span class=cl>net.core.somaxconn = 32768                  # 32768 (2^15) くらいまで大きくしても良いかも。
+</span></span><span class=line><span class=cl>net.ipv4.ip_local_port_range = 10000 60999  # port の範囲を広げる
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># tcp connection の再利用を有効化
+</span></span><span class=line><span class=cl>net.ipv4.tcp_tw_reuse = 1
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># tcp connection が FIN-WAIT2 から TIME_WAIT に状態が変化するまでの時間
+</span></span><span class=line><span class=cl>net.ipv4.tcp_fin_timeout = 10               # デフォルト 60。CPU 負荷を減らせるが、短すぎると危ういかも？
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># TIME_WAIT状態にある tcp connection 数の上限
+</span></span><span class=line><span class=cl>net.ipv4.tcp_max_tw_buckets = 2000000       # デフォルトは 32768(=2^15) くらい
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># パケット受信時にキューにつなぐことのできるパケットの最大数
+</span></span><span class=line><span class=cl>net.core.netdev_max_backlog = 8192          # デフォルトは 1000 くらい
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 新規コネクション開始時のSYNパケットを受信した際の処理待ちキューの上限値
+</span></span><span class=line><span class=cl>net.ipv4.tcp_max_syn_backlog = 1024         # デフォルトは 128 くらい
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># window size scalingの有効化(ネットワークの帯域幅とメモリ使用量のトレードオフ)
+</span></span><span class=line><span class=cl>net.ipv4.tcp_window_scaling = 1             # デフォルトで1になっているはず
+</span></span><span class=line><span class=cl># すべての種類のsocketに基本設定されているbufferのsize デフォルトは 212992(=13*2^14) くらい
+</span></span><span class=line><span class=cl>net.core.rmem_default = 253952
+</span></span><span class=line><span class=cl>net.core.wmem_default = 253952
+</span></span><span class=line><span class=cl>net.core.rmem_max = 16777216
+</span></span><span class=line><span class=cl>net.core.wmem_max = 16777216
+</span></span><span class=line><span class=cl># TCP socket buffer sizeの変更 デフォルトは 212992(=13*2^14) くらい
+</span></span><span class=line><span class=cl>net.ipv4.tcp_rmem = 253952 253952 16777216  # min / default / max
+</span></span><span class=line><span class=cl>net.ipv4.tcp_wmem = 253952 253952 16777216  # min / default / max
+</span></span><span class=line><span class=cl># TCP用に使用できる合計メモリサイズを指定
+</span></span><span class=line><span class=cl>net.ipv4.tcp_mem = 185688 247584 371376     # min / pressure / max; pressureの値を超えるとTCP memory pressureの状態になり、以降ソケットは指定されたmin値のメモリバッファのサイズを持つようになる
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># カーネルレベルでのファイルディスクリプタ上限数変更
+</span></span><span class=line><span class=cl># プロセス単位のチューニングをやったけど、こっちもやっておく
+</span></span><span class=line><span class=cl>fs.file-max=65535
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 3-way-handshakeの簡略化
+</span></span><span class=line><span class=cl># 相手側のサーバーがONにしていないとデータが2回送られてオーバーヘッドになるので一回やってみてスコアが上がらなかったら切る
+</span></span><span class=line><span class=cl>net.ipv4.tcp_fastopen = 3
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl># 輻輳制御アルゴリズム TCP BBR の有効化
+</span></span><span class=line><span class=cl># `uname -r`が4.9以上で`sysctl net.ipv4.tcp_available_congestion_control`にbbrが含まれている場合　
+</span></span><span class=line><span class=cl># net.ipv4.tcp_congestion_control = bbr # 輻輳制御アルゴリズムをbbrに
+</span></span><span class=line><span class=cl># net.core.default_qdisc = fq # キューイングアルゴリズムをfqに
+</span></span></code></pre></td></tr></table></div></div><p><a href=https://html5experts.jp/jxck/3529/ rel=noopener>https://html5experts.jp/jxck/3529/</a>
+<a href=https://ac-as.net/kernel-parameter-performance-tuning/ rel=noopener>https://ac-as.net/kernel-parameter-performance-tuning/</a>
+φ(.. )ﾒﾓｼﾃｵｺｳ /proc/sys/net/ipv4/tcp_fastopenに設定する内容とか実装
+<a href=https://kernhack.hatenablog.com/entry/2013/05/25/115634 rel=noopener>https://kernhack.hatenablog.com/entry/2013/05/25/115634</a></p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/Anko_9801>Twitter</a></li><li><a href=https://github.com/anko9801>Github</a></li></ul></footer></div></div></body></html>
