@@ -58,6 +58,7 @@ Android の Full Disk Encryption を TEE を介さずに Decrypt.  FBIでもで�
 ## RISC-V Keystone
 - BOOM
 - Speculative Attack
+- [Keystone: An Open Framework for Architecting Trusted Execution Environments (ethz.ch)](https://n.ethz.ch/~sshivaji/publications/keystone_eurosys20.pdf)
 
 ## OP-TEE
 - [OP-TEE/optee_os: Trusted side of the TEE (github.com)](https://github.com/OP-TEE/optee_os)

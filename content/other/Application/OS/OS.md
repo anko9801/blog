@@ -5,9 +5,11 @@ title: "OS"
 PXE(Preboot eXecution Environment) Boot
 
 ## Unikernel
+- [Unikernelについての現状調査 - Fixstars Tech Blog /proc/cpuinfo](https://proc-cpuinfo.fixstars.com/2020/03/unikernel/)
 ## Microkernel
 ## seL4 Microkernel
-Secure Embedded L4 Microkernel
+seL4 (Secure Embedded L4)
+- [オープンソースRTOS「seL4」の紆余曲折からマイクロカーネルの進化を俯瞰する：リアルタイムOS列伝（19）（1/3 ページ） - MONOist (itmedia.co.jp)](https://monoist.itmedia.co.jp/mn/articles/2201/31/news053.html)
 
 ## システムコール
 

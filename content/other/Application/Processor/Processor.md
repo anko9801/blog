@@ -6,16 +6,18 @@ title: "プロセッサ"
 
 ## 概要
 
-CPU
-- LGA
-- BGA
-- QFP
-GPU
-- iGPU(internal) CPU内にあるグラボ
-- dGPU(discrete) NVMe/SATA/PCIeなどで接続する外付けのグラボ
-- eGPU(external) Thunderbolt 3/4などで接続する外付けのグラボ
-TPU 行列積演算
-FPU
+- CPU
+	- LGA
+	- BGA
+	- QFP
+- GPU
+	- iGPU(internal) CPU内にあるグラボ
+	- dGPU(discrete) NVMe/SATA/PCIeなどで接続する外付けのグラボ
+	- eGPU(external) Thunderbolt 3/4などで接続する外付けのグラボ
+- TPU 行列積演算
+- FPU
+
+- [揚げて炙ってわかるコンピュータのしくみ | 秋田 純一 |本 | 通販 | Amazon](https://www.amazon.co.jp/%E6%8F%9A%E3%81%92%E3%81%A6%E7%82%99%E3%81%A3%E3%81%A6%E3%82%8F%E3%81%8B%E3%82%8B%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%81%AE%E3%81%97%E3%81%8F%E3%81%BF-%E7%A7%8B%E7%94%B0-%E7%B4%94%E4%B8%80/dp/4297116014)
 
 GPGPU
 

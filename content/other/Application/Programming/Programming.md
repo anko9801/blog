@@ -30,8 +30,8 @@ TODO: なぜここで型を説明するのか
 	- ex.) 構造体, メソッドのないクラス, 配列, Vectorなど
 	- Intersection Type を用いても構成できる.
 	- 直積型のデータを分解して各要素を取り出す機能
-		- 構造化束縛 (Structured Bindings, C++)  
-		- 多重代入 (Multiple assignment, PythonやRuby)  
+		- 構造化束縛 (Structured Bindings, C++)
+		- 多重代入 (Multiple assignment, PythonやRuby)
 		- 分割代入 (Destructuring assignment, JavaScript)
 - 直和型 $A_1+A_2$
 	- ex.) Rustのenum
@@ -145,6 +145,8 @@ trait
 - 静的型付け言語 $\iff$ 「型システムを利用する」かつ「コンパイラを利用する」言語
 - 動的型付け言語 $\iff$ 「型システムを利用しない」または「インタプリタを利用する」言語
 
+注意としては動的に型が決定される場合も静的型付け言語と呼んでいる点です. 例えば
+
 ### メモリ領域
 ユーザーに渡されるメモリはローダによって以下のように分けられている。
 - データ領域
@@ -166,6 +168,8 @@ trait
 - 継続
 	- Continuation-Passing Style: CPS変換
 	- call/cc
+	- shift/reset
+	- control/prompt
 
 ### 多相性 (Polymorphism)
 具体的に依存型を実装する多相性を紹介する。
@@ -278,6 +282,7 @@ JIT (Just In Time Compiler)
 - 実行時にコンパイルして最適化を行う.
 - method JIT
 - tracing JIT
+- YJIT
 
 VM (Virtual Machine)
 - YARV
@@ -302,6 +307,7 @@ GC (Gabage Collection)
 - Mark and Sweep
 - Copy GC
 - Stop the World
+- [Project Zero: The quantum state of Linux kernel garbage collection CVE-2021-0920 (Part I) (googleprojectzero.blogspot.com)](https://googleprojectzero.blogspot.com/2022/08/the-quantum-state-of-linux-kernel.html)
 
 ムーブセマンティクス
 - mutable reference は Linear type を根拠にしている.
@@ -310,6 +316,8 @@ GC (Gabage Collection)
 - miracle pointer
 	- 脆弱性の1つ, Use after free を用いることで様々な exploit ができる為, できる限り無くしたい
 	- [Google Online Security Blog: Use-after-freedom: MiraclePtr (googleblog.com)](https://security.googleblog.com/2022/09/use-after-freedom-miracleptr.html)
+- [はじめに - Rustで独自のスライス型を定義する本 (lo48576.gitlab.io)](https://lo48576.gitlab.io/rust-custom-slice-book/introduction.html)
+- [Rust で単方向 LinkedList を実装する | 53ningen.com](https://53ningen.com/linkedlist-in-rust)
 
 エラー処理
 - try-catch (Java, JavaScript)
@@ -425,9 +433,18 @@ async/await $\iff$ goroutine
 
 async iterator
 - Arc/Rc
+- [Rustの `Arc` を読む(1): Arc/Rcの基本 - Qiita](https://qiita.com/qnighy/items/4bbbb20e71cf4ae527b9)
 
 意味論
 - happens-before 実行順序
 - data race free
 - sequentially consistent atomics(素直なatomics)
 	- Java (volatile), C++ (default atomics), Go (sync/atomic), JavaScript
+
+- pthread_spinlock_t
+- [Rustの std::sync::RwLock はLinuxでwriter starvation問題を起こす (macOSなら平気) | 俺とお前とlaysakura](https://laysakura.github.io/2022/03/30/rust-RwLock-writer-starvation/)
+## その他
+
+未定義動作
+- [C 言語とその未定義動作を社会言語学的視点からも見る - Google ドキュメント](https://docs.google.com/document/d/1gpw9bbTC-8lhLBlK7QtQQQURxyoqoQAbvL9nQtGlM_k/edit)
+- [Cover - Effective Rust (lurklurk.org)](https://lurklurk.org/effective-rust/)

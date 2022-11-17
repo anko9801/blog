@@ -274,7 +274,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [Pyjail](./misc/Pyjail.md)
 - [Forensics](./misc/forensics/forensics.md)
   - [Windows](./misc/forensics/windows.md)
-- [OSINT](./misc/osint/tools.md)
+- [OSINT](OSINT.md)
 
 ## コンピュータ・アーキテクチャ
 
