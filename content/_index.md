@@ -284,34 +284,34 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - アナログ回路
 - デジタル回路
 - LSI
-- [CPU / GPU](./other/Application/Processor/Processor.md)
+- [CPU / GPU](./other/Processor/Processor.md)
   - Spectre / Meltdown
   - HIEE; Hardware-assisted Isolated Execution Environments
-    - [TEE; Trusted Execution Environment](TEE.md)
-    - [TPM; Trusted Platform Module](TPM.md)
-    - [DRM; Digital Rights Management](DRM.md)
+    - [TEE; Trusted Execution Environment](./other/Processor/HIEE/TEE.md)
+    - [TPM; Trusted Platform Module](./other/Processor/HIEE/TPM.md)
+    - [DRM; Digital Rights Management](./other/Processor/HIEE/DRM.md)
     - DAA; Direct Anonymous Attestation
   - [rootkit](rootkit.md)
 - 論理
 - マイクロアーキテクチャ
 - アーキテクチャ
 - 仮想化技術
-  - [エミュレータ](./other/Application/Virtualization/Emulator.md)
-  - [コンテナ仮想化技術](./other/Application/Virtualization/Container.md)
+  - [エミュレータ](./other/Virtualization/Emulator.md)
+  - [コンテナ仮想化技術](./other/Virtualization/Container.md)
   - [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
-- [OS](./other/Application/OS/OS.md)
+- [OS](./other/OS/OS.md)
 - サーバー
-  - [RDBMS](./other/Application/Server/RDBMS.md)
-  - [RDBMS 最適化](./other/Application/Server/rdbms-optimization.md)
-  - [リバースプロキシ](./other/Application/Server/reverse-proxy.md)
-  - [リバースプロキシ最適化](./other/Application/Server/reverse-proxy-optimization.md)
-  - [フロントエンド最適化](./other/Application/Server/frontend-optimization.md)
-- [ネットワーク構成](./other/Application/Network/network.md)
-  - [SDR](./other/Application/Network/SDR.md)
+  - [RDBMS](./other/Server/RDBMS.md)
+  - [RDBMS 最適化](./other/Server/rdbms-optimization.md)
+  - [リバースプロキシ](./other/Server/reverse-proxy.md) 
+  - [リバースプロキシ最適化](./other/Server/reverse-proxy-optimization.md)
+  - [フロントエンド最適化](./other/Server/frontend-optimization.md)
+- [ネットワーク構成](./other/Network/network.md)
+  - [SDR](./other/Network/SDR.md)
 
 ## 量子アルゴリズム
 
-- [各ゲートの紹介と量子計算の方法](./other/Application/Quantum/Quantum.md)
+- [各ゲートの紹介と量子計算の方法](./other/Quantum/Quantum.md)
 - Shor のアルゴリズム
 - 量子暗号通信
 - 量子中継ネットワーク
@@ -323,24 +323,24 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - Social Engineering
 - Car Hacking
 - 航空技術
-- [プログラミング言語](./other/Application/Programming/Programming.md)
-  - [型推論](./other/Application/Programming/Type.md)
+- [プログラミング言語](./other/Programming/Programming.md)
+  - [型推論](./other/Programming/Type.md)
   - 未定義動作
 - 電子回路
 - 構造探検隊
-  - [ELF](./other/Application/Structure/ELF.md)
+  - [ELF](./other/Structure/ELF.md)
   - JPEG
-  - [FAT32](./other/Application/Structure/FAT32.md)
-  - [ZIP](./other/Application/Structure/ZIP.md)
+  - [FAT32](./other/Structure/FAT32.md)
+  - [ZIP](./other/Structure/ZIP.md)
 - [デバッガ](./pwn/Debugger.md)
-- [SAT/SMT](./other/Application/SAT-SMT/SAT-SMT.md)
-  - [シンボリック実行エンジン](./other/Application/SAT-SMT/symbolic_execution.md)
-  - [定理証明支援系](./other/Application/SAT-SMT/proof_assistant.md)
-- [レンダリング](./other/Application/Rendering/Rendering.md)
-  - [レイトレーシング](./other/Application/Rendering/RayTracing.md)
-  - [シェーダー](./other/Application/Rendering/Shader.md)
-- [ブロックチェーン](other/Application/Blockchain.md)
-- [Deep Learning](./other/Application/DeepLearning.md)
+- [SAT/SMT](./other/SAT-SMT/SAT-SMT.md)
+  - [シンボリック実行エンジン](./other/SAT-SMT/symbolic_execution.md)
+  - [定理証明支援系](./other/SAT-SMT/proof_assistant.md)
+- [レンダリング](./other/Rendering/Rendering.md)
+  - [レイトレーシング](./other/Rendering/RayTracing.md)
+  - [シェーダー](./other/Rendering/Shader.md)
+- [ブロックチェーン](./other/Rendering/Blockchain.md)
+- [Deep Learning](./other/DeepLearning.md)
 - [【画像処理入門】アルゴリズム＆プログラミング](https://algorithm.joho.info/programming/image-processing/)
 - 超解像
 
