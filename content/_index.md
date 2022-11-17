@@ -17,7 +17,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 ## 競プロ
 
-- [テンプレート](./other/template.md)
+- [テンプレート](./template.md)
 
 ## データ構造
 
@@ -287,11 +287,11 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [CPU / GPU](./other/Application/Processor/Processor.md)
   - Spectre / Meltdown
   - HIEE; Hardware-assisted Isolated Execution Environments
-    - [TEE; Trusted Execution Environment](./other/Circuit/HIEE/TEE.md)
-    - [TPM; Trusted Platform Module](./other/Circuit/HIEE/TPM.md)
-    - [DRM; Digital Rights Management](./other/Circuit/HIEE/DRM.md)
+    - [TEE; Trusted Execution Environment](TEE.md)
+    - [TPM; Trusted Platform Module](TPM.md)
+    - [DRM; Digital Rights Management](DRM.md)
     - DAA; Direct Anonymous Attestation
-  - [rootkit](./other/Circuit/Rootkit.md)
+  - [rootkit](rootkit.md)
 - 論理
 - マイクロアーキテクチャ
 - アーキテクチャ

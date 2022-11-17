@@ -415,10 +415,12 @@ Concurrency
 	- node
 		- 標準ライブラリを非同期のみにした
 		- single thread な event loop 上で並列処理を実現している.
-	- Erlang, Go, Haskell
+	- coroutine
+		- 軽量スレッド
+		- Go (goroutines)
+	- Erlang, Haskell
 		- ランタイムでIOがブロックしない仕組み
 		- Erlang (ErlangVM)
-		- Go (goroutines)
 	- Algebraic Effects and Handlers
 		- IOでブロックする/しないはアプリケーションで制御できるし、IOは2系統に分かれないし、タスクを中断したり再開したりする仕組みも自動でついてきます。
 - 便利構文のサポート
