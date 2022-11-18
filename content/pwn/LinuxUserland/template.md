@@ -1,5 +1,5 @@
 ---
-title: "pwn"
+title: "pwnテンプレート"
 ---
 
 ## 説明

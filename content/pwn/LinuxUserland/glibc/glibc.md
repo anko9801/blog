@@ -1,3 +1,6 @@
+---
+title: "glibc"
+---
 
 ### glibc ビルド方法
 
@@ -9,9 +12,8 @@
 
 ### glibc
 
-自前ビルドしてるとデバッグ情報も付いてくる.
-[patchelf](https://github.com/NixOS/patchelf) では手で叩かないといけない.
-[pwninit](https://github.com/io12/pwninit) なら glibc を同じ階層に入れておけば `pwninit` で勝手にやってくれる.
-`ldd` コマンドで確認できる.
-
-パッチ自動化できそう.
+- 自前ビルドしてるとデバッグ情報も付いてくる.
+- [patchelf](https://github.com/NixOS/patchelf) では手で叩かないといけない.
+- [pwninit](https://github.com/io12/pwninit) なら glibc を同じ階層に入れておけば `pwninit` で勝手にやってくれる.
+- `ldd` コマンドで確認できる.
+- パッチ自動化できそう.

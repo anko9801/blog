@@ -1,0 +1,99 @@
+---
+title: "pwn を解く為に必要なステップ"
+---
+
+脆弱性の種類と，その攻略方法
+Vulnerabilities: Stack BOF, Heap BOF, Use After Free, Format String Bug, Race Condition ...
+Exploit Techniques: ret2plt, ret2libc, ROP, GOT Overwrite, Stack pivot ...
+Anti-Exploits: NX, ASLR, RELRO, PIE, Stack Canary ...
+
+シェルを開く方法
+1. シェルコードを実行
+	1. Exec-shell系
+	2. Exec-shell + バックコネクト系
+2. `system("/bin/sh")`や`execve("/bin/sh", 0, 0)`を実行
+	1. 必要に応じてdup2したりする
+3. open("flag") -> read() -> write()
+	1. 正確にはシェルを開いていない
+	2. でもCTF的にはフラグが読めればいい
+	3. サンドボックスでexec系が禁止されているケース，chrootされているケースなどで有効
+
+シェルを呼び出す
+execve("/bin/sh", null, null)
+system("/bin/sh")
+[https://qiita.com/yyamada_bigtree/items/97ea176484f5b05c195d シェルコード]
+
+
+## バイナリ解析
+動的解析
+- gdb
+	- gdb-peda
+	- pwndbg
+	- rust-gdb
+
+静的解析
+- Ghidra
+- IDA Pro
+- Binary Ninja
+- Immunity Debugger
+- WinDbg
+	- `bp <address>` : ブレークポイント
+	- `pr` : レジスタ情報とgdbでいうnexti
+	- `pt` : retが来るまで進める
+	- `pctr` : レジスタ情報とcallとretが来るまで進める
+	- `dc <address reg>` : double word単位とascii文字でデータ表示
+- radare2
+
+GhidraよりIDA Pro(アイダ)の方が使われる
+
+wine
+
+- ptrace
+- strace
+
+デバッグ情報
+- DWARF
+- gdbの自動的にやることでカバレッジを取れる
+- seccomp BPF
+
+動的ライブラリの解決
+- patchelf
+- ld
+- [libcにデバッグシンボルを付ける方法と自動化 - Satoooonの物置 (hatenablog.com)](https://satoooon1024.hatenablog.com/entry/2022/06/12/libc%E3%81%AB%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%82%B7%E3%83%B3%E3%83%9C%E3%83%AB%E3%82%92%E4%BB%98%E3%81%91%E3%82%8B%E6%96%B9%E6%B3%95%E3%81%A8%E8%87%AA%E5%8B%95%E5%8C%96)
+
+checksec.sh
+
+ ```shell
+ $ (cat out; cat) | ./a.out
+ $ nm -D ./a.out | grep " system"
+ $ strings -a -tx ./libc.so.6 | grep "sh$"
+ $ objdump -S -M intel ./libc.so.6 --disassemble=execve
+ $ ldd a.out
+ $ gcc -fno-stack-protector -fPIE bof.c
+ $ echo -en ""
+ $ grep -E ""
+ $ one_gadget ./libc.so.6
+ $ ROPgadget --binary ./a.out
+```
+
+## gccオプション
+
+No RELRO = RELRO無効
+Partial RELRO = RELRO有効かつ遅延バインド有効
+Full RELRO = RELRO有効かつ遅延バインド無効
+
+| やること | オプション |
+|:---|:---|
+| SSP 無効 | `-fno-stack-protector` |
+| SSP 有効 | `-fstack-protector` |
+| NX bit 無効 | `-z execstack` |
+| NX bit 有効 | `-z` |
+| No RELRO | `-Wl,-z,norelro` |
+| Partial RELRO | `-Wl,-z,relro,-z lazy` |
+| Full RELRO | `-Wl,-z,relro,-z,now` |
+| ASLR 無効 | `sudo sysctl kernel.randomize_va_space=0` |
+| ASLR 有効 | `sudo sysctl kernel.randomize_va_space=2` |
+| PIE 無効 | `-fno-pie -no-pie` |
+| PIE 有効 | `-fPIE -pie` |
+| Exec-Shield 無効 | `sudo sysctl -w kernel.exec-shield=0` |
+| Exec-Shield 有効 | `sudo sysctl -w kernel.exec-shield=1` |
