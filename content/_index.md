@@ -115,15 +115,15 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 使用言語はPythonまたはC言語です。
 
 - Linux Userland
-  - [テンプレート](pwn/template.md)
+  - [テンプレート](./pwn/LinuxUserland/template.md)
   - Format String Attack
   - Stack Exploit
     - ret2xxx
       - ret2libc
     - ROP: Return Oriented Programming
   - GOT overwrite
-  - [glibc](./pwn/glibc/glibc.md)
-    - [malloc](./pwn/glibc/malloc.md)
+  - [glibc](./pwn/LinuxUserland/glibc/glibc.md)
+    - [malloc](./pwn/LinuxUserland/glibc/malloc.md)
     - セキュリティ機構
   - Heap Exploit
     - Use after Free
@@ -132,14 +132,14 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
     - overlapping chunks
     - mmap overlapping chunks
     - House of XXX
-      - [House of Orange](./pwn/HouseOfXXX/house_of_orange.md)
-      - [House of botcake](./pwn/HouseOfXXX/House_of_botcake.md)
+      - [House of Orange](./pwn/LinuxUserland/HouseOfXXX/house_of_orange.md)
+      - [House of botcake](./pwn/LinuxUserland/HouseOfXXX/House_of_botcake.md)
       - House of Spirit
       - House of Lore
       - House of Storm
       - House of Force
 - Linux Kernel
-  - [テンプレート](./pwn/Kernel/kernel_exploit.md)
+  - [テンプレート](./pwn/LinuxKernel/kernel_exploit.md)
   - Kernel Code Reading
     - セキュリティ機構
   - カーネルモジュール
@@ -332,7 +332,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
   - JPEG
   - [FAT32](./other/Structure/FAT32.md)
   - [ZIP](./other/Structure/ZIP.md)
-- [デバッガ](./pwn/Debugger.md)
+- [デバッガ](pwn/Tools.md)
 - [SAT/SMT](./other/SAT-SMT/SAT-SMT.md)
   - [シンボリック実行エンジン](./other/SAT-SMT/symbolic_execution.md)
   - [定理証明支援系](./other/SAT-SMT/proof_assistant.md)
