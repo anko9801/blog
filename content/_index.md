@@ -123,7 +123,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 	- [Format String Attack](./pwn/LinuxUserland/FormatStringAttack.md)
 	- [GOT overwrite](./pwn/LinuxUserland/GOToverwrite.md)
 	- [glibc](./pwn/LinuxUserland/glibc/glibc.md)
-		- [glibc heap](./pwn/LinuxUserland/glibc_heap/glibc_heap.md)
+		- [glibc heap](./pwn/LinuxUserland/glibc/glibc_heap/glibc_heap.md)
 			- [malloc_chunk](./pwn/LinuxUserland/glibc/glibc_heap/malloc_chunk.md)
 			- [malloc_state](./pwn/LinuxUserland/glibc/glibc_heap/malloc_state.md)
 			- [Bins and Chunks](./pwn/LinuxUserland/glibc/glibc_heap/BinsChunks.md)
