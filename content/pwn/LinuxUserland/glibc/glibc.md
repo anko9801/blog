@@ -8,7 +8,7 @@ title: "glibc"
 2. ビルド作業用のディレクトリを作ってそこに入る
 3. `../glibc-hoge/congifure --prefix=/path/to/インストールしたい場所`
 4. `make -j{N}`
-6. `make install`
+5. `make install`
 
 ### glibc
 

@@ -124,7 +124,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 	- [GOT overwrite](./pwn/LinuxUserland/GOToverwrite.md)
 	- [glibc](./pwn/LinuxUserland/glibc/glibc.md)
 	- Heap Exploit
-		- [malloc](./pwn/LinuxUserland/HeapExploit/malloc.md)
+		- [malloc](malloc.md)
 		- [脆弱性とセキュリティ機構](./pwn/LinuxUserland/HeapExploit/vulns&security.md)
 		- [tcache poisoning](./pwn/LinuxUserland/HeapExploit/tcache_poisoning.md)
 		- fastbin attack

@@ -2,17 +2,28 @@
 title: "glibc malloc"
 ---
 
-## 説明
+## ヒープとは
 
-malloc動画と呼ばれている [The 67th Yokohama kernel reading party - YouTube](https://www.youtube.com/watch?v=0-vWT-t0UHg) は必見です！
+## 動的メモリ
 
-資料
-[https://www.youtube.com/watch?v=0-vWT-t0UHg]
-[malloc(3)のメモリ管理構造 - VALINUX](https://www.valinux.co.jp/technologylibrary/document/linux/malloc0001/)
-[mallocの動作を追いかける(mmap編)](https://qiita.com/kaityo256/items/9e78b507940b2292bf79)
-[heap-exploitation](https://heap-exploitation.dhavalkapil.com)
-攻撃デモ [how2heap](https://github.com/shellphish/how2heap)
-[ヒープ系問題におけるstdout / stderrを利用したメモリリーク - CTFするぞ](https://ptr-yudai.hatenablog.com/entry/2019/05/31/235444)
+```cpp
+// Dynamically allocate 10 bytes
+
+char *buffer = (char *)malloc(10);
+
+strcpy(buffer, "hello");
+
+printf("%s\n", buffer); // prints "hello"
+
+// Frees/unallocates the dynamic memory allocated earlier
+
+free(buffer);
+```
+
+
+## glibc heap
+
+### malloc chunk
 
 ```c
  struct malloc_chunk {
@@ -65,13 +76,12 @@ code:c
              +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 
-
-
 前回使用したサイズ以下の容量を確保することでfreeした後のデータを使える。
 解放済みポインタ ( ダングリングポインタ :  dangling pointer ) を悪意のあるアドレスへ変えることで意図しない挙動にすることができる。
 
 glibc のデータ領域に main_arena
-malloc_state
+
+### malloc_state
 
 ```cpp
 struct malloc_state
@@ -129,11 +139,11 @@ binには沢山の種類がある
 ヒープ領域
 ```cpp
 struct malloc_chunk{
-  size_t prev_size; // malloc中に必要！
-  size_t size; // malloc中に必要！ 下3bitはフラグ
+  size_t prev_size; // Size of previous chunk (if free).
+  size_t size;      // Size in bytes, including overhead. 下3bitはフラグ
 
   // userに渡されるアドレスはここ
-
+  // double links -- used only if free.
   void *fd; // next
   void *bk; // key
 
@@ -151,7 +161,7 @@ struct malloc_chunk{
 | small bins |  |  |
 | large bins |  |  |
 
-## tcache
+tcache
 
 ```cpp
 /* We overlay this structure on the user-data portion of a chunk when
@@ -283,5 +293,10 @@ Aでとれた上位9nibble分の情報をそのまま使える。
 -> nextに対して復元するようなXORを掛ければお終い
 
 ## 参考
-[malloc(3)のメモリ管理構造](https://www.valinux.co.jp/technologylibrary/document/linux/malloc0001/)
-[MallocInternals - glibc wiki (sourceware.org)](https://sourceware.org/glibc/wiki/MallocInternals)
+- [malloc(3)のメモリ管理構造](https://www.valinux.co.jp/technologylibrary/document/linux/malloc0001/)
+- [MallocInternals - glibc wiki (sourceware.org)](https://sourceware.org/glibc/wiki/MallocInternals)
+- malloc動画 [The 67th Yokohama kernel reading party - YouTube](https://www.youtube.com/watch?v=0-vWT-t0UHg)
+- [mallocの動作を追いかける(mmap編) - Qiita](https://qiita.com/kaityo256/items/9e78b507940b2292bf79)
+- [Preface - heap-exploitation (dhavalkapil.com)](https://heap-exploitation.dhavalkapil.com/)
+- [shellphish/how2heap: A repository for learning various heap exploitation techniques. (github.com)](https://github.com/shellphish/how2heap)
+- [ヒープ系問題におけるstdout / stderrを利用したメモリリーク - CTFするぞ (hatenablog.com)](https://ptr-yudai.hatenablog.com/entry/2019/05/31/235444)
