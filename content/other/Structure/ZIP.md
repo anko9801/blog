@@ -117,3 +117,6 @@ ZIPセントラルディレクトリ終端レコード
 セントラルディレクトリの開始位置のオフセット byte
 ZIPファイルコメントの長さ byte
 ZIPファイルコメント(文字列)
+
+これみてこれをみろという気持ちになった
+- [pics/README.md at master · corkami/pics (github.com)](https://github.com/corkami/pics/blob/master/binary/README.md)

@@ -1,11 +1,10 @@
 ---
 title: 🪴 あやめHex
-enableToc: false
+enableToc: true
+openToc: true
 ---
 
-# ayame library
-
-# これはなに？
+## これはなに？
 
 CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想で書いてる)
 
@@ -313,7 +312,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - サーバー
 	- [RDBMS](./other/Server/RDBMS.md)
 	- [RDBMS 最適化](./other/Server/rdbms-optimization.md)
-	- [リバースプロキシ](./other/Server/reverse-proxy.md) 
+	- [リバースプロキシ](./other/Server/reverse-proxy.md)
 	- [リバースプロキシ最適化](./other/Server/reverse-proxy-optimization.md)
 	- [フロントエンド最適化](./other/Server/frontend-optimization.md)
 - [ネットワーク構成](./other/Network/network.md)

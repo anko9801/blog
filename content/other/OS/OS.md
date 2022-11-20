@@ -15,6 +15,10 @@ title: "OS"
 - BIOS; Basic Input/Output System
 	- ハードウェアの初期化
 	- OS や bootloader へのサービスの提供
+	- セキュアブート
+		- ブートコードを改ざんしてシステムを乗っ取るようなタイプのウイルスなどの活動を防ぐためのもの
+		- BIOSがデジタル署名を生成し, 信頼済み証明書と検証する.
+		- TPM
 - UEFI; Unified Extensible Firmware Interface
 - PXE(Preboot eXecution Environment) Boot
 
@@ -33,6 +37,7 @@ mem_info
 
 ## eBPF
 - [verifier.c - kernel/bpf/verifier.c - Linux source code (v5.18.14) - Bootlin](https://elixir.bootlin.com/linux/v5.18.14/source/kernel/bpf/verifier.c#L10186)
+
 
 ## 自作OS
 
