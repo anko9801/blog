@@ -1,3 +1,6 @@
+---
+title: "LSI"
+---
 
 ## LSI自作
 - [OpenMPW入門 改訂版 (vlsi.jp)](https://vlsi.jp/OpenMPW.html)

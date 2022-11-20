@@ -115,6 +115,8 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 - Linux Userland
 	- [テンプレート](./pwn/LinuxUserland/template.md)
+	- [pwn を解く為に必要なステップ](./pwn/LinuxUserland/method.md)
+	- [脆弱性とセキュリティ機構](./pwn/LinuxUserland/vulns&security.md)
 	- Stack Exploit
 		- [脆弱性とセキュリティ機構](./pwn/LinuxUserland/StackExploit/vulns&security.md)
 		- [ret2xxx](./pwn/LinuxUserland/StackExploit/ret2xxx.md)
@@ -129,7 +131,8 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 			- [Internal Functions](./pwn/LinuxUserland/glibc/glibc_heap/InternalFunctions.md)
 			- [Core Functions](./pwn/LinuxUserland/glibc/glibc_heap/CoreFunctions.md)
 			- [Security Checks](./pwn/LinuxUserland/glibc/glibc_heap/SecurityChecks.md)
-	- Heap Exploit
+		- [`_IO_FILE`](./pwn/LinuxUserland/glibc/_IO_FILE/_IO_FILE.md)
+	- [Heap Exploit](./pwn/LinuxUserland/HeapExploit/HeapExploit.md)
 		- [脆弱性とセキュリティ機構](./pwn/LinuxUserland/HeapExploit/vulns&security.md)
 		- First Fit
 		- Double Free
@@ -165,6 +168,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 使用言語はPythonまたはSageMathです。それぞれの暗号自体を取り扱うのではなく、Cryptoの背景にある理論を取り扱っていきます。
 
+- [SageMathチートシート](./crypto/sagemath.md)
 - 暗号構成基盤
 	- [Diffie-Hellman 鍵交換](./crypto/cryptography/Diffie-Hellman.md)
 	- [Fiat-Shamir 変換](./crypto/cryptography/Fiat-Shamir.md)
@@ -174,7 +178,6 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 	- [ゼロ知識証明](./crypto/cryptography/ZeroKnowledgeProof.md)
 	- [Fujisaki-Okamoto Transformation](./crypto/cryptography/Fujisaki-Okamoto_Transformation.md)
 	- [準同型暗号](./crypto/cryptography/homomorphism.md)
-- [SageMathチートシート](./crypto/sagemath.md)
 - [格子](./crypto/Lattice/tour_of_Lattice.md)
 	- [Gram-Schmidt](./crypto/Lattice/GSO.md)
 	- SVP (Shortest Vector Problem)
@@ -280,20 +283,26 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 
 ## Misc
 
-- [Pyjail](./misc/Pyjail.md)
 - [Forensics](./misc/forensics/forensics.md)
 	- [Windows](./misc/forensics/windows.md)
 - [OSINT](./misc/osint/OSINT.md)
+- Rev
+	- [シンボリック実行](./other/SAT-SMT/symbolic_execution.md)
+	- Fuzzing
+- Misc
+	- [Pyjail](./misc/Misc/Pyjail.md)
 
 ## コンピュータ・アーキテクチャ
 
 - [数学](./science/math.md)
 - [物理](./science/phys.md)
 - 素子
-- アナログ回路
-- デジタル回路
-- LSI
-- [CPU / GPU](./other/Processor/Processor.md)
+- [回路](./other/Circuit/Circuit)
+	- アナログ回路
+	- デジタル回路
+	- [マイコン](./other/Circuit/Microcomputer)
+- [プロセッサ](./other/Processor/Processor.md)
+	- [LSI](./other/Processor/LSI)
 	- Spectre / Meltdown
 	- HIEE; Hardware-assisted Isolated Execution Environments
 		- [TEE; Trusted Execution Environment](./other/Processor/HIEE/TEE.md)
@@ -309,13 +318,15 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 	- [コンテナ仮想化技術](./other/Virtualization/Container.md)
 	- [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
 - [OS](./other/OS/OS.md)
+	- [スケジューラ](./other/OS/Scheduler)
+	- [略語](./other/OS/abbreviation)
 - サーバー
 	- [RDBMS](./other/Server/RDBMS.md)
 	- [RDBMS 最適化](./other/Server/rdbms-optimization.md)
 	- [リバースプロキシ](./other/Server/reverse-proxy.md)
 	- [リバースプロキシ最適化](./other/Server/reverse-proxy-optimization.md)
 	- [フロントエンド最適化](./other/Server/frontend-optimization.md)
-- [ネットワーク構成](./other/Network/network.md)
+- [ネットワーク](./other/Network/network.md)
 	- [SDR](./other/Network/SDR.md)
 
 ## 量子アルゴリズム
@@ -334,24 +345,28 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - 航空技術
 - [プログラミング言語](./other/Programming/Programming.md)
 	- [型推論](./other/Programming/Type.md)
+	- [toolchain](./other/Programming/toolchain)
 	- 未定義動作
 - 電子回路
-- 構造探検隊
+- バイナリフォーマット探検隊
 	- [ASCII](./other/Structure/ASCII)
 	- [ELF](./other/Structure/ELF.md)
 	- JPEG
 	- [FAT32](./other/Structure/FAT32.md)
 	- [ZIP](./other/Structure/ZIP.md)
+- [マルウェア](./other/Malware/Malware.md)
+	- [デバッグ検知](./other/Malware/anti_debugging.md)
+	- [仮想化検知](./other/Malware/detect_virtualization.md)
 - [SAT/SMT](./other/SAT-SMT/SAT-SMT.md)
 	- [シンボリック実行エンジン](./other/SAT-SMT/symbolic_execution.md)
-	- [定理証明支援系](./other/SAT-SMT/proof_assistant.md)
-- [レンダリング](./other/Rendering/Rendering.md)
+	- 定理証明支援系
+- レンダリング
 	- [レイトレーシング](./other/Rendering/RayTracing.md)
-	- [シェーダー](./other/Rendering/Shader.md)
-- [ブロックチェーン](./other/Blockchain.md)
+- ブロックチェーン
 - [Deep Learning](./other/DeepLearning.md)
 - [【画像処理入門】アルゴリズム＆プログラミング](https://algorithm.joho.info/programming/image-processing/)
 - 超解像
+- [ツール](./other/Tools)
 
 ## 脆弱性集
 
