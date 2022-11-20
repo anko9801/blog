@@ -6,6 +6,8 @@ ASCII; American (National) Standard Code for Information Interchage (ASA X3.4-19
 
 ## ASCII コード表
 
+全部入り
+
 | 10進 | 16進 | ASCII | 10進 | 16進 | ASCII | 10進 | 16進 | ASCII | 10進 | 16進 | ASCII |
 | ---- | ---- | ----- | ---- | ---- | ----- | ---- | ---- | ----- | ---- | ---- | ----- |
 | 0    | 0x0  | NULL  | 32   | 0x20 | SP    | 64   | 0x40 | @     | 96   | 0x60 | \`    |
@@ -41,6 +43,8 @@ ASCII; American (National) Standard Code for Information Interchage (ASA X3.4-19
 | 30   | 0x1e | RS    | 62   | 0x3e | >     | 94   | 0x5e | ^     | 126  | 0x7e | ~     |
 | 31   | 0x1f | US    | 63   | 0x3f | ?     | 95   | 0x5f | _     | 127  | 0x7f | DEL   |
 
+16進数のみ
+
 |      | 0x00 | 0x01 | 0x02 | 0x03 | 0x04 | 0x05 | 0x06 | 0x07 | 0x08 | 0x09 | 0x0a | 0x0b | 0x0c | 0x0d | 0x0e | 0x0f |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 0x00 | NULL | SOH  | STX  | ETX  | EOT  | ENG  | ACK  | BEL  | BS   | HT   | LF   | VT   | FF   | CR   | SO   | SI   |
@@ -51,6 +55,8 @@ ASCII; American (National) Standard Code for Information Interchage (ASA X3.4-19
 | 0x50 | P    | Q    | R    | S    | T    | U    | V    | W    | X    | Y    | Z    | \[   | \\   | ]    | ^    | _    |
 | 0x60 | \`   | a    | b    | c    | d    | e    | f    | g    | h    | i    | j    | k    | l    | m    | n    | o    |
 | 0x70 | p    | q    | r    | s    | t    | u    | v    | w    | x    | y    | z    | {    | \|   | }    | ~    | DEL  |
+
+10進数のみ
 
 |     | 00  | 01  | 02  | 03  | 04  | 05  | 06  | 07  | 08  | 09  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
