@@ -300,7 +300,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 		- [TPM; Trusted Platform Module](./other/Processor/HIEE/TPM.md)
 		- [DRM; Digital Rights Management](./other/Processor/HIEE/DRM.md)
 		- DAA; Direct Anonymous Attestation
-	- [rootkit](rootkit.md)
+	- [rootkit](./other/Processor/rootkit.md)
 - 論理
 - マイクロアーキテクチャ
 - アーキテクチャ
@@ -337,11 +337,11 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 	- 未定義動作
 - 電子回路
 - 構造探検隊
+	- [ASCII](./other/Structure/ASCII)
 	- [ELF](./other/Structure/ELF.md)
 	- JPEG
 	- [FAT32](./other/Structure/FAT32.md)
 	- [ZIP](./other/Structure/ZIP.md)
-- [デバッガ](pwn/Tools.md)
 - [SAT/SMT](./other/SAT-SMT/SAT-SMT.md)
 	- [シンボリック実行エンジン](./other/SAT-SMT/symbolic_execution.md)
 	- [定理証明支援系](./other/SAT-SMT/proof_assistant.md)
