@@ -1,4 +1,6 @@
 
+- XOR swap
+
 ## ビット演算
 Integer Overflow ([CWE-190](https://cwe.mitre.org/data/definitions/190.html)) 整数の上限値を超えると下限値付近になる
 Integer Underflow ([CWE-191](https://cwe.mitre.org/data/definitions/191.html)) 整数の下限値を下回ると上限値付近になる
