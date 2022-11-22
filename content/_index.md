@@ -44,14 +44,14 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 	- Unordered Set
 
 ## グラフ
-- グラフ
+- [グラフ](./graph/graph.md)
 	- 最短路
 		- [単一始点最短路 $O(E\log V)$ (Dijkstra)](./graph/shortest_path/dijkstra.md)
+			- k-最短路 $O(kE\log V)$ (Dijkstra)
 		- [単一始点最短路 $O(EV)$ (Bellman-Ford)](./graph/shortest_path/bellman_ford.md)
-		- k-最短路
+			- 負閉路検出 $O(EV)$
 		- [全点対間最短路 $O(V^3)$ (Floyd Warshall)](./graph/shortest_path/floyd_warshall.md)
 		- 全点対間最短路 $O((V + E)V\log V)$ (Johnson)
-	- 負閉路検出
 	- 閉路検出
 	- 全域木
 		- 最小全域森 $O(E\log V)$ (Prim)
