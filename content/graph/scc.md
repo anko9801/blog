@@ -3,86 +3,88 @@ title: "強連結成分分解"
 ---
 
 ## 説明
+有向グラフにおいて、ある部分グラフが強連結であるとは部分グラフの任意の2点が互いに行き来可能であること。深さ優先探索の帰りがけ順(トポロジカルソート順)に逆グラフを探索したときそれらが通る点は強連結成分となる。
 
-有向グラフにおいて、ある部分グラフが強連結であるとは任意の2点が互いに行き来可能であること。
-
-深さ優先探索の帰りがけ順(トポロジカルソート順)に逆グラフを探索したときそれらが通る点は強連結成分となる。
-
-## 計算量
-
-$O(V + E)$
+## 仕様
+- `dag`
+	- `g` の強連結成分を1つの頂点として見たグラフ. DAGとなる.
+- `comp`
+	- 各頂点に強連結成分は同じ値となるように値を割り当てる.
+- `group`
+	- 強連結成分の頂点のリスト.
+- `void build()`
+	- `dag`, `comp`, `group` を計算する.
+	- $O(V + E)$
 
 ## 実装
-
 ```cpp
-#include <algorithm>
-#include <set>
-#include <vector>
-
-class SCC {
-  int n;
-  std::vector<std::vector<int>> G, rG;
-  // order: 帰りがけ順の逆順 == トポ順
-  // comp: 強連結をグループ化
-  std::vector<int> order, comp;
-  std::vector<bool> used;
-
-  void dfs(int v) {
-    used[v] = true;
-    for (auto nv : G[v]) {
-      if (!used[nv]) dfs(nv);
-    }
-    order.push_back(v);
-  }
-
-  void rdfs(int v, int k) {
-    comp[v] = k;
-    for (auto nv : rG[v]) {
-      if (comp[nv] < 0) rdfs(nv, k);
-    }
-  }
-
+template <typename T = int>
+struct SCC : Graph<T> {
 public:
-  std::vector<std::vector<int>> scc;
+  using Graph<T>::Graph;
+  using Graph<T>::g;
+  Graph<T> dag;
+  vector<int> comp;
+  vector<vector<int>> group;
 
-  SCC(std::vector<std::vector<int>> &g)
-      : n(g.size()), G(g), rG(g.size()), comp(g.size(), -1),
-        used(g.size()) {
-    for (int i = 0; i < n; i++) {
-      for (auto e : g[i]) { rG[e].emplace_back(i); }
-    }
-    for (int i = 0; i < n; i++)
-      if (!used[i]) dfs(i);
-    reverse(order.begin(), order.end());
-    int k = 0;
-    for (auto v : order)
-      if (comp[v] == -1) rdfs(v, k), k++;
-  }
-
-  bool same(int u, int v) const { return comp[u] == comp[v]; }
-
-  void add_edge(int a, int b) {
-    G[a].push_back(b);
-    rG[b].push_back(a);
-  }
-
-  std::vector<std::vector<int>> rebuild() const {
-    int N = *max_element(comp.begin(), comp.end()) + 1;
-    std::vector<std::vector<int>> rebuildedG(N);
-    std::set<std::pair<int, int>> connected;
-    for (int v = 0; v < N; v++) {
-      for (auto nv : G[v]) {
-        if (comp[v] != comp[nv] && !connected.count({v, nv})) {
-          connected.insert({v, nv});
-          rebuildedG[comp[v]].push_back(comp[nv]);
-        }
+  void build() {
+    // reversed graph
+    rg = Graph<T>(g.size());
+    for (size_t i = 0; i < g.size(); i++) {
+      for (auto &e : g[i]) {
+        rg.add_directed_edge(e.to, e.from, e.cost);
       }
     }
-    return rebuildedG;
+    // topological sort labeling
+    used.assign(g.size(), false);
+    for (size_t i = 0; i < g.size(); i++) dfs(i);
+    reverse(order.begin(), order.end());
+    // scc labeling
+    int cnt = 0;
+    comp.assign(g.size(), -1);
+    for (auto idx : order) if (comp[idx] == -1) rdfs(idx, cnt), cnt++;
+    // build dag
+    dag = Graph<T>(cnt);
+    for (size_t i = 0; i < g.size(); i++) {
+      for (auto &e : g[i]) {
+        int from = comp[e.from], to = comp[e.to];
+        if (from == to) continue;
+        dag.add_directed_edge(from, to, e.cost);
+      }
+    }
+    // grouping scc
+    group.resize(cnt);
+    for (size_t i = 0; i < g.size(); i++) {
+      group[comp[i]].emplace_back(i);
+    }
+  }
+
+  int operator[](int k) const {
+    return comp[k];
+  }
+
+private:
+  Graph<T> rg;
+  vector<int> order;
+  vector<bool> used;
+
+  void dfs(int idx) {
+    if (used[idx]) return;
+    used[idx] = true;
+    for (auto &to : g[idx]) dfs(to);
+    order.push_back(idx);
+  }
+
+  void rdfs(int idx, int cnt) {
+    if (comp[idx] != -1) return;
+    comp[idx] = cnt;
+    for (auto &to : rg[idx]) rdfs(to, cnt);
   }
 };
 ```
 
 ## 使用例
 
-
+## 参考
+- [強連結成分（SCC） | technical-note (hkawabata.github.io)](https://hkawabata.github.io/technical-note/note/Algorithm/graph/scc.html)
+- [Strongly Connected Components(強連結成分分解) | Luzhiled’s Library (ei1333.github.io)](https://ei1333.github.io/library/graph/connected-components/strongly-connected-components.hpp)
