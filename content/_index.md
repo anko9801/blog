@@ -15,102 +15,144 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 これらは CC0 ライセンスとします。自由にコピペして OK です！
 
 ## 競プロ
-
 - [テンプレート](./template.md)
+- Python
 
 ## データ構造
-
 - [UnionFind](./data_structure/unionfind/unionfind.md)
 	- [ポテンシャル付きUnionFind](./data_structure/unionfind/potential_unionfind.md)
 	- [永続UnionFind](./data_structure/unionfind/persist_unionfind.md)
 - [BIT (Binary-Indexed-Tree) / Fenwick Tree](./data_structure/bit/bit.md)
+- Sparse Table
 - [セグメント木](./data_structure/segtree/segtree.md)
 	- [遅延セグメント木](./data_structure/segtree/lazysegtree.md)
 	- [Segment Tree Beats](./data_structure/segtree/segtreebeats.md)
+- 平方分割, パケット法
 - 平衡二分探索木
-	- 赤黒木
+	- 赤黒木 RBST
 	- AVL木
 	- Splay木
 	- Treap
 - Wavelet Matrix
-- 座標圧縮
-- スライド最小値
+- Wavelet Tree
 - [slope trick](./data_structure/slope_trick.md)
+- コンテナ
+	- List
+	- Map
+	- Set
+	- Unorderd Map
+	- Unordered Set
 
 ## グラフ
-
-- 最短路
-	- [単一始点最短路 $O(E\log V)$ (Dijkstra)](./graph/shortest_path/dijkstra.md)
-	- [単一始点最短路 $O(EV)$ (Bellman-Ford)](./graph/shortest_path/bellman_ford.md)
-	- k-最短路
-	- [全点対間最短路 $O(V^3)$ (Floyd Warshall)](./graph/shortest_path/floyd_warshall.md)
-	- 全点対間最短路 $O((V + E)V\log V)$ (Johnson)
-- 全域木
-	- 最小全域森 (Kruskal)
-	- 行列木定理
-- フロー
-	- [最大流 (Dinic)](./graph/flow/dinic.md)
-	- [最大流 (Ford Fulkerson)](./graph/flow/ford_fulkerson.md)
-- マッチング
-	- 二部グラフ判定
-	- 最大マッチング
+- グラフ
+	- 最短路
+		- [単一始点最短路 $O(E\log V)$ (Dijkstra)](./graph/shortest_path/dijkstra.md)
+		- [単一始点最短路 $O(EV)$ (Bellman-Ford)](./graph/shortest_path/bellman_ford.md)
+		- k-最短路
+		- [全点対間最短路 $O(V^3)$ (Floyd Warshall)](./graph/shortest_path/floyd_warshall.md)
+		- 全点対間最短路 $O((V + E)V\log V)$ (Johnson)
+	- 負閉路検出
+	- 閉路検出
+	- 全域木
+		- 最小全域森 $O(E\log V)$ (Prim)
+		- 最小全域森 $O(E\log V)$ (Kruskal)
+		- 行列木定理
+	- フロー
+		- [最大流 (Dinic)](./graph/flow/dinic.md)
+		- [最大流 (Ford Fulkerson)](./graph/flow/ford_fulkerson.md)
+		- 最小費用流
+		- 燃やす埋める
+		- マッチング
+			- 二部マッチング
+			- 最大マッチング
+	- [強連結成分分解](./graph/scc.md)
+	- Dilworth の定理
+	- 最大クリーク
+	- 最大独立集合
+	- Functional Graph
+	- トポロジカルソート
+	- 2-SAT
 - ツリー
 	- [木の直径](./graph/tree/diameter.md)
+	- 木の重心
+	- 重心分解
+	- HL分解
+	- オイラーツアー
 	- 最小共通祖先
-- Functional Graph
-- Dilworth の定理
-- 最大クリーク
-- [強連結成分分解](./graph/scc.md)
 
 ## 算数
-
-- bit trick
-	- XOR swap
-- 整数
-	- [Euclid の互除法](./arithmetic/gcd.md)
+- Bit Trick
+- 数論
+	- [拡張 Euclid の互除法](./arithmetic/gcd.md)
 	- [数論的関数/進数変換](./arithmetic/arithmetical_function)
 	- 素数
 		- [素因数分解](./arithmetic/primes/factorize.md)
 		- [高速素因数分解 (Pollard-$\rho$法/Millar-Rabin)](./arithmetic/primes/fast_factorize.md)
 		- [素数列挙 (エラトステネスの篩)](./arithmetic/primes/primes.md)
 		- 素数判定
+		- 素数テーブル
 	- 剰余
 		- [Modint](./arithmetic/modulo/modint.md)
 		- [任意Modint](./arithmetic/modulo/arbitrary_modint.md)
 	- [中国剰余定理](./arithmetic/crt.md)
 	- floor sum
+	- 二分探索
+	- 三分探索
+- 有理数
 - [行列](./arithmetic/matrix/matrix.md)
-- [高速ゼータ変換/高速メビウス変換](./arithmetic/zeta.md)
-- [高速フーリエ変換(FFT)](./arithmetic/fft.md)
-- [数論変換(NTT)](./arithmetic/ntt.md)
-- 多項式GCD
-- 形式的冪級数
-- 任意mod畳み込み
+- [高速フーリエ変換 (FFT)](./arithmetic/fft.md)
+	- 任意mod畳み込み
+	- [高速ゼータ変換/高速メビウス変換](./arithmetic/zeta.md)
+	- Karatsuba 法
+- 形式的冪級数 (FPS)
+	- [数論変換 (NTT)](./arithmetic/ntt.md)
+	- 多項式GCD
+	- 多項式補間
+- スライド最小値
+
+## 探索
+- 深さ優先探索
+- 幅優先探索
+	- 座標圧縮
+- 枝刈り
+- A*
+- IDA*
+- α-β 探索
 
 ## 幾何
-
 - [幾何ライブラリ](./geometry/geometry.md)
 - 凸包
 - 偏角ソート
 
 ## 文字列
-
 - Z algorithm
 - Rabin-Karp 法
 - 最長増加部分列
 - ローリングハッシュ
+- 接尾辞配列
 - Boyer-Moore
 - LL(1) parser
+- Aho-Corasick
+
+## 典型
+- しゃくとり法
+- 動的計画法
+- 集合の整数表現
+- 最小値の最大化
+- 半分全列挙
+- 行列累乗
+- 数え上げ
+	- 包除原理
+	- 対称性
+- Grundy 数
 
 ## ヒューリスティック
-
 - [山登り法](./heuristic/hill_climbing.md)
 - [焼きなまし法](./heuristic/simulated_annealing.md)
 - [ビームサーチ](./heuristic/beam_search.md)
 - [chokudai サーチ](./heuristic/chokudai_search.md)
 
 ## Pwn
-
 使用言語はPythonまたはC言語です。
 
 - Linux Userland
@@ -165,11 +207,11 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 - [Automatic Exploit Generation](./pwn/AEG.md)
 
 ## Crypto
-
-使用言語はPythonまたはSageMathです。それぞれの暗号自体を取り扱うのではなく、Cryptoの背景にある理論を取り扱っていきます。
+それぞれの暗号自体を取り扱うのではなく、Cryptoの背景にある理論を取り扱っていきます。使用言語はPythonまたはSageMathです。
 
 - [SageMathチートシート](./crypto/sagemath.md)
 - 暗号構成基盤
+	- 攻撃者から守る為に
 	- [Diffie-Hellman 鍵交換](./crypto/cryptography/Diffie-Hellman.md)
 	- [Fiat-Shamir 変換](./crypto/cryptography/Fiat-Shamir.md)
 		- [Schnorr 署名](./crypto/cryptography/Schnorr.md)
@@ -268,7 +310,6 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 - [参考文献](./crypto/books.md)
 
 ## Web
-
 Webに関してはよわよわなので読み込むと良いかもしれない資料リストを集めています。(これ読むといいよみたいなのがあったら教えてくださると助かります！)
 
 - [Prototype Pollution](./web/PrototypePollution.md)
@@ -282,6 +323,7 @@ Webに関してはよわよわなので読み込むと良いかもしれない�
 - [SQL Injection list](https://github.com/payloadbox/sql-injection-payload-list)
 
 ## Misc
+CTF の3大分野以外をまとめます.
 
 - [Forensics](./misc/forensics/forensics.md)
 	- [Windows](./misc/forensics/windows.md)
