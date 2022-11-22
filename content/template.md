@@ -1,10 +1,10 @@
 ---
-title: "競プロテンプレート"
+title: "競プロで使うテンプレート"
 ---
 
 ## 説明
 
-競プロで使うテンプレート
+私が使うテンプレートです. このライブラリ集では少なくとも stdlib を全て読み込んで `using namespace std` してあることを前提として書いてあります.
 
 ## 実装
 
@@ -131,8 +131,6 @@ auto make_vector(size_t const (&sizes)[Nb], Tp const &x = Tp()) {
   return detail::make_vector<Tp, Nb>(s, x);
 }
 ```
-
-## 使用例
 
 ## 参考文献
 - [shino16/cp_rust: 競プロライブラリ (github.com)](https://github.com/shino16/cp_rust)
