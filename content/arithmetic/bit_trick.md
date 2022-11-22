@@ -1,3 +1,6 @@
+---
+title: "Bit Trick"
+---
 
 - XOR swap
 
