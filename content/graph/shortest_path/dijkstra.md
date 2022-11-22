@@ -3,53 +3,50 @@ title: "単一始点最短路 (Dijkstra)"
 ---
 
 ## 説明
-
 有向グラフに負の辺が存在しないとき次の事がいえる。
+
 「まだ最短距離が確定していない点の中で、始点からの距離が最小 $\iff$ 最短距離として確定」
 
 ## 計算量
 
-- 疎グラフ ヒープを用いる $O(E\log{V})$
-- 密グラフ 単純に探索 $O(V^2)$
+- `ShortestPath<T>`
+	- 始点から終点までの距離 `dist` 
+	- 始点からの最短路のパスで終点の1つ前の点 `from`
+- `ShortestPath<T> dijkstra(const Graph<T> &g, int s)`
+	- グラフ `g` について始点 `s` からの最短経路を計算する.
+	- 密グラフ 単純に探索 $O(V^2)$
+	- 疎グラフ ヒープを用いると $O(E\log{V})$
 
 ## 実装
 
 ```cpp
-#include <queue>
-#include <vector>
-
-using ll = long long;
-using pll = std::pair<ll, ll>;
-template <class T>
-using pq = std::priority_queue<T, std::vector<T>, std::greater<T>>;
-
-const long long LINF = 0x1fffffffffffffff;
-
-struct Edge {
-  int to, cost;
+template <typename T>
+struct ShortestPath {
+  vector<T> dist;
+  vector<int> from;
 };
 
-int V;
-std::vector<ll> d;
-std::vector<std::vector<Edge>> G;
-
-void dijkstra(int s) {
-  pq<pll> q;
-  for (int i = 0; i < V; i++) d[i] = LINF;
-  d[s] = 0;
-  q.push({d[s], s});
+template <typename T>
+ShortestPath<T> dijkstra(const Graph<T> &g, int s) {
+  const auto INF = numeric_limits<T>::max();
+  vector<T> dist(g.size(), INF);
+  dist[s] = 0;
+  vector<int> from(g.size(), -1);
+  pq<pair<T, int>> q;
+  q.emplace(dist[s], s);
 
   while (!q.empty()) {
-    auto [dist, p] = q.top();
-    q.pop();
-    if (d[p] < dist) continue;
-    for (auto &e : G[p]) {
-      if (d[e.to] > d[p] + e.cost) {
-        d[e.to] = d[p] + e.cost;
-        q.push({d[e.to], e.to});
+    auto [cost, idx] = q.top(); q.pop();
+    if (dist[idx] < cost) continue;
+    for (auto &e : g[idx]) {
+      if (dist[e.to] > dist[idx] + e.cost) {
+        dist[e.to] = dist[idx] + e.cost;
+        from[e.to] = idx;
+        q.emplace(dist[e.to], e.to);
       }
     }
   }
+  return {dist, from};
 }
 ```
 
