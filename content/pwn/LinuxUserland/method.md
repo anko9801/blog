@@ -10,21 +10,15 @@ title: "pwn を解く為に必要なステップ"
 | Exploit Techniques | ret2plt, ret2libc, ROP, GOT Overwrite, Stack pivot ...                     |
 | Anti-Exploits      | NX, ASLR, RELRO, PIE, Stack Canary ...                                     |
 
-シェルを開く方法
+flagを獲得する方法
 1. シェルコードを実行
 	1. Exec-shell系
 	2. Exec-shell + バックコネクト系
+	3. [shellcode - Qiita](https://qiita.com/yyamada_bigtree/items/97ea176484f5b05c195d)
 2. `system("/bin/sh")`や`execve("/bin/sh", 0, 0)`を実行
 	1. 必要に応じてdup2したりする
 3. open("flag") -> read() -> write()
-	1. 正確にはシェルを開いていない
-	2. でもCTF的にはフラグが読めればいい
-	3. サンドボックスでexec系が禁止されているケース，chrootされているケースなどで有効
-
-シェルを呼び出す
-- execve("/bin/sh", null, null)
-- system("/bin/sh")
-- [shellcode - Qiita](https://qiita.com/yyamada_bigtree/items/97ea176484f5b05c195d)
+	1. サンドボックスでexec系が禁止されているケース，chrootされているケースなどで有効
 
 ## バイナリ解析
 動的解析
