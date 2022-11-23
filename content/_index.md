@@ -45,7 +45,7 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 
 ## グラフ
 - [グラフ](./graph/graph.md)
-	- 最短路
+	- [最短経路問題](./graph/shortest_path/shortest_path.md)
 		- [単一始点最短路 $O(E\log V)$ (Dijkstra)](./graph/shortest_path/dijkstra.md)
 			- k-最短路 $O(kE\log V)$ (Dijkstra)
 		- [単一始点最短路 $O(EV)$ (Bellman-Ford)](./graph/shortest_path/bellman_ford.md)
@@ -62,9 +62,6 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 		- [最大流 $O(E\times\mathrm{maxflow})$ (Ford Fulkerson)](./graph/flow/ford_fulkerson.md)
 		- 最小費用流
 		- 燃やす埋める
-		- マッチング
-			- 二部マッチング
-			- 最大マッチング
 	- [強連結成分分解](./graph/scc.md)
 	- Dilworth の定理
 	- 最大クリーク
