@@ -6,17 +6,19 @@ openToc: true
 
 ## これはなに？
 
-CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想で書いてる)
+CTF のライブラリ/知識集らしいです。なぜか CTF より競プロや雑学の方が多い。 (現在は LYT に近い思想で書いてる。)
 
 競プロはライブラリ化されたものがよく出回ってるけど、CTF の方はほとんど閉じた場所でしか共有されてないよな～と思ったのであんこ(将来的に traP の CTF 班)が CTF に関するライブラリや CTF に必要な知識をまとめたものです。編集したい方は大歓迎です！気軽にプルリク投げてください～
 
 説明を読めば機能最小限の同じものを自作できること以上、研究的な部分は自分が面白いとか知識が整理されたなとか思えば載せます。
 
 これらは CC0 ライセンスとします。自由にコピペして OK です！
+TODO: ライセンス
 
 ## 競プロ
 - [テンプレート](./template.md)
 - Python
+- Rust
 
 ## データ構造
 - [UnionFind](./data_structure/unionfind/unionfind.md)
@@ -56,7 +58,6 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 	- 全域木
 		- 最小全域森 $O(E\log V)$ (Prim)
 		- 最小全域森 $O(E\log V)$ (Kruskal)
-		- 行列木定理
 	- [フロー](./graph/flow/flow.md)
 		- [最大流 $O(V^2E)$ (Dinic)](./graph/flow/dinic.md)
 		- [最大流 $O(E\times\mathrm{maxflow})$ (Ford Fulkerson)](./graph/flow/ford_fulkerson.md)
@@ -335,11 +336,25 @@ CTF の3大分野以外をまとめます.
 
 - [数学](./science/math.md)
 - [物理](./science/phys.md)
-- 素子
 - [回路](./other/Circuit/Circuit)
+	- 素子
 	- アナログ回路
+		- 抵抗とコンデンサ
+		- 昇圧チョッパ回路
+		- Hブリッジ回路
+		- マルチバイブレータ回路
+		- 発振回路
+			- コルピッツ発振回路
+		- ラッチ
+		- フリップフロップ
+		- 電源
+		- キーボード
+		- ノイズキャンセリング
 	- デジタル回路
+		- AVLライタ
 	- [マイコン](./other/Circuit/Microcomputer)
+	- パワエレ
+	- 通信
 - [プロセッサ](./other/Processor/Processor.md)
 	- [LSI](./other/Processor/LSI)
 	- Spectre / Meltdown
@@ -357,8 +372,11 @@ CTF の3大分野以外をまとめます.
 	- [コンテナ仮想化技術](./other/Virtualization/Container.md)
 	- [ハイパーバイザの作り方](https://syuu1228.github.io/howto_implement_hypervisor/)
 - [OS](./other/OS/OS.md)
-	- [スケジューラ](./other/OS/Scheduler)
 	- [略語](./other/OS/abbreviation)
+	- [スケジューラ](./other/OS/Scheduler)
+	- BIOS/UEFI
+	- ACPI
+	- NIC
 - サーバー
 	- [RDBMS](./other/Server/RDBMS.md)
 	- [RDBMS 最適化](./other/Server/rdbms-optimization.md)
@@ -386,19 +404,21 @@ CTF の3大分野以外をまとめます.
 	- [型推論](./other/Programming/Type.md)
 	- [toolchain](./other/Programming/toolchain)
 	- 未定義動作
-- 電子回路
+	- シェル
+	- 定理証明支援系
 - バイナリフォーマット探検隊
-	- [ASCII](./other/Structure/ASCII)
-	- [ELF](./other/Structure/ELF.md)
+	- [ASCII](./other/BinaryFormat/ASCII.md)
+	- [ELF](./other/BinaryFormat/ELF.md)
 	- JPEG
-	- [FAT32](./other/Structure/FAT32.md)
-	- [ZIP](./other/Structure/ZIP.md)
+	- [FAT32](./other/BinaryFormat/FAT32.md)
+	- ext4
+	- [ZIP](./other/BinaryFormat/ZIP.md)
 - [マルウェア](./other/Malware/Malware.md)
 	- [デバッグ検知](./other/Malware/anti_debugging.md)
 	- [仮想化検知](./other/Malware/detect_virtualization.md)
 - [SAT/SMT](./other/SAT-SMT/SAT-SMT.md)
 	- [シンボリック実行エンジン](./other/SAT-SMT/symbolic_execution.md)
-	- 定理証明支援系
+	- 自動定理証明支援系
 - レンダリング
 	- [レイトレーシング](./other/Rendering/RayTracing.md)
 - ブロックチェーン
