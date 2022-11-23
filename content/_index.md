@@ -57,9 +57,9 @@ CTF のライブラリ/知識集らしいです。(現在は LYT に近い思想
 		- 最小全域森 $O(E\log V)$ (Prim)
 		- 最小全域森 $O(E\log V)$ (Kruskal)
 		- 行列木定理
-	- フロー
-		- [最大流 (Dinic)](./graph/flow/dinic.md)
-		- [最大流 (Ford Fulkerson)](./graph/flow/ford_fulkerson.md)
+	- [フロー](./graph/flow/flow.md)
+		- [最大流 $O(V^2E)$ (Dinic)](./graph/flow/dinic.md)
+		- [最大流 $O(E\times\mathrm{maxflow})$ (Ford Fulkerson)](./graph/flow/ford_fulkerson.md)
 		- 最小費用流
 		- 燃やす埋める
 		- マッチング
