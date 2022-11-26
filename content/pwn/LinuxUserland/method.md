@@ -90,3 +90,4 @@ $ ROPgadget --binary ./a.out
 | PIE 有効 (default)         | `-fPIE -pie`                              |
 | Exec-Shield 無効           | `sudo sysctl -w kernel.exec-shield=0`     |
 | Exec-Shield 有効 (default) | `sudo sysctl -w kernel.exec-shield=1`     |
+

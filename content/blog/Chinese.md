@@ -13,3 +13,10 @@
 
 
 
+
+wǒ jiào Yǔzuǒjiàn dàxī.
+wǒ shì Dōngjīng gōngyè gōngyè de xuésheng
+wǒ xuési Zhōngguóhuà yīnián
+wǒ you xihuen chi Zhōngguócai, you bu zuo
+wǒ hun hao Zhōngguó wénhuà.
+wǒ hai bu ti Zhōngguó, wo ti kankan Zhōngguó.

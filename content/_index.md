@@ -51,7 +51,7 @@ TODO: ライセンス
 		- [単一始点最短路 $O(E\log V)$ (Dijkstra)](./graph/shortest_path/dijkstra.md)
 			- k-最短路 $O(kE\log V)$ (Dijkstra)
 		- [単一始点最短路 $O(EV)$ (Bellman-Ford)](./graph/shortest_path/bellman_ford.md)
-			- 負閉路検出 $O(EV)$
+			- 負閉路検出 $O(EV)$ (Bellman-Ford)
 		- [全点対間最短路 $O(V^3)$ (Floyd Warshall)](./graph/shortest_path/floyd_warshall.md)
 		- 全点対間最短路 $O((V + E)V\log V)$ (Johnson)
 	- 閉路検出
@@ -111,7 +111,7 @@ TODO: ライセンス
 ## 探索
 - 深さ優先探索
 - 幅優先探索
-	- 座標圧縮
+- 座標圧縮
 - 枝刈り
 - A*
 - IDA*
@@ -326,32 +326,59 @@ CTF の3大分野以外をまとめます.
 - [Forensics](./misc/forensics/forensics.md)
 	- [Windows](./misc/forensics/windows.md)
 - [OSINT](./misc/osint/OSINT.md)
-- Rev
-	- [シンボリック実行](./other/SAT-SMT/symbolic_execution.md)
-	- Fuzzing
-- Misc
-	- [Pyjail](./misc/Misc/Pyjail.md)
+- Reversing
+	- [表層解析](./rev/SurfaceAnalysis)
+	- 静的解析
+		- Ghidra
+	- 動的解析
+		- Fuzzing
+		- [シンボリック実行](./other/SAT-SMT/symbolic_execution.md)
+	- [マルウェア](./rev/Malware/Malware.md)
+		- [デバッグ検知](./rev/Malware/AntiDebugging.md)
+		- [仮想化検知](./rev/Malware/DetectVirtualization.md)
+		- [Windowsの内部](./rev/Malware/WindowsInternal.md)
+- バイナリフォーマット探検隊
+	- [ASCII](./misc/BinaryFormat/ASCII.md)
+	- [Unicode](./misc/BinaryFormat/Unicode.md)
+	- [ELF](./misc/BinaryFormat/ELF.md)
+	- [FAT32](./misc/BinaryFormat/FAT32.md)
+	- ext4
+	- [ZIP](./misc/BinaryFormat/ZIP.md)
+	- JPEG
+- ピッキング
+- Tamper Evident
+- Social Engineering
+- Car Hacking
+- [Pyjail](./misc/Misc/Pyjail.md)
 
 ## コンピュータ・アーキテクチャ
-
 - [数学](./science/math.md)
 - [物理](./science/phys.md)
+	- 航空技術
 - [回路](./other/Circuit/Circuit)
 	- 素子
 	- アナログ回路
 		- 抵抗とコンデンサ
 		- 昇圧チョッパ回路
-		- Hブリッジ回路
 		- マルチバイブレータ回路
 		- 発振回路
 			- コルピッツ発振回路
-		- ラッチ
-		- フリップフロップ
 		- 電源
-		- キーボード
 		- ノイズキャンセリング
 	- デジタル回路
+		- 遅延回路 + シュミットトリガ
+		- キーボード
 		- AVLライタ
+	- 論理回路
+		- ラッチ
+		- フリップフロップ
+	- センサー・アクチュエータ
+		- モーター
+		- Hブリッジ回路
+		- PWM制御
+		- ゲートドライバ
+			- FETのオン抵抗, デッドタイム、昇圧回路
+		- TA7291P, TB6643KQ, L298N
 	- [マイコン](./other/Circuit/Microcomputer)
 	- パワエレ
 	- 通信
@@ -395,27 +422,13 @@ CTF の3大分野以外をまとめます.
 
 ## 雑学
 
-- ピッキング
-- Tamper Evident
-- Social Engineering
-- Car Hacking
-- 航空技術
+- 生物学
 - [プログラミング言語](./other/Programming/Programming.md)
 	- [型推論](./other/Programming/Type.md)
 	- [toolchain](./other/Programming/toolchain)
 	- 未定義動作
 	- シェル
 	- 定理証明支援系
-- バイナリフォーマット探検隊
-	- [ASCII](./other/BinaryFormat/ASCII.md)
-	- [ELF](./other/BinaryFormat/ELF.md)
-	- JPEG
-	- [FAT32](./other/BinaryFormat/FAT32.md)
-	- ext4
-	- [ZIP](./other/BinaryFormat/ZIP.md)
-- [マルウェア](./other/Malware/Malware.md)
-	- [デバッグ検知](./other/Malware/anti_debugging.md)
-	- [仮想化検知](./other/Malware/detect_virtualization.md)
 - [SAT/SMT](./other/SAT-SMT/SAT-SMT.md)
 	- [シンボリック実行エンジン](./other/SAT-SMT/symbolic_execution.md)
 	- 自動定理証明支援系

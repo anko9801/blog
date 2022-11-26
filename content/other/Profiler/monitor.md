@@ -13,7 +13,7 @@ docker-composeに入れればいい
 
 ## ログ可視化
 ログ保存、集計しメトリクスにする
-- Loki
+- #Loki
 
 ## ログ転送
 - Promtail
