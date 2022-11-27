@@ -163,8 +163,7 @@ DCモーター
 - ブレーキ: 逆起電力
 - MOS-FET を4つ
 
-
-- [趣味の電子回路工作　目次 (piclist.com)](http://www.piclist.com/images/www/hobby_elec/menu.htm)
+[趣味の電子回路工作　目次 (piclist.com)](http://www.piclist.com/images/www/hobby_elec/menu.htm)
 
 ## 3日目
 真空管
@@ -192,3 +191,9 @@ CMOSのオープンコレクタはノイズに強い
 
 SPIはオープンコレクタではない
 チップセレクト
+
+
+## 参考
+- [回路講習会2017の資料 | Molina's Web Site](https://molina.jp/blog/%E5%9B%9E%E8%B7%AF%E8%AC%9B%E7%BF%92%E4%BC%9A%E3%81%AE%E8%B3%87%E6%96%99/)
+- [The Electronic Lives Manufacturing - presented by ChaN (elm-chan.org)](http://elm-chan.org/index_j.html)
+- [My Tube Amp Manual (op316.com)](http://www.op316.com/tubes/tips/tips0.htm)

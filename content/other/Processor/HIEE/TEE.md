@@ -7,6 +7,8 @@ Trusted Execution Environment: TEE とはプロセッサ上に隔離された実
 - Normal Mode
 - Secure Mode
 
+[Intel® Trust Domain Extensions](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-trust-domain-extensions.html) (Intel® TDX)
+
 TEE の機能
 - OSやアプリケーションの改竄を検知
 - 公開鍵証明書による端末識別，認証

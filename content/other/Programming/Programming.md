@@ -407,6 +407,7 @@ Concurrency
 - Actor
 - atomic
 	- compare and swap
+- Semaphore
 
 それぞれの手法
 - CPS変換, ステートマシンを書く
