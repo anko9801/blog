@@ -353,6 +353,8 @@ CTF の3大分野以外をまとめます.
 
 ## コンピュータ・アーキテクチャ
 - [数学](./science/math.md)
+	- [命題論理](./science/math/PropositionalLogic)
+	- [意味論](./science/math/Semantics)
 - [物理](./science/phys.md)
 	- 航空技術
 - [回路](./other/Circuit/Circuit)

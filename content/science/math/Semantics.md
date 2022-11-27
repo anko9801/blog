@@ -61,9 +61,7 @@ $\iff$ その真理表において, すべての前提 $(\phi_1,\ldots,\phi_n)$ 
     2. n行目までのすべての導出式がトートロジーならば n+1 行目もトートロジーである.
 4. 最後の導出式は定理そのものであり, それはトートロジーである.
 
-
 (2 $\impliedby$ 3)
-
 まず意味論的な真理値と統語論的な結合子を対応させる.
 
 **Def.** 記号 $'$ を次のように定義する.
@@ -76,6 +74,7 @@ x & (x = 1) \\
 $$
 
 **Lemma.** 任意の記号文 $\eta$ について, それに含まれる原子文 $P_1,\ldots,P_n$ について $P_1',\ldots,P_n' \vdash \eta'$ となる.
+
 **Proof.**
 結合子が 0 個のとき, $P_1' \vdash \eta'$ より成り立つ.
 結合子が n 個より小さいすべての記号文が成り立つと仮定し, 各結合子について n 個のときを考える.
@@ -103,6 +102,7 @@ $$
 よりこれは演繹により成り立つ.
 
 **Thm.** $\vDash \xi \implies \vdash\xi$
+
 **Proof.**
 Lemma から記号文 $\xi$ について $P_1',\ldots,P_n' \vdash \xi'$ が成り立つ. $\vDash \xi$ なので $P_1',\ldots,P_n' \vdash \xi$ であり, このとき $P_1',\ldots,P_{n-1}' \vdash P_n'\to\xi$ となる.
 同様に $P_n'$ についてだけ真理値が異なる真理表を考えると Lemma から $P_1',\ldots,\lnot P_n' \vdash \xi$ であり, $P_1',\ldots,P_{n-1}' \vdash \lnot P_n'\to\xi$ が成り立つ.
@@ -116,15 +116,14 @@ $\iff$ $\phi_1,\ldots,\phi_n$ が真で $\psi$ が偽である行がある.
 $\iff$ 前提 $\phi_1,\ldots,\phi_n$ から結論 $\psi$ を得る推論は意味論的に妥当ではない.
 $\iff$ $\phi_1,\ldots,\phi_n \nvDash \psi$
 
-対偶より
+よって $\phi_1,\ldots,\phi_n \vDash \psi \iff \vDash \phi_1\land\cdots\land\phi_n\to\psi$
 
-$\phi_1,\ldots,\phi_n \vDash \psi \iff \vDash \phi_1\land\cdots\land\phi_n\to\psi$
-
-よってすべての同値性が証明された.
-
+これよりすべての同値性が証明された.
 
 完全性・健全性が成り立つとき次のことが言える.
+
 **Thm.** 無矛盾性
 矛盾する２つの記号文 $\eta$ と $\lnot\eta$ が定理となることはない.
+
 **Proof.**
 $\eta$, $\lnot\eta$ が定理だと仮定すると $\eta\land\lnot\eta$ はトートロジーでないから矛盾.
