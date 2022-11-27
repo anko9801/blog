@@ -105,7 +105,7 @@ $$
 
 **Proof.**
 Lemma から記号文 $\xi$ について $P_1',\ldots,P_n' \vdash \xi'$ が成り立つ. $\vDash \xi$ なので $P_1',\ldots,P_n' \vdash \xi$ であり, このとき $P_1',\ldots,P_{n-1}' \vdash P_n'\to\xi$ となる.
-同様に $P_n'$ についてだけ真理値が異なる真理表を考えると Lemma から $P_1',\ldots,\lnot P_n' \vdash \xi$ であり, $P_1',\ldots,P_{n-1}' \vdash \lnot P_n'\to\xi$ が成り立つ.
+同様に $P_n'$ についてだけ真理値が異なる真理表を考えると(これよく分からない) Lemma から $P_1',\ldots,\lnot P_n' \vdash \xi$ であり, $P_1',\ldots,P_{n-1}' \vdash \lnot P_n'\to\xi$ が成り立つ.
 2つのことから $P_1',\ldots,P_{n-1}' \vdash \xi$ が演繹できる. これを繰り返すことで $\vdash \xi$ が得られる.
 
 (3 $\iff$ 4)
