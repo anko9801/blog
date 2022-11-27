@@ -11,7 +11,7 @@
 <script src=https://anko9801.github.io/blog/js/code-title.b35124ad8db0ba37162b886afb711cbc.min.js></script>
 <script src=https://anko9801.github.io/blog/js/clipboard.c20857734e53a3fb733b7443879efa61.min.js></script>
 <script src=https://anko9801.github.io/blog/js/callouts.7723cac461d613d118ee8bb8216b9838.min.js></script>
-<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.43a379b71241cc6cc43666f0f0c24d2d.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.e7f2b263d34e66ef5f49148aeef1af09.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
+<script>const BASE_URL="https://anko9801.github.io/blog/",fetchData=Promise.all([fetch("https://anko9801.github.io/blog/indices/linkIndex.a2bdcb2dc385828f63ca10977a59ab8a.min.json").then(e=>e.json()).then(e=>({index:e.index,links:e.links})),fetch("https://anko9801.github.io/blog/indices/contentIndex.aaa4e8d91ecfcf7505a7be81379c4cf0.min.json").then(e=>e.json())]).then(([{index:e,links:t},n])=>({index:e,links:t,content:n})),render=()=>{const e=new URL(BASE_URL),t=e.pathname,n=window.location.pathname,s=t==n;addCopyButtons(),addTitleToCodeBlocks(),addCollapsibleCallouts(),initPopover("https://anko9801.github.io/blog",!0,!0);const o=document.getElementById("footer");if(o){const e=document.getElementById("graph-container");if(!e)return requestAnimationFrame(render);e.textContent="";const t=s&&!1;drawGraph("https://anko9801.github.io/blog",t,[{"/moc":"#4388cc"}],t?{centerForce:1,depth:-1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.5,linkDistance:1,opacityScale:3,repelForce:1,scale:1.4}:{centerForce:1,depth:1,enableDrag:!0,enableLegend:!1,enableZoom:!0,fontSize:.6,linkDistance:1,opacityScale:3,repelForce:2,scale:1.2})}},init=(e=document)=>{addCopyButtons(),addTitleToCodeBlocks(),renderMathInElement(e.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],macros:{'’':"'"},throwOnError:!1})}</script><script type=module>
     import { attachSPARouting } from "https:\/\/anko9801.github.io\/blog\/js\/router.9d4974281069e9ebb189f642ae1e3ca2.min.js"
     attachSPARouting(init, render)
   </script></head><script async src="https://www.googletagmanager.com/gtag/js?id=G-XYFD95KB4J"></script>
@@ -28,12 +28,12 @@ $\iff$ その真理表において, すべての前提 $(\phi_1,\ldots,\phi_n)$ 
 関数的合成の原理: 任意の記号文の真理値は、それを構成する原子文の真理値のみに依存して一意に定まる。</p><p>//TODO</p><a href=#命題論理の健全性完全性><h2 id=命題論理の健全性完全性><span class=hanchor arialabel=Anchor># </span>命題論理の健全性・完全性</h2></a><p>以下は互いに同値である</p><ol><li>$\phi_1,\ldots,\phi_n \vdash \psi$</li><li>$\vdash \phi_1\land\cdots\land\phi_n\to\psi$</li><li>$\vDash \phi_1\land\cdots\land\phi_n\to\psi$</li><li>$\phi_1,\ldots,\phi_n \vDash \psi$</li></ol><p><strong>proof</strong>
 (1 $\implies$ 2)</p><ol><li>Show $\vdash \phi_1\land\cdots\land\phi_n\to\psi$</li><li>$\phi_1\land\cdots\land\phi_n$ AssCD</li><li>$\phi_1,\ldots,\phi_n$ 2S</li><li>$\phi_1,\ldots,\phi_n \vdash \psi$ Pr</li><li>$\psi$
 5CD</li></ol><p>(1 $\impliedby$ 2)</p><ol><li>Show $\phi_1,\ldots,\phi_n \vdash \psi$</li><li>$\phi_1,\ldots,\phi_n$ Pr</li><li>$\phi_1\land\cdots\land\phi_n$ 2Adj</li><li>$\vdash \phi_1\land\cdots\land\phi_n\to\psi$ Pr</li><li>$\psi$ 3,4MP
-5DD</li></ol><p>(2 $\implies$ 3)</p><ol><li>定理の演繹の行番号を演繹を構成する際に利用可能となる順に付け替える. &lt;-ちょっとバグある.</li><li>演繹の n 行目において利用可能な家庭すべてからなる連言を前件, n 行目の記号文を後件とする条件文を n 行目の導出式と定義する. ただし利用可能な仮定が存在しないとき, n 行目の記号分そのものを n 行目の導出式とする.</li><li>任意の導出式はトートロジーであることを数学的帰納法により示す.<ol><li>1行目の導出式はトートロジーである.</li><li>n行目までのすべての導出式がトートロジーならば n+1 行目もトートロジーである.</li></ol></li><li>最後の導出式は定理そのものであり, それはトートロジーである.</li></ol><p>(2 $\impliedby$ 3)</p><p>まず意味論的な真理値と統語論的な結合子を対応させる.</p><p><strong>Def.</strong> 記号 $&rsquo;$ を次のように定義する.</p><p>$$
+5DD</li></ol><p>(2 $\implies$ 3)</p><ol><li>定理の演繹の行番号を演繹を構成する際に利用可能となる順に付け替える. &lt;-ちょっとバグある.</li><li>演繹の n 行目において利用可能な家庭すべてからなる連言を前件, n 行目の記号文を後件とする条件文を n 行目の導出式と定義する. ただし利用可能な仮定が存在しないとき, n 行目の記号分そのものを n 行目の導出式とする.</li><li>任意の導出式はトートロジーであることを数学的帰納法により示す.<ol><li>1行目の導出式はトートロジーである.</li><li>n行目までのすべての導出式がトートロジーならば n+1 行目もトートロジーである.</li></ol></li><li>最後の導出式は定理そのものであり, それはトートロジーである.</li></ol><p>(2 $\impliedby$ 3)
+まず意味論的な真理値と統語論的な結合子を対応させる.</p><p><strong>Def.</strong> 記号 $&rsquo;$ を次のように定義する.</p><p>$$
 x&rsquo; = \begin{cases}
 x & (x = 1) \\ \lnot x & (x = 0)
 \end{cases}
-$$</p><p><strong>Lemma.</strong> 任意の記号文 $\eta$ について, それに含まれる原子文 $P_1,\ldots,P_n$ について $P_1&rsquo;,\ldots,P_n&rsquo; \vdash \eta&rsquo;$ となる.
-<strong>Proof.</strong>
+$$</p><p><strong>Lemma.</strong> 任意の記号文 $\eta$ について, それに含まれる原子文 $P_1,\ldots,P_n$ について $P_1&rsquo;,\ldots,P_n&rsquo; \vdash \eta&rsquo;$ となる.</p><p><strong>Proof.</strong>
 結合子が 0 個のとき, $P_1&rsquo; \vdash \eta&rsquo;$ より成り立つ.
 結合子が n 個より小さいすべての記号文が成り立つと仮定し, 各結合子について n 個のときを考える.</p><p>$P_1&rsquo;,\ldots,P_n&rsquo; \vdash \xi&rsquo;$ が成り立つとき, $P_1&rsquo;,\ldots,P_n&rsquo; \vdash (\lnot\xi)&rsquo;$ について</p><p>$$
 (\lnot\xi)&rsquo; = \begin{cases}
@@ -43,8 +43,7 @@ $$</p><p>よりこれは演繹により成り立つ.</p><p>$P_1&rsquo;,\ldots,P_
 (\pi\to\theta)&rsquo; = \begin{cases}
 \pi\to\theta & (\pi = 0 \lor \theta = 1) \\ \lnot(\pi\to\theta) & (\pi = 1 \land \theta = 0)
 \end{cases}
-$$</p><p>よりこれは演繹により成り立つ.</p><p><strong>Thm.</strong> $\vDash \xi \implies \vdash\xi$
-<strong>Proof.</strong>
+$$</p><p>よりこれは演繹により成り立つ.</p><p><strong>Thm.</strong> $\vDash \xi \implies \vdash\xi$</p><p><strong>Proof.</strong>
 Lemma から記号文 $\xi$ について $P_1&rsquo;,\ldots,P_n&rsquo; \vdash \xi&rsquo;$ が成り立つ. $\vDash \xi$ なので $P_1&rsquo;,\ldots,P_n&rsquo; \vdash \xi$ であり, このとき $P_1&rsquo;,\ldots,P_{n-1}&rsquo; \vdash P_n&rsquo;\to\xi$ となる.
 同様に $P_n&rsquo;$ についてだけ真理値が異なる真理表を考えると Lemma から $P_1&rsquo;,\ldots,\lnot P_n&rsquo; \vdash \xi$ であり, $P_1&rsquo;,\ldots,P_{n-1}&rsquo; \vdash \lnot P_n&rsquo;\to\xi$ が成り立つ.
 2つのことから $P_1&rsquo;,\ldots,P_{n-1}&rsquo; \vdash \xi$ が演繹できる. これを繰り返すことで $\vdash \xi$ が得られる.</p><p>(3 $\iff$ 4)
@@ -53,8 +52,6 @@ $\iff$ $\phi_1\land\cdots\land\phi_n\to\psi$ がトートロジーではない
 $\iff$ $\phi_1\land\cdots\land\phi_n$ が真で $\psi$ が偽である行がある.
 $\iff$ $\phi_1,\ldots,\phi_n$ が真で $\psi$ が偽である行がある.
 $\iff$ 前提 $\phi_1,\ldots,\phi_n$ から結論 $\psi$ を得る推論は意味論的に妥当ではない.
-$\iff$ $\phi_1,\ldots,\phi_n \nvDash \psi$</p><p>対偶より</p><p>$\phi_1,\ldots,\phi_n \vDash \psi \iff \vDash \phi_1\land\cdots\land\phi_n\to\psi$</p><p>よってすべての同値性が証明された.</p><p>完全性・健全性が成り立つとき次のことが言える.
-<strong>Thm.</strong> 無矛盾性
-矛盾する２つの記号文 $\eta$ と $\lnot\eta$ が定理となることはない.
-<strong>Proof.</strong>
+$\iff$ $\phi_1,\ldots,\phi_n \nvDash \psi$</p><p>よって $\phi_1,\ldots,\phi_n \vDash \psi \iff \vDash \phi_1\land\cdots\land\phi_n\to\psi$</p><p>これよりすべての同値性が証明された.</p><p>完全性・健全性が成り立つとき次のことが言える.</p><p><strong>Thm.</strong> 無矛盾性
+矛盾する２つの記号文 $\eta$ と $\lnot\eta$ が定理となることはない.</p><p><strong>Proof.</strong>
 $\eta$, $\lnot\eta$ が定理だと仮定すると $\eta\land\lnot\eta$ はトートロジーでないから矛盾.</p></article><hr><div class=page-end id=footer><div class=backlinks-container><h3>Backlinks</h3><ul class=backlinks><li>No backlinks found</li></ul></div><div><script src=https://cdn.jsdelivr.net/npm/d3@6.7.0/dist/d3.min.js integrity="sha256-+7jaYCp29O1JusNWHaYtgUn6EhuP0VaFuswhNV06MyI=" crossorigin=anonymous></script><h3>Interactive Graph</h3><div id=graph-container></div><style>:root{--g-node:var(--secondary);--g-node-active:var(--primary);--g-node-inactive:var(--visited);--g-link:var(--outlinegray);--g-link-active:#5a7282}</style><script src=https://anko9801.github.io/blog/js/graph.abd4bc2af3869a96524d7d23b76152c7.js></script></div></div><div id=contact_buttons><footer><p>Made by Jacky Zhao using <a href=https://github.com/jackyzha0/quartz>Quartz</a>, © 2022</p><ul><li><a href=https://anko9801.github.io/blog/>Home</a></li><li><a href=https://twitter.com/Anko_9801>Twitter</a></li><li><a href=https://github.com/anko9801>Github</a></li></ul></footer></div></div></body></html>
