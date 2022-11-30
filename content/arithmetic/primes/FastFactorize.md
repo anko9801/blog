@@ -59,5 +59,5 @@ $O(k\log^3 n)$ 、FFTベースの乗算を用いると $Õ(k\log^2 n)$
 [Deterministic variants of the Miller-Rabin primality test](http://miller-rabin.appspot.com/)
 
 ## 関連項目
-- [素因数分解](/arithmetic/primes/factorize)
-- [素数列挙](/arithmetic/primes/primes)
+- [素因数分解](Factorize.md)
+- [素数列挙](Primes.md)

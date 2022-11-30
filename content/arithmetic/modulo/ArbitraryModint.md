@@ -141,4 +141,4 @@ runtime_modint dfs(ll x) {
 
 
 ## 関連項目
-- [Modint](./modint)
+- [Modint](Modint.md)

@@ -35,5 +35,5 @@ std::vector<bool> Eratosthenes(int N) {
 
 
 ## 関連項目
-- [素因数分解](/arithmetic/primes/factorize)
-- [高速素因数分解 (Pollard-ρ法/Miller-Rabin法)](/arithmetic/primes/fast_factorize)
+- [素因数分解](Factorize.md)
+- [高速素因数分解 (Pollard-ρ法/Miller-Rabin法)](FastFactorize.md)
