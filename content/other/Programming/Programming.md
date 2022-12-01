@@ -27,6 +27,7 @@ TODO: なぜここで型を説明するのか
 
 ### データの表現方法
 - 直積型 $A_1\times A_2$
+	- 直列にデータを繋げる.
 	- ex.) 構造体, メソッドのないクラス, 配列, Vectorなど
 	- Intersection Type を用いても構成できる.
 	- 直積型のデータを分解して各要素を取り出す機能
@@ -34,6 +35,7 @@ TODO: なぜここで型を説明するのか
 		- 多重代入 (Multiple assignment, PythonやRuby)
 		- 分割代入 (Destructuring assignment, JavaScript)
 - 直和型 $A_1+A_2$
+	- 識別子と各型のデータ長の最大値を確保して格納する.
 	- ex.) Rustのenum
 - ユニオン型 $A_1\cup A_2$
 	- 直和型とほぼ同じであるが、反例としてすべての型に null や undefined などがある TypeScript は直和型と同値ではない。

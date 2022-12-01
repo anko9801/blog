@@ -332,7 +332,7 @@ CTF の3大分野以外をまとめます.
 		- Ghidra
 	- 動的解析
 		- Fuzzing
-		- [シンボリック実行](SymbolicExecution.md)
+		- [シンボリック実行](./other/SAT-SMT/SymbolicExecution.md)
 	- [マルウェア](./Reversing/Malware/Malware.md)
 		- [デバッグ検知](./Reversing/Malware/AntiDebugging.md)
 		- [仮想化検知](./Reversing/Malware/DetectVirtualization.md)
