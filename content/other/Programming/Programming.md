@@ -442,6 +442,7 @@ async iterator
 
 意味論
 - happens-before 実行順序
+- read-modify-write
 - data race free
 - sequentially consistent atomics(素直なatomics)
 	- Java (volatile), C++ (default atomics), Go (sync/atomic), JavaScript
