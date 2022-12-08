@@ -21,3 +21,5 @@ optimizer 図鑑を作りたい
 test suite
 やばいエッジケースを収録
 https://github.com/tc39/test262
+
+Ocaml multicore -> ReactのFiberに影響
