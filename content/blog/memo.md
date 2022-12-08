@@ -8,3 +8,16 @@ https://keens.github.io/blog/2019/12/23/jisakulintru_rutocargo_fixderustnoko_dow
 整形
 
 smart replacer
+
+javascript optimizerで最強らしい
+https://github.com/google/closure-compiler
+Typed AST
+proto
+https://github.com/facebookarchive/prepack
+https://prepack.io/repl.html#BQMwrgdgxgLglgewgAmASmQbwFDOeaeJZAWwEM4J0tc9kokBnGZAJwFNHkBefdWvAwiMEAG3YA6UQgDmwDozS0AvrXKV0Abmy0CsRChCoMOOvSYsAHj2QBmAW3YwwrFJZXZlaLUA
+
+optimizer 図鑑を作りたい
+
+test suite
+やばいエッジケースを収録
+https://github.com/tc39/test262
