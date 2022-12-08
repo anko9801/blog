@@ -23,3 +23,6 @@ test suite
 https://github.com/tc39/test262
 
 Ocaml multicore -> ReactのFiberに影響
+
+REASON OCaml がベース FacebookにはOCaml派閥がいる
+https://reasonml.github.io/
