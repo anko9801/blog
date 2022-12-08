@@ -26,3 +26,7 @@ Ocaml multicore -> ReactのFiberに影響
 
 REASON OCaml がベース FacebookにはOCaml派閥がいる
 https://reasonml.github.io/
+
+traQ fuzzy search
+
+Rust ORM Diesel
