@@ -10,6 +10,9 @@ title: "ブラウザ"
 - Vivaldi
 - Sidekick
 - Arc
+- Safari
+
+
 
 
 
