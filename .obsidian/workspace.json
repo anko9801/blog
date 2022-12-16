@@ -11,12 +11,8 @@
             "id": "d0434b97a62d247b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "content/blog/Chinese.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ],
@@ -70,7 +66,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "f8f556746a3e74f2",
@@ -86,7 +83,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/blog/Chinese.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +99,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/blog/Chinese.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,9 +120,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "content/blog/Chinese.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -139,11 +132,11 @@
   },
   "active": "d0434b97a62d247b",
   "lastOpenFiles": [
+    "content/blog/Chinese.md",
     "2022-12-16.md",
     "content/crypto/RSA/Franklin-ReiterRelatedMessageAttack.md",
     "content/crypto/RSA/CommonModulusAttack.md",
     "content/crypto/RSA/Boneh-DurfeeAttack.md",
-    "content/blog/Chinese.md",
     "content/blog/Vim.md",
     "content/blog/security_camp.md"
   ]

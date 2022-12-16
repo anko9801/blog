@@ -1,4 +1,9 @@
 [
   "obsidian-git",
-  "table-editor-obsidian"
+  "table-editor-obsidian",
+  "obsidian-auto-hide",
+  "obsidian-excalidraw-plugin",
+  "obsidian-tikzjax",
+  "obsidian-vimrc-support",
+  "obsidian-kanban"
 ]
