@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "e6ac6849e1606366",
+        "id": "621a49a5f36d4ade",
         "type": "tabs",
         "children": [
           {
-            "id": "d0434b97a62d247b",
+            "id": "854b22c20d7e17ad",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "content/blog/Chinese.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ],
@@ -83,6 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "content/blog/Chinese.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,6 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "content/blog/Chinese.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -120,7 +126,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "content/blog/Chinese.md"
+              }
             }
           }
         ]
@@ -130,7 +138,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "d0434b97a62d247b",
+  "active": "854b22c20d7e17ad",
   "lastOpenFiles": [
     "content/blog/Chinese.md",
     "2022-12-16.md",
