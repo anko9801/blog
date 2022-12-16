@@ -1,0 +1,141 @@
+{
+  "main": {
+    "id": "c117ef388c9844db",
+    "type": "split",
+    "children": [
+      {
+        "id": "e6ac6849e1606366",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d0434b97a62d247b",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
+          }
+        ],
+        "stacked": true
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f4e70a2c5ea25f0b",
+    "type": "split",
+    "children": [
+      {
+        "id": "8cd72f2ba8f349ec",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9e67cafb8bd57710",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "370a64f318fc7d56",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bf67cbe104d43035",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f8f556746a3e74f2",
+    "type": "split",
+    "children": [
+      {
+        "id": "e1a54146904e1112",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e8a667f5906642d2",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b4c4e7f2c718b131",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "38b50c3e0ed07df5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "658038f852f7d527",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "d0434b97a62d247b",
+  "lastOpenFiles": [
+    "content/crypto/RSA/Franklin-ReiterRelatedMessageAttack.md",
+    "content/crypto/RSA/CommonModulusAttack.md",
+    "content/crypto/RSA/Boneh-DurfeeAttack.md",
+    "content/blog/Chinese.md",
+    "content/blog/Vim.md",
+    "content/blog/security_camp.md"
+  ]
+}
