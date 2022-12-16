@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "content/blog/Chinese.md",
+                "file": "content/blog/global_cyber.md",
                 "mode": "source",
                 "source": false
               }
@@ -70,8 +70,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "f8f556746a3e74f2",
@@ -87,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/blog/Chinese.md",
+                "file": "content/blog/global_cyber.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/blog/Chinese.md",
+                "file": "content/blog/global_cyber.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -127,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/blog/Chinese.md"
+                "file": "content/blog/global_cyber.md"
               }
             }
           }
@@ -140,12 +139,15 @@
   },
   "active": "854b22c20d7e17ad",
   "lastOpenFiles": [
-    "content/blog/Chinese.md",
-    "2022-12-16.md",
-    "content/crypto/RSA/Franklin-ReiterRelatedMessageAttack.md",
-    "content/crypto/RSA/CommonModulusAttack.md",
-    "content/crypto/RSA/Boneh-DurfeeAttack.md",
-    "content/blog/Vim.md",
-    "content/blog/security_camp.md"
+    "content/blog/ChromeExtension.md",
+    "content/crypto/cryptography/AttackModel.md",
+    "content/crypto/RSA/RSA-CCA.md",
+    "content/crypto/RSA/RSA.md",
+    "content/crypto/RSA/ROCA.md",
+    "content/crypto/RSA/PartialKeyExposureAttack.md",
+    "content/crypto/cryptography/ZeroKnowledgeProof.md",
+    "content/crypto/cryptography/Schnorr.md",
+    "content/crypto/cryptography/other.md",
+    "content/crypto/cryptography/Fiat-Shamir.md"
   ]
 }
