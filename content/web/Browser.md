@@ -1,3 +1,19 @@
+---
+title: "ブラウザ"
+---
+
+## 説明
+
+- Chrome
+- Edge
+- FireFox
+- Vivaldi
+- Sidekick
+- Arc
+
+
+
+
 browser
 [d0iasm/vulbr: Toy browser on single process / thread (github.com)](https://github.com/d0iasm/vulbr)
 
@@ -11,3 +27,5 @@ PHP の `file_get_contents` はローカルファイルもウェブ上も取っ�
 - MobX
 - Solid: React + MobX feat. Svelte
 - Svelte
+
+document.location

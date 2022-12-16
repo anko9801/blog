@@ -2,6 +2,8 @@
 title: "シェル"
 ---
 
+Shell
+
 シェル入門
 - [雰囲気でシェルを使っている人のためのシェル入門 | κeenのHappy Hacκing Blog (keens.github.io)](https://keens.github.io/blog/2017/10/17/fun_ikideshieruwotsukatteiruninnotamenoshierunyuumon/)
 - [bash tips - ももいろテクノロジー (hatenablog.com)](https://inaz2.hatenablog.com/entry/2014/12/14/013234)
