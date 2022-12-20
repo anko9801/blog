@@ -454,3 +454,5 @@ async iterator
 未定義動作
 - [C 言語とその未定義動作を社会言語学的視点からも見る - Google ドキュメント](https://docs.google.com/document/d/1gpw9bbTC-8lhLBlK7QtQQQURxyoqoQAbvL9nQtGlM_k/edit)
 - [Cover - Effective Rust (lurklurk.org)](https://lurklurk.org/effective-rust/)
+
+[Accidentally Turing-Complete (tuxen.de)](http://beza1e1.tuxen.de/articles/accidentally_turing_complete.html)
