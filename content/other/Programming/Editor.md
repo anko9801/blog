@@ -1,5 +1,6 @@
-## Vim
-
-## VSCode
-
-## 自作エディタ
+- Vim
+- Emacs
+- VSCode
+- 自作エディタ
+- バイナリエディタ
+	- ImHex
