@@ -2,8 +2,18 @@ Language
 - HTML
 - CSS
 	- SCSS
+	- CSS Modules
+	- UnoCSS
+	- Tailwind CSS
+	- styled-components
+	- Windi CSS
+	- MUI
+	- Twind
 - JavaScript / TypeScript
 - JSX / TSX
+
+CSS
+
 
 Base Framework
 - Vue
