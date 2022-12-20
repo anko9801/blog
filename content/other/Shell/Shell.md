@@ -22,11 +22,8 @@ Shell Shock (CVE-2014-6271)
 - [gum を使ってシェルスクリプトの表示をカッコよくする (zenn.dev)](https://zenn.dev/kou_pg_0131/articles/gum-introduction)
 
 ## Makefile
-- [A Tutorial on Portable Makefiles (nullprogram.com)](https://nullprogram.com/blog/2017/08/20/)
 
 ## 冪等性 (idempotency)
-- Ansible
-- Terraform
 
 ## シェル芸
 
