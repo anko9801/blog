@@ -1,6 +1,6 @@
 
-- [ninja](https://ninja-build.org/)
 - Makefile
 	- [A Tutorial on Portable Makefiles (nullprogram.com)](https://nullprogram.com/blog/2017/08/20/)
+- [ninja](https://ninja-build.org/)
 - Ansible
 - Terraform
