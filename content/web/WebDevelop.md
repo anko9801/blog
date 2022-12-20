@@ -3,9 +3,7 @@ Language
 - CSS
 	- SCSS
 - JavaScript / TypeScript
-
-JSX
-TSX
+- JSX / TSX
 
 Base Framework
 - Vue
@@ -15,7 +13,7 @@ Base Framework
 - Preact
 	- 軽量
 	- DOM APIを利用する
-	- React互換性が存在する
+	- Reactと互換性がある
 - Svelte
 - SolidJS
 

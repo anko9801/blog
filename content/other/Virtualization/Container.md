@@ -5,6 +5,9 @@ title: "コンテナ仮想化技術"
 マルチステージビルド
 ビルド環境と実行環境のコンテナを分けることでサイズを抑えられる.
 
+lxc (linux container)
+Docker
+
 ## Kubernetes
 
 [q3k/cve-2019-5736-poc: Unweaponized Proof of Concept for CVE-2019-5736 (Docker escape) (github.com)](https://github.com/q3k/cve-2019-5736-poc)
