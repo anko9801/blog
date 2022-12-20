@@ -45,3 +45,5 @@ e &:= \mathrm{do} x e; e \mid \mathrm{return}\ e \mid (e\mid e) \mid e\ \mathrm{
 
 \end{aligned}
 $$
+
+[Starship: Cross-Shell Prompt](https://starship.rs/ja-jp/)

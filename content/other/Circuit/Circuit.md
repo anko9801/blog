@@ -192,6 +192,8 @@ CMOSのオープンコレクタはノイズに強い
 SPIはオープンコレクタではない
 チップセレクト
 
+PlatformIO
+
 
 ## 参考
 - [回路講習会2017の資料 | Molina's Web Site](https://molina.jp/blog/%E5%9B%9E%E8%B7%AF%E8%AC%9B%E7%BF%92%E4%BC%9A%E3%81%AE%E8%B3%87%E6%96%99/)

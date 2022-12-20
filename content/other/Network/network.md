@@ -43,3 +43,5 @@ Rougue Access Point
 ## 輻輳制御アルゴリズム
 
 sessionはどういう仕組みなのか
+
+IX (Internet Exchange)
