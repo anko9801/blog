@@ -13,10 +13,11 @@ Language
 - JSX / TSX
 	- [vanilla-extract — Zero-runtime Stylesheets-in-TypeScript.](https://vanilla-extract.style/)
 
-package
-- npm
-- pnpm
-- deno
+Package Manager
+- [npm (npmjs.com)](https://www.npmjs.com/)
+- [Home | Yarn - Package Manager (yarnpkg.com)](https://yarnpkg.com/)
+- [Fast, disk space efficient package manager | pnpm](https://pnpm.io/)
+- [Deno — A modern runtime for JavaScript and TypeScript](https://deno.land/)
 
 Base Framework
 - Vue
