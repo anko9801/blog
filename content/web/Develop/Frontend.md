@@ -40,11 +40,6 @@ package.json
 - SolidJS
 - MobX
 
-- React
-- Preact
-- MobX
-- Solid: React + MobX feat. Svelte
-- Svelte
 ### Ecosystem
 - Webpack
 - Rollup

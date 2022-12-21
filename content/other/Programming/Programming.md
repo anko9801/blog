@@ -286,6 +286,7 @@ JIT (Just In Time Compiler)
 - tracing JIT
 - YJIT
 
+Universal Function Call Syntax (UFCS)
 VM (Virtual Machine)
 - YARV
 	- [YARV Maniacs 【第 1 回】 『Ruby ソースコード完全解説』不完全解説 (rubyist.net)](https://magazine.rubyist.net/articles/0006/0006-YarvManiacs.html)
