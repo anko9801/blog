@@ -310,7 +310,7 @@ TODO: ライセンス
 ## Web
 Webに関してはよわよわなので読み込むと良いかもしれない資料リストを集めています。(これ読むといいよみたいなのがあったら教えてくださると助かります！)
 
-- [Prototype Pollution](./Web/PrototypePollution.md)
+- [Prototype Pollution](PrototypePollution.md)
 - [CTFにおけるWebセキュリティ入門とまとめ](https://blog.hamayanhamayan.com/entry/2021/12/01/194114)
 - 常設Web問
 	- [Web Security Academy](https://portswigger.net/web-security/all-labs)
