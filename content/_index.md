@@ -437,7 +437,7 @@ CTF の3大分野以外をまとめます.
 - レンダリング
 	- [レイトレーシング](./other/Rendering/RayTracing.md)
 - ブロックチェーン
-- [Deep Learning](./other/DeepLearning.md)
+- [Deep Learning](DeepLearning.md)
 - [【画像処理入門】アルゴリズム＆プログラミング](https://algorithm.joho.info/programming/image-processing/)
 - 超解像
 - [ツール](./other/Tools)
