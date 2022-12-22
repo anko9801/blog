@@ -32,11 +32,13 @@ package.json
 	- コンポーネント
 	- フック
 	- イベントシステムの独自実装
+	- 更新されないことが分かりにくい
 - Preact
 	- 軽量
 	- DOM APIを利用する
 	- Reactと互換性がある
 - Svelte
+	- [仮想DOMは純粋なオーバーヘッド(Virtual DOM is pure overhead) (svelte.jp)](https://svelte.jp/blog/virtual-dom-is-pure-overhead)
 - SolidJS
 - MobX
 
