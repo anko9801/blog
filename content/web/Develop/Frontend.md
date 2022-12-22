@@ -32,13 +32,13 @@ package.json
 SSR
 - Vue
 	- reactivity <-> VDOMの変換が挟まってるせいでreactivityの性能を発揮しきれない
-	- Nuxt
+	- NuxtJS
 - React
 	- コンポーネント
 	- hooks
 	- イベントシステムの独自実装
 	- 更新されないことが分かりにくい
-	- Next
+	- Next.js
 	- ReactNative: Android, iOSなどの
 - Preact
 	- 軽量
@@ -59,3 +59,6 @@ SSR
 - Rollup
 - ESLint
 	- [estools/esquery: ECMAScript AST query library. (github.com)](https://github.com/estools/esquery)
+
+### Production
+Vercel
