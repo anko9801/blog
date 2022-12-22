@@ -40,7 +40,7 @@ package.json
 - Svelte
 	- [仮想DOMは純粋なオーバーヘッド(Virtual DOM is pure overhead) (svelte.jp)](https://svelte.jp/blog/virtual-dom-is-pure-overhead)
 - SolidJS
-- MobX
+- Yew
 
 ### Ecosystem
 - Webpack
