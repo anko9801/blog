@@ -16,6 +16,8 @@
 ### Runtime
 - Node.js
 - [Deno](https://deno.land/)
+- Wasm
+	- [WAPM - WebAssembly Package Manager](https://wapm.io/)
 
 ### Package Manager
 種類
@@ -49,15 +51,11 @@ SSR
 - SolidJS
 	- コンパイル時にJSXを特殊な形式に変換するのでesbuildやswcの組み込みのJSX変換を利用できなくて、大きなコードベースになったときにそこがバンドル速度のボトルネックになりうる
 - Yew
+	- Rust Wasm
+	- コードスプリッティングの手法がまだ確立されてないからでかいマルチページなウェブサイトつくると死ぬ
 
 ### Ecosystem
 - Webpack
 - Rollup
 - ESLint
 	- [estools/esquery: ECMAScript AST query library. (github.com)](https://github.com/estools/esquery)
-
-
-Wasm
-- [WAPM - WebAssembly Package Manager](https://wapm.io/)
-- コードスプリッティングの手法がまだ確立されてないからでかいマルチページなウェブサイトつくると死ぬ
-
