@@ -26,7 +26,7 @@
 
 package.json
 
-### Base Framework
+### UI Framework
 - Vue
 - React
 	- コンポーネント
