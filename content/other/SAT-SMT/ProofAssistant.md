@@ -3,10 +3,11 @@ title: "定理証明支援系"
 ---
 
 ## 説明
-
-
-## 計算量
-
+- Coq
+- Agda
+- Idris
+- Lean
+- Isabelle
 
 ## 実装
 
