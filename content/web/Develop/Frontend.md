@@ -2,6 +2,7 @@
 - HTML
 - CSS
 	- [Sass: Syntactically Awesome Style Sheets (sass-lang.com)](https://sass-lang.com/)
+		- PostCSS では Sass の多くの機能が実現できる。
 	- CSS Modules
 	- UnoCSS
 	- [Tailwind CSS - Rapidly build modern websites without ever leaving your HTML.](https://tailwindcss.com/)
