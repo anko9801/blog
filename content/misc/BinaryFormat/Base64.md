@@ -34,12 +34,9 @@ Wikipediaより
 
 ## 使い方
 
-```
-echo -n "あいうえおかきくけこ" | 
-```
-
 ```shell
-> base64
+$ echo -n "あいうえおかきくけこ" | base64
+$ echo -n "44GC44GE44GG44GI44GK44GL44GN44GP44GR44GT" | base64 -d
 ```
 
 ## 脆弱性
