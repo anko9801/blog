@@ -1,3 +1,7 @@
+---
+title: "フロントエンド開発"
+---
+
 ### Language
 - HTML
 - CSS
@@ -13,6 +17,9 @@
 - JavaScript / TypeScript
 - JSX / TSX
 	- [vanilla-extract — Zero-runtime Stylesheets-in-TypeScript.](https://vanilla-extract.style/)
+
+## JavaScript
+TypeScript
 
 ### Runtime
 - Node.js
@@ -40,7 +47,7 @@ SSR/prerender(SSG)
 	- イベントシステムの独自実装
 	- 更新されないことが分かりにくい
 	- Next.js
-	- ReactNative: Android, iOSなどの
+	- ReactNative: Android, iOSなどのスマホ用ビルド
 - Preact
 	- 軽量
 	- DOM APIを利用する
@@ -54,7 +61,6 @@ SSR/prerender(SSG)
 - Yew
 	- Rust Wasm
 	- コードスプリッティングの手法がまだ確立されてないからでかいマルチページなウェブサイトつくると死ぬ
-
 
 ### Ecosystem
 - Webpack

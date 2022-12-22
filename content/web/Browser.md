@@ -13,8 +13,10 @@ title: "ブラウザ"
 - Safari
 
 
-
-
+## CSRF
+## Same-site cookie
+## JWT
+署名 + Base64
 
 
 browser
