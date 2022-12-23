@@ -25,8 +25,8 @@ $$
 $\mathrm{ind}: (\ZZ/p\ZZ)^\times\to \ZZ/q\ZZ \times \ZZ/2^Q\ZZ$
 $\mathop{\mathrm{ind}}a = (a_1, a_2)$
 
-$p = 13$ のとき
-|  $2^Q$ \ $q$  | 0   | 1   | 2   |
+$p = 13$ のとき $\ZZ/12\ZZ = \ZZ/3\ZZ\times\ZZ/2^2\ZZ$ となるので次のような表となる。
+|  $2^Q\backslash q$  | 0   | 1   | 2   |
 | --- | --- | --- | --- |
 | 0   | 0   | 4   | 8   |
 | 1   | 9   | 1   | 5   |
