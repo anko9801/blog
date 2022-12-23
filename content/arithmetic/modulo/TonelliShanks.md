@@ -11,5 +11,5 @@ $(\ZZ/p\ZZ)^\times \cong \ZZ/(p-1)\ZZ \cong \ZZ/q\ZZ \times \ZZ/2^Q\ZZ$
 右シフトは難しいが左シフトは簡単
 $(a_1, a_2) = \log{a}$
 $\frac{q+1}{2}(a_1, a_2) = \log x$
-$w = 2\log x - \log a$
+$(0, w) = 2\log x - \log a$
 $a^{(q + 1)/2}:(a_1, a_2) \mapsto (0, w)$
