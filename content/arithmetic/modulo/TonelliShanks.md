@@ -19,22 +19,21 @@ $\mathrm{ind}: (\ZZ/p\ZZ)^\times\to \ZZ/q\ZZ \times \ZZ/2^Q\ZZ$
 $\mathrm{ind}: a \mapsto (a_1, a_2)$
 
 **Proposition**
-$$
-\begin{aligned}
-1 &\mapsto(0,0) \\
-a^e &\mapsto e(a_1,a_2) = (ea_1, ea_2) \\
-\end{aligned}
-$$
+1. $\mathop{\mathrm{ind}}1 = (0,0)$
+2. $\mathop{\mathrm{ind}}a^e = e(a_1,a_2) = (ea_1, ea_2)$
+2. $\mathop{\mathrm{ind}}a + \mathop{\mathrm{ind}}b = (a_1, a_2) + (b_1, b_2)$
 
+**Proposition**
 1. $\mathop{\mathrm{ind}}a^{q} = (0, qa_2)$
 2. $\mathop{\mathrm{ind}}a^{2^Q} = (2^Qa_1, 0)$
 3. $\mathop{\mathrm{ind}}a^{q2^Q} = \mathop{\mathrm{ind}}a^{p} = \mathop{\mathrm{ind}}1 = (0, 0)$
 
+$x' = a^{(q+1)/2}$ とおくと
+
 $$
 \begin{aligned}
-a^{q+1} &\mapsto(a_1, (q+1)a_2) \\
-x' = a^{(q+1)/2} &\mapsto \frac{q+1}{2}(a_1, a_2) \\
-x'^2 &\mapsto (a_1, (q+1)a_2)
+\mathop{\mathrm{ind}}x' &= \frac{q+1}{2}(a_1, a_2) \\
+\mathop{\mathrm{ind}}x'^2 &= (a_1, (q+1)a_2)
 \end{aligned}
 $$
 
