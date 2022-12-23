@@ -12,6 +12,8 @@ $$
 
 **writeup**
 1. $\gcd(c_1 - c_2, n) = pq$ より $pq, r$ に分解.
-2. $\gcd(c_1 + c_2, n) = p$ より $p, q$ に分解. 剰余上でのgcdは不可能.
+2. $\gcd(c_1 + c_2, n) = p$ より $p, q$ に分解.
+
+なぜ $c_1 = c_2 \pmod{pq}$ なのか
 
 ### [Crypto] BBB
