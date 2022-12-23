@@ -21,7 +21,7 @@ $\mathrm{ind}: a \mapsto (a_1, a_2)$
 **Proposition**
 1. $\mathop{\mathrm{ind}}1 = (0,0)$
 2. $\mathop{\mathrm{ind}}a^e = e(a_1,a_2) = (ea_1, ea_2)$
-2. $\mathop{\mathrm{ind}}a + \mathop{\mathrm{ind}}b = (a_1, a_2) + (b_1, b_2)$
+2. $\mathop{\mathrm{ind}}ab = \mathop{\mathrm{ind}}a + \mathop{\mathrm{ind}}b = (a_1, a_2) + (b_1, b_2) = (a_1 + b_1, a_2 + b_2)$
 
 **Proposition**
 1. $\mathop{\mathrm{ind}}a^{q} = (0, qa_2)$
