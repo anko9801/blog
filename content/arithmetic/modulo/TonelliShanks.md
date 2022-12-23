@@ -25,3 +25,10 @@ x &\mapsto x^{(p-1)/2} \\
 \mathrm{数} &\to \mathrm{平方剰余かどうか}
 \end{aligned}
 $$
+
+```
+w            = 1010001
+w2^(Q-shift) = 1000000 or 0000000
+b            = ??????1
+b^(2^shift)  = ????100
+```
