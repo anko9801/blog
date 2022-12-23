@@ -12,8 +12,6 @@ $$
 
 **writeup**
 1. $\gcd(c_1 - c_2, n) = pq$ より $pq, r$ に分解.
-2. $\gcd(c_1, c_2) = p - q$ より $p, q$ に分解.
+2. $c_2 = p^e + \cdots + q^e$ より $p, q$ に分解. 剰余上でのgcdは不可能.
 
 ### [Crypto] BBB
-
-1. FLAG
