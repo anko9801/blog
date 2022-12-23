@@ -11,17 +11,23 @@ $$
 (\ZZ/p\ZZ)^\times \cong \ZZ/(p-1)\ZZ \cong \ZZ/q\ZZ \times \ZZ/2^Q\ZZ
 $$
 
-右シフトは難しいが左シフトは簡単
-
 **Definition**
 $\mathrm{ind}: (\ZZ/p\ZZ)^\times\to \ZZ/q\ZZ \times \ZZ/2^Q\ZZ$
 $\mathrm{ind}: a \mapsto (a_1, a_2)$
-**Theorem**
 
+**Proposition**
+$1\mapsto(0,0)$
+$a^e\mapsto e(a_1,a_2) = (ea_1, ea_2)$
+$a^{q+1}\mapsto(a_1, (q+1)a_2)$
+$a^{(q+1)/2}\mapsto \frac{q+1}{2}(a_1, a_2)$
 
-$(a_1, a_2) = \log{a}$
-$\frac{q+1}{2}(a_1, a_2) = \log x$
-$(0, w) = 2\log x - \log a$
+$(0, w) = 2\mathop{\mathrm{ind} x - \mathrm{ind}a$
+
+$x^2 = a$
+
+$a^{1/2}$ は難しい $a^2$ は簡単
+右シフトは難しいが左シフトは簡単
+
 $a^{(q + 1)/2}:(a_1, a_2) \mapsto (0, w)$
 
 $$
