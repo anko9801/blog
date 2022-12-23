@@ -42,7 +42,7 @@ $$
 
 となり第一要素は一致するようになった。
 
-$2\mathop{\mathrm{ind}}x' - \mathop{\mathrm{ind}}a = (0, w)$
+$\mathop{\mathrm{ind}}(x'^2a^{-1}) = (0, w)$
 
 $a^{1/2}$ は難しい $a^2$ は簡単
 右シフトは難しいが左シフトは簡単
