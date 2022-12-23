@@ -14,21 +14,24 @@ $$
 (\ZZ/p\ZZ)^\times \cong \ZZ/(p-1)\ZZ \cong \ZZ/q\ZZ \times \ZZ/2^Q\ZZ
 $$
 
+ここで分かりやすいように新しい記号を導入する。
+
 **Definition**
 $\mathrm{ind}: (\ZZ/p\ZZ)^\times\to \ZZ/q\ZZ \times \ZZ/2^Q\ZZ$
-$\mathrm{ind}: a \mapsto (a_1, a_2)$
+$\mathop{\mathrm{ind}}a = (a_1, a_2)$
 
 **Proposition**
 1. $\mathop{\mathrm{ind}}1 = (0,0)$
-2. $\mathop{\mathrm{ind}}a^e = e(a_1,a_2) = (ea_1, ea_2)$
 2. $\mathop{\mathrm{ind}}ab = \mathop{\mathrm{ind}}a + \mathop{\mathrm{ind}}b = (a_1, a_2) + (b_1, b_2) = (a_1 + b_1, a_2 + b_2)$
+3. $\mathop{\mathrm{ind}}a^e = e(a_1,a_2) = (ea_1, ea_2)$
 
 **Proposition**
 1. $\mathop{\mathrm{ind}}a^{q} = (0, qa_2)$
 2. $\mathop{\mathrm{ind}}a^{2^Q} = (2^Qa_1, 0)$
 3. $\mathop{\mathrm{ind}}a^{q2^Q} = \mathop{\mathrm{ind}}a^{p} = \mathop{\mathrm{ind}}1 = (0, 0)$
 
-$x' = a^{(q+1)/2}$ とおくと
+目標は $x^2 = a$ となる $x$ から $\mathop{\mathrm{ind}}x^2 = (a_1, a_2)$ となる $x$ を見つけることに変化した。
+ここで $x' = a^{(q+1)/2}$ とおくと
 
 $$
 \begin{aligned}
@@ -37,7 +40,9 @@ $$
 \end{aligned}
 $$
 
-$(0, w) = 2\mathop{\mathrm{ind}}x' - \mathop{\mathrm{ind}}a$
+となり第一要素は一致するようになった。
+
+$2\mathop{\mathrm{ind}}x' - \mathop{\mathrm{ind}}a = (0, w)$
 
 $a^{1/2}$ は難しい $a^2$ は簡単
 右シフトは難しいが左シフトは簡単
