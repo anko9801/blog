@@ -87,3 +87,6 @@ b' << 1  = ?????10
 ```
 
 以上のことから $E^{2^{Q-S-1}} \neq 1$ ならば新しい $x'$ を $x'' = x'(b^q)^{2^{S-1}}$ と更新すればよい。
+
+## 参考
+- [Tonelli-Shanks のアルゴリズム - 37zigenのHP](https://37zigen.com/tonelli-shanks-algorithm/)
