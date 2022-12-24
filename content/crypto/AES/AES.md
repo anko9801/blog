@@ -11,7 +11,12 @@ title: "AES"
 - AES-GCM (Galois/Counter Mode)
 
 ## PKCS #7 パディング
-~~最適化の為にパディングの最も左のバイトが判定の基準となる。~~逆にそれ以外は参照しない。
+~~最適化の為にパディングの最も左のバイトが判定の基準となる。逆にそれ以外は参照しない。~~
+全部見るらしいので次のようなイディオムを使うとよいかも
+```
+from pwn import xor
+ciphertext = xor(ciphertext[pad:], long_to_bytes(i+1), long_to_bytes(i+2))
+```
 
 ```
 ????????01
