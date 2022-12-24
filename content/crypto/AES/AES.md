@@ -32,6 +32,16 @@ Padding Oracle Attackでは最後の1文字総当り時に全く同じとき例�
 AES オンラインシミュレータほしいかも
 
 ### AES-CBC
+### AES-GCM
+
+$$
+X_i = \begin{cases}
+0 \\
+(X_{i-1}\oplus A_i)\cdot H \\
+(X_{i-1}\oplus A_i\| 0^{128})\cdot H \\
+(X_{i-1}\oplus C_{i-m})\cdot H \\
+\end{cases}
+$$
 
 AES-NI
 
