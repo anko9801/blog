@@ -28,3 +28,8 @@ $f(x) = x^2 + ax + b$ として $b, s_i$ を指定し、 $e_i = f^{n}(s_i) \quad
 2. 回しまくる。
 3. 成功した中から中国剰余定理で平文長を覆う程度まで合わせれば $m^{11}$ が取れる。
 4. 整数上で $e$ 乗根を取る。
+
+### [Crypto] Witches symmetric exam
+**Proposition**
+AES GCM
+data -> 
