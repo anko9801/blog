@@ -31,7 +31,7 @@ $f(x) = x^2 + ax + b$ として $b, s_i$ を指定し、 $e_i = f^{n}(s_i) \quad
 
 ### [Crypto] Witches symmetric exam
 **Proposition**
-AES-GCMとAES-OFBを通す。選択的暗号文攻撃ができるので任意の暗号化と復号化をしよう。
+同一の鍵でAES-GCMとAES-OFBを通す。選択的暗号文攻撃ができるので任意の暗号化と復号化をしよう。
 
 **writeup**
 1. AES-OFB の iv から復号する。
