@@ -37,11 +37,9 @@ AES オンラインシミュレータほしいかも
 $$
 X_i = \begin{cases}
 0 & (i = 0) \\
-H(X_{i-1}\oplus A_i) & (i = 1,\ldots,m-1) \\
-H(X_{i-1}\oplus A_i^*\| 0^{128})\cdot H & (i = m) \\
-(X_{i-1}\oplus C_{i-m})\cdot H & (i = m+1,\ldots,m+n-1) \\
-(X_{i-1}\oplus C_{i-m}^*\| 0^{128})\cdot H & (i = m+n) \\
-(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C))\cdot H & (i = m+n+1) \\
+H(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
+H(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
+H(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
 \end{cases}
 $$
 
