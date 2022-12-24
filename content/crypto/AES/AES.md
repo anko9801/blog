@@ -10,6 +10,8 @@ title: "AES"
 - CFB (Cipher Feedback)
 - AES-GCM (Galois/Counter Mode)
 
+AES-NI
+
 ## PKCS #7 パディング
 ~~最適化の為にパディングの最も左のバイトが判定の基準となる。逆にそれ以外は参照しない。~~
 全部見るらしいので次のようなイディオムを使うとよいかも
@@ -37,11 +39,8 @@ AES オンラインシミュレータほしいかも
 $$
 X_i = \begin{cases}
 0 & (i = 0) \\
-H(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
-H(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
-H(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
+H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
+H\cdot(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
+H\cdot(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
 \end{cases}
 $$
-
-AES-NI
-
