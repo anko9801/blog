@@ -26,6 +26,9 @@ p /= p.leading_coefficient()  # 最高次項 モニック化
 p = p.monic()
 ideal(f).groebner_basis()
 
+crt(remain_list, modulo_list)
+b.nth_root(3)
+
 # 行列
 M = matrix(QQ, [[1, 2], [3, 4]])
 M.LLL()
