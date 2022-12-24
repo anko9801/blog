@@ -18,6 +18,8 @@ from pwn import xor
 ciphertext = xor(ciphertext[pad:], long_to_bytes(i+1), long_to_bytes(i+2))
 ```
 
+Padding Oracle Attackでは最後の1文字総当り時に全く同じとき例外として落とす必要がある。
+
 ```
 ????????01
 ??????0202
@@ -26,6 +28,8 @@ ciphertext = xor(ciphertext[pad:], long_to_bytes(i+1), long_to_bytes(i+2))
 0f...0f0f0f
 ??...??????1010...1010
 ```
+
+AES オンラインシミュレータほしいかも
 
 ### AES-CBC
 
