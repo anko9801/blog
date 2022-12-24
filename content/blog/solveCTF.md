@@ -20,5 +20,7 @@ $$
 
 ### [Crypto] BBB
 **Proposition**
-$e' = f(e)$
-$f(x) = $
+$f(x) = x^2 + ax + b$ として $s$ を指定し、 $e = f^{n}(s) \quad (n\sim 100)$ かつ $e > 10$ となるような $e$ に設定される。
+
+**writeup**
+1. $e = 11$ の不動点を見つける。
