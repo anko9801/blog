@@ -19,3 +19,6 @@ $$
 
 
 ### [Crypto] BBB
+**Proposition**
+$e' = f(e)$
+$f(x) = $
