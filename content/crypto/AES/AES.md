@@ -38,16 +38,19 @@ AES オンラインシミュレータほしいかも
 入力
 - 平文 $P_i$
 - 認証データ (AAD; Additional Authenticated Data) $A_i$
-- nonce と呼ばれる IV (Initialization Vector) を 96bit
+- nonce と呼ばれる IV (Initialization Vector)
 出力
 - 暗号文 $C_i$
 - 認証タグ $T$
 
-
+IV は 96bit とする。
+暗号文 $C_i$ は次のように計算される。
+$$
+C_i = E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n)
+$$
+認証タグ $T$ は $H = E_k(0^{128})$ とすると次のように計算される。
 $$
 \begin{aligned}
-C_i &= E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n) \\
-H & = E_k(0^{128}) \\
 X_i &= \begin{cases}
 H\cdot H & (i = 0) \\
 H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
