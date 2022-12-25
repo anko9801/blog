@@ -35,13 +35,15 @@ AES オンラインシミュレータほしいかも
 
 ### AES-CBC
 ### AES-GCM
-`iv = nonce`
+96bit `iv = nonce`
+認証用データ $A_i$
+平文 $P_i$ 暗号文 $C_i$
 
 $$
 \begin{aligned}
 C_i &= E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n) \\
 X_i &= \begin{cases}
-H\cdot E_k(0^{128}) & (i = 0) \\
+H\cdot H & (i = 0) \\
 H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
 H\cdot(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
 H\cdot(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
