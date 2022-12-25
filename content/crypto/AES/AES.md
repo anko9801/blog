@@ -52,7 +52,13 @@ $$
 $$
 GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
 $$
-$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したもの。 $A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ を 16 バイトごとに切り分けたブロックを $B_i$ とすると $H = E_k(0^{128})$ を用いて
+$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとして次のように計算する。
+
+$J_0 = \mathrm{IV}\|$
+
+![[Pasted image 20221225174723.png]]
+
+ $A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ を 16 バイトごとに切り分けたブロックを $B_i$ とすると $H = E_k(0^{128})$ を用いて
 $$
 \begin{aligned}
 X_0 & = 0 \\
@@ -81,3 +87,4 @@ Padding Oracle Attack を使って暗号/復号化関数 $E_k$ を作る。
 
 ## 参考文献
 - [暗号利用モード](https://ja.wikipedia.org/wiki/%E6%9A%97%E5%8F%B7%E5%88%A9%E7%94%A8%E3%83%A2%E3%83%BC%E3%83%89)
+- [Recommendation for Block Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC](https://nvlpubs.nist.gov/nistpubs/legacy/sp/nistspecialpublication800-38d.pdf)
