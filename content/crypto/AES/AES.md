@@ -60,11 +60,13 @@ X_i & = H\cdot(X_{i-1} + B_i) & (i = 1,\ldots,n) \\
 T & = X_n + E_k(\mathrm{iv}\|0^{32})
 \end{aligned}
 $$
-と書ける。
-GCTR
+と書ける。これを GHASH アルゴリズムと呼ぶ。
+GCTR アルゴリズム
 $$
-CB_i = ICB + i
+Y_i = E_k(CB_i)\oplus X_i
 $$
+GCM-AE アルゴリズム
+
 
 ### AES-OFB
 
