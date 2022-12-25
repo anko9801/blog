@@ -48,7 +48,13 @@ IV は 96bit とする。
 $$
 C_i = E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n)
 $$
-認証タグ $T$ は $H = E_k(0^{128})$ とすると次のように計算される。
+認証タグ $T$ は $H = E_k(0^{128})$ とする。まずここではガロア体
+$$
+GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
+$$
+
+$A$ $C$ は16バイトのゼロパディングして
+$\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したもの。 $A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ を 16 バイトごとに切り分けたものを $B_i$ とすると $X_1 = 0, X_{i+1} = H\cdot(X_{i} + B_i)$ とする。
 $$
 \begin{aligned}
 X_i &= \begin{cases}
