@@ -61,6 +61,10 @@ T & = X_n + E_k(\mathrm{iv}\|0^{32})
 \end{aligned}
 $$
 と書ける。
+GCTR
+$$
+CB_i = ICB + i
+$$
 
 ### AES-OFB
 
@@ -71,3 +75,7 @@ $$
 ### 解き方
 Padding Oracle Attack を使って暗号/復号化関数 $E_k$ を作る。
 すると鍵を考えなくてもいい感じになり、上の式を辿るだけで解けるようになる。
+
+
+## 参考文献
+- [暗号利用モード](https://ja.wikipedia.org/wiki/%E6%9A%97%E5%8F%B7%E5%88%A9%E7%94%A8%E3%83%A2%E3%83%BC%E3%83%89)
