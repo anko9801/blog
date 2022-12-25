@@ -35,10 +35,11 @@ AES オンラインシミュレータほしいかも
 
 ### AES-CBC
 ### AES-GCM
+`iv = nonce`
 
 $$
 \begin{aligned}
-C_i &= E_k(\mathrm{iv}\|i) \oplus P_i \\
+C_i &= E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n) \\
 X_i &= \begin{cases}
 H\cdot E_k(0^{128}) & (i = 0) \\
 H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
@@ -46,4 +47,10 @@ H\cdot(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
 H\cdot(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
 \end{cases}
 \end{aligned}
+$$
+
+### AES-OFB
+
+$$
+C_i = E_k^i(\mathrm{iv})\oplus P_i
 $$
