@@ -44,7 +44,7 @@ AES オンラインシミュレータほしいかも
 - 認証タグ $T$
 
 IV は 96bit とする。
-暗号文 $C_i$ は次のように計算する。
+暗号文 $C = C_1\|\ldots\|C_n$ は次のように計算する。
 $$
 C_i = E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n)
 $$
@@ -52,11 +52,11 @@ $$
 $$
 GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
 $$
-$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したもの。 $A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ を 16 バイトごとに切り分けたブロックを $B_i$ とすると$H = E_k(0^{128})$
+$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したもの。 $A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ を 16 バイトごとに切り分けたブロックを $B_i$ とすると $H = E_k(0^{128})$ を用いて
 $$
 \begin{aligned}
-X_1 & = 0 \\
-X_{i+1} & = H\cdot(X_{i} + B_i) \\
+X_0 & = 0 \\
+X_i & = H\cdot(X_{i-1} + B_i) & (i = 1,\ldots,n) \\
 T & = X_n + E_k(\mathrm{iv}\|0^{32})
 \end{aligned}
 $$
