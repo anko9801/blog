@@ -54,19 +54,10 @@ GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
 $$
 $A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとして次のように計算する。
 
-$J_0 = \mathrm{IV}\|$
+$J_0 = \mathrm{iv}\|0^{31}\|1$
 
 ![[Pasted image 20221225174723.png]]
 
- $A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ を 16 バイトごとに切り分けたブロックを $B_i$ とすると $H = E_k(0^{128})$ を用いて
-$$
-\begin{aligned}
-X_0 & = 0 \\
-X_i & = H\cdot(X_{i-1} + B_i) & (i = 1,\ldots,n) \\
-T & = X_n + E_k(\mathrm{iv}\|0^{32})
-\end{aligned}
-$$
-と書ける。これを GHASH アルゴリズムと呼ぶ。
 GCTR アルゴリズム
 $$
 Y_i = E_k(CB_i)\oplus X_i
