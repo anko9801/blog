@@ -35,20 +35,26 @@ AES オンラインシミュレータほしいかも
 
 ### AES-CBC
 ### AES-GCM
-96bit `iv = nonce`
-認証用データ $A_i$
-平文 $P_i$ 暗号文 $C_i$
+入力
+- 平文 $P_i$
+- 認証データ (AAD; Additional Authenticated Data) $A_i$
+- nonce と呼ばれる IV (Initialization Vector) を 96bit
+出力
+- 暗号文 $C_i$
+- 認証タグ $T$
+
 
 $$
 \begin{aligned}
 C_i &= E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n) \\
 H & = E_k(0^{128}) \\
-X_i(\mathrm{iv}) &= \begin{cases}
+X_i &= \begin{cases}
 H\cdot H & (i = 0) \\
 H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
 H\cdot(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
 H\cdot(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
-\end{cases}
+\end{cases} \\
+T & = X_{m+n+1}\oplus E_k(\mathrm{iv}\|0^{32}) & (i = m+n+1) \\
 \end{aligned}
 $$
 
