@@ -53,9 +53,9 @@ $$
 \begin{aligned}
 X_i &= \begin{cases}
 H\cdot H & (i = 0) \\
-H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
-H\cdot(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
-H\cdot(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
+H\cdot(X_{i-1} + A_i) & (i = 1,\ldots,m) \\
+H\cdot(X_{i-1} + C_{i-m}) & (i = m+1,\ldots,m+n) \\
+H\cdot(X_{i-1} + \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
 \end{cases} \\
 T & = X_{m+n+1}\oplus E_k(\mathrm{iv}\|0^{32}) & (i = m+n+1) \\
 \end{aligned}
@@ -69,5 +69,4 @@ $$
 
 ### 解き方
 Padding Oracle Attack を使って暗号/復号化関数 $E_k$ を作る。
-すると鍵を考えなくてよくなるのでおｋ
-
+すると鍵を考えなくてもいい感じになり、上の式を辿るだけで解けるようになる。
