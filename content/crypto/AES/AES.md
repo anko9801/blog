@@ -66,3 +66,6 @@ $$
 $$
 C_i = E_k^i(\mathrm{iv})\oplus P_i
 $$
+
+### 解く
+$E_k$ 
