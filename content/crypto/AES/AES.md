@@ -67,5 +67,7 @@ $$
 C_i = E_k^i(\mathrm{iv})\oplus P_i
 $$
 
-### 解く
-$E_k$ 
+### 解き方
+Padding Oracle Attack を使って暗号/復号化関数 $E_k$ を作る。
+すると鍵を考えなくてよくなるのでおｋ
+
