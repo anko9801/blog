@@ -42,5 +42,7 @@ X_i = \begin{cases}
 H\cdot(X_{i-1}\oplus A_i) & (i = 1,\ldots,m) \\
 H\cdot(X_{i-1}\oplus C_{i-m}) & (i = m+1,\ldots,m+n) \\
 H\cdot(X_{i-1}\oplus \mathrm{len}(A)\| \mathrm{len}(C)) & (i = m+n+1) \\
-\end{cases}
+\end{cases} \\
+X_i = \begin{cases}
+\end{cases}\\
 $$
