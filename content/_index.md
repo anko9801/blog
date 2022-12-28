@@ -191,7 +191,7 @@ TODO: ライセンス
 			- House of Storm
 			- House of Force
 - Linux Kernel
-	- [テンプレート](./pwn/LinuxKernel/kernel_exploit.md)
+	- [テンプレート](KernelExploit.md)
 	- Kernel Code Reading
 		- セキュリティ機構
 		- カーネルモジュール
