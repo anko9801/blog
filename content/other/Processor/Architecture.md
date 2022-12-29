@@ -43,3 +43,6 @@
 ### AT&T記法とIntel記法
 
 ## System V ABI(Application Binary Interface)
+
+[opv86 (hikalium.github.io)](https://hikalium.github.io/opv86/?q=)
+[Intel® 64 and IA-32 Architectures Software Developer Manuals](https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html)
