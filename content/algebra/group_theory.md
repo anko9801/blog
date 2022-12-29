@@ -22,7 +22,13 @@ $$
 
 G1. **結合法則 (associative law)** $\forall a,b,c \in G$について
 $$
-\begin{align}
-	
+\begin{align}  \\
+a\cdot (b\cdot c)=(a\cdot b)\cdot c
 \end{align}
 $$
+G2. **単位元の存在** ある$e\in G$が存在して, $\forall a\in G$について
+$$
+e\cdot a=a\cdot e=a
+$$
+この$e$をG
+G3. **逆元の存在
