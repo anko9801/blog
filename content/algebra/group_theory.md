@@ -38,3 +38,4 @@ a\cdot b=b\cdot a=e
 \end{align}
 $$
 となる. この$b$を$a$の**逆元(inverse element)** とよび,$a^{-1}$と表記する.
+## 群であることの証明
