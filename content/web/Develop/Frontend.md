@@ -18,6 +18,7 @@ title: "フロントエンド開発"
 - JSX / TSX
 	- [vanilla-extract — Zero-runtime Stylesheets-in-TypeScript.](https://vanilla-extract.style/)
 
+[Tailwind考 - uhyo/blog](https://blog.uhy.ooo/entry/2022-10-01/tailwind/)
 [styled-componentsの仕組みについての覚え書き | Wantedly Engineer Blog](https://en-jp.wantedly.com/companies/wantedly/post_articles/406209)
 
 ## JavaScript
@@ -63,6 +64,8 @@ SSR/prerender(SSG)
 - Yew
 	- Rust Wasm
 	- コードスプリッティングの手法がまだ確立されてないからでかいマルチページなウェブサイトつくると死ぬ
+
+[React ユーザーが Vue を選ばない理由 (zenn.dev)](https://zenn.dev/sa2knight/articles/why_react_folks_dont_choose_vue)
 
 ### Ecosystem
 - Webpack
