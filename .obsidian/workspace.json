@@ -18,8 +18,19 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "8b51fc4b50c9c2b5",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.1.9"
+              }
+            }
           }
         ],
+        "currentTab": 1,
         "stacked": true
       }
     ],
@@ -137,7 +148,19 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "854b22c20d7e17ad",
+  "left-ribbon": {
+    "hiddenItems": {
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-excalidraw-plugin:New Excalidraw drawing": false,
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "8b51fc4b50c9c2b5",
   "lastOpenFiles": [
     "content/blog/ChromeExtension.md",
     "content/crypto/cryptography/AttackModel.md",
