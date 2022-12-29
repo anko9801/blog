@@ -20,8 +20,9 @@ G\times G &\to G\\
 $$
 が与えれていて, 次の3つの条件を満たすとき, $G$を群と呼ぶ.
 
-\begin{enumerate}
-   \item 運動の第一法則とは，慣性の法則のことです．
-   \item 運動の第二法則とは，運動方程式のことです．
-   \item 運動の第三法則とは，作用反作用の法則のことです．
-\end{enumerate}
+G1. **結合法則 (associative law)** $\forall a,b,c \in G$について
+$$
+\begin{align}
+	
+\end{align}
+$$
