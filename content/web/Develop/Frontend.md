@@ -43,14 +43,18 @@ package.json
 SSR/prerender(SSG)
 - Vue
 	- reactivity <-> VDOMの変換が挟まってるせいでreactivityの性能を発揮しきれない
+	- SFC のカスタムディレクティブがDSLっぽい
+	- TypeScript のサポート不足
 	- NuxtJS
 - React
 	- コンポーネント
 	- hooks
 	- イベントシステムの独自実装
 	- 更新されないことが分かりにくい
+	- あんまり関係ないけど ReactNative: Android, iOSなどのスマホ用ビルドができる。他のフレームワークでもできそう。
 	- Next.js
-	- ReactNative: Android, iOSなどのスマホ用ビルド
+	- Storybook
+	- データフェッチライブラリ SWR, tRPC
 - Preact
 	- 軽量
 	- DOM APIを利用する
