@@ -2,6 +2,6 @@
   "expandSidebar_onClickRibbon": false,
   "expandSidebar_onClickNoteTitle": false,
   "lockSidebar": true,
-  "leftPinActive": true,
+  "leftPinActive": false,
   "rightPinActive": false
 }
