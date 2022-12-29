@@ -407,11 +407,11 @@ CTF の3大分野以外をまとめます.
 	- ACPI
 	- NIC
 - サーバー
-	- [RDBMS](./other/Server/RDBMS.md)
-	- [RDBMS 最適化](./other/Server/rdbms-optimization.md)
-	- [リバースプロキシ](./other/Server/reverse-proxy.md)
-	- [リバースプロキシ最適化](./other/Server/reverse-proxy-optimization.md)
-	- [フロントエンド最適化](./other/Server/frontend-optimization.md)
+	- [RDBMS](RDBMS.md)
+	- [RDBMS 最適化](rdbms-optimization.md)
+	- [リバースプロキシ](reverse-proxy.md)
+	- [リバースプロキシ最適化](reverse-proxy-optimization.md)
+	- [フロントエンド最適化](frontend-optimization.md)
 - [ネットワーク](./other/Network/Network.md)
 	- [SDR](./other/Network/SDR.md)
 

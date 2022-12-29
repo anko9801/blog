@@ -59,6 +59,7 @@ SSR/prerender(SSG)
 	- 軽量
 	- DOM APIを利用する
 	- Reactと互換性がある
+	- [Preactで始める軽量コンポーネント指向開発 | 第1回 Preactの特徴 (codegrid.net)](https://www.codegrid.net/articles/2020-preact-1/)
 - Svelte
 	- コードベースが大きくなった時にノーランタイムの弊害としてバンドルサイズが加速的に大きくなる
 	- コンパイル時の変換が独自なのでバンドル速度のボトルネックになりうる
@@ -84,3 +85,7 @@ SSR/prerender(SSG)
 ### Production Server
 Vercel
 - Next.js
+
+
+### API
+- Fetch Upload Streaming
