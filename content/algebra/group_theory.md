@@ -30,5 +30,11 @@ G2. **単位元の存在** ある$e\in G$が存在して, $\forall a\in G$につ
 $$
 e\cdot a=a\cdot e=a
 $$
-この$e$をG
-G3. **逆元の存在
+この$e$をGの**単位元(unit element)** という.
+G3. **逆元の存在** $\forall a\in G$についてある$b\in G$が存在して
+$$
+\begin{align}
+a\cdot b=b\cdot a=e
+\end{align}
+$$
+となる. この$b$を$a$の**逆元(inverse element)** とよび,$a^{-1}$と表記する.
