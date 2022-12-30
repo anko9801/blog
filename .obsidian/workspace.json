@@ -11,11 +11,9 @@
             "id": "abec97f35410dce5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "content/algebra/group_theory.md",
-                "mode": "source",
-                "source": false
+                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md"
               }
             }
           }
@@ -87,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "content/algebra/group_theory.md",
+                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "content/algebra/group_theory.md",
+                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -127,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "content/algebra/group_theory.md"
+                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md"
               }
             }
           },
@@ -161,8 +159,8 @@
   },
   "active": "abec97f35410dce5",
   "lastOpenFiles": [
-    "content/arithmetic/matrix/matrix.md",
     "content/algebra/group_theory.md",
+    "content/arithmetic/matrix/matrix.md",
     "content/memo.md",
     "content/arithmetic/fft.md",
     "content/arithmetic/ntt.md",

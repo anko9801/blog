@@ -81,4 +81,4 @@ b=be=bac=ec=c
 \end{align}
 $$
 が成立.
- 
+
