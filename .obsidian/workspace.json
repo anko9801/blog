@@ -11,9 +11,11 @@
             "id": "abec97f35410dce5",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
+              "type": "markdown",
               "state": {
-                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md"
+                "file": "content/algebra/group_theory.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
@@ -85,7 +87,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md",
+                "file": "content/algebra/group_theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +104,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md",
+                "file": "content/algebra/group_theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +127,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md"
+                "file": "content/algebra/group_theory.md"
               }
             }
           },
@@ -159,6 +161,7 @@
   },
   "active": "abec97f35410dce5",
   "lastOpenFiles": [
+    "Excalidraw/Drawing 2022-12-30 21.41.48.excalidraw.md",
     "content/algebra/group_theory.md",
     "content/arithmetic/matrix/matrix.md",
     "content/memo.md",
@@ -167,7 +170,6 @@
     "content/template.md",
     "content/notes/callouts.md",
     "content/notes/CJK + Latex Support (测试).md",
-    "content/notes/ignore notes.md",
-    "content/notes/obsidian.md"
+    "content/notes/ignore notes.md"
   ]
 }
