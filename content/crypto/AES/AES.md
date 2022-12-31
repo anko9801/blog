@@ -55,16 +55,13 @@ GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
 $$
 $A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとして次のように計算する。
 
-$J_0 = \mathrm{iv}\|0^{31}\|1$
+$J_0 = \mathrm{iv}\|0^{31}1$
 
-![[Pasted image 20221225174723.png]]
-
-GCTR アルゴリズム
 $$
 Y_i = E_k(CB_i)\oplus X_i
 $$
-GCM-AE アルゴリズム
 
+![[Pasted image 20221225174723.png]]
 
 ### AES-OFB
 
