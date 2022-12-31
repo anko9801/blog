@@ -20,8 +20,10 @@ int unlink(const char *pathname)
 int setgid(gid_t gid) // errno
 int setuid(uid_t uid) // errno
 
+setbuf
+
 // プロセス関連
-pid_t fork(void)
+pid_t fork(void) // pid or Error (-1)
 int execve(const char *pathname, char *const argv[], char *const envp[])
 void exit(int status)
 ```
