@@ -44,11 +44,11 @@ AES オンラインシミュレータほしいかも
 - 暗号文 $C$
 - 認証タグ $T$
 
-96bit の IV と 32bit の 0 とする。 
+$J_0$ を次のように定義する。
 $$
 J_0 = \begin{cases}
 IV\|0^{31}1 & (\text{IV is 96 bits})\\
-GHASH_H(IV) & (\text{IV isn't 96 bits, IV zero padded by 128 bits})
+GHASH_H(IV) & (\text{IV isn't 96 bits, IV is zero padded as 128-bit block size})
 \end{cases}
 $$
 
