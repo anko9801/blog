@@ -2,6 +2,8 @@
 title: "glibc 関数リスト"
 ---
 
-| 関数                                                     | 説明                                                        |
-| -------------------------------------------------------- | ----------------------------------------------------------- |
-| `int open(const char *pathname, int flags, mode_t mode)` | `pathname`: パス名, `flags`: `chmod` コマンドと同じ, `mode`:  |
+```cpp
+// pathname`: パス名, `flags`: , `mode`: `chmod` コマンドと同じ
+int open(const char *pathname, int flags, mode_t mode) // ファイルディスクリプタ (fd) or Error (-1)
+int close(int fd)
+```
