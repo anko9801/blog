@@ -44,6 +44,7 @@ AES オンラインシミュレータほしいかも
 - 暗号文 $C$
 - 認証タグ $T$
 
+n バイトでゼロパディングするとは 2 進数としてみて後方に複数の 0 を n バイトとなるように追加する操作である。
 $J_0$ を次のように定義する。
 $$
 J_0 = \begin{cases}
@@ -51,11 +52,11 @@ IV\|0^{31}1 & (\text{IV is 96 bits})\\
 GHASH_H(IV) & (\text{IV isn't 96 bits, IV is zero padded as 128-bit block size})
 \end{cases}
 $$
-
+このとき入力を 16 バイトごとに切り分けた $X_i$ から出力の列 $Y_i$ を次のような計算で求める。これを GCTR と呼ぶ。
 $$
-Y_i = E_k(IV\|i) \oplus X_i \qquad (i = 1,\ldots,n)
+Y_i = E_k(J_0 + i) \oplus X_i \qquad (i = 1,\ldots,n)
 $$
-暗号文 $C = C_1\|\ldots\|C_n$ は次のように計算する。これを GCTR と呼ぶ。
+暗号文 $C = C_1\|\ldots\|C_n$ は GCTR を用いてこのように計算できる。
 $$
 C_i = E_k(IV\|i) \oplus P_i \qquad (i = 1,\ldots,n)
 $$
@@ -63,7 +64,7 @@ $$
 $$
 GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
 $$
-$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとする。$A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ から 16 バイトずつ切り出したものを前から順番に $X_i \quad (i\in[1,n])$ とすると $Y_0 = 0, H = E_k(0^{128})$ として
+$A, C$ は16バイトでゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとする。$A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ から 16 バイトずつ切り出したものを前から順番に $X_i \quad (i = 1,\ldots,n)$ とすると $Y_0 = 0, H = E_k(0^{128})$ として
 $$
 Y_i = (X_i + Y_{i-1})\cdot H
 $$
