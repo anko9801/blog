@@ -44,24 +44,24 @@ AES オンラインシミュレータほしいかも
 - 暗号文 $C$
 - 認証タグ $T$
 
-暗号文 $C = C_1\|\ldots\|C_n$ は次のように計算する。
+96bit の IV と 32bit の 0 とする。 $J_0 = IV\|0^{31}1$
+
 $$
-C_i = E_k(\mathrm{iv}\|i) \oplus P_i \qquad (i = 1,\ldots,n)
+Y_i = E_k(IV\|i)\oplus X_i
+$$
+暗号文 $C = C_1\|\ldots\|C_n$ は次のように計算する。これを GCTR と呼ぶ。
+$$
+C_i = E_k(IV\|i) \oplus P_i \qquad (i = 1,\ldots,n)
 $$
 認証タグ $T$ はガロア体 $GF(2^{128})$ 上で計算する。
 $$
 GF(2^{128}) = \mathbb{F}_2[x]/(x^{128} + x^7 + x^2 + x + 1)
 $$
-$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとして次のように計算する。$A\|C\|\mathrm{len}(A)\|\mathbb{}
+$A, C$ は16バイトのゼロパディングしたもの, $\mathrm{len}(S)$ は $S$ の文字列長を8バイトで表したものとして次のように計算する。$A\|C\|\mathrm{len}(A)\|\mathrm{len}(C)$ から 16 バイトずつ切り出したものを前から順番に $X_i \quad (i\in[1,n])$ とすると $Y_0 = 0, H = E_k(0^{128})$ として
 $$
 Y_i = (X_i + Y_{i-1})\cdot H
 $$
-96bit の IV と 32bit の 0 とする。
-$J_0 = \mathrm{iv}\|0^{31}1$
-
-$$
-Y_i = E_k(CB_i)\oplus X_i
-$$
+と計算する。これを GHASH と呼ぶ。最後に GCTR して上から平文のｎ
 
 ![[Pasted image 20221225174723.png]]
 
