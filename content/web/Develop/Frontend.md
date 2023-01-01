@@ -41,12 +41,13 @@ TypeScript
 	- [WAPM - WebAssembly Package Manager](https://wapm.io/)
 
 ### Package Manager
-package.json
 - [npm](https://www.npmjs.com/)
 - [Yarn](https://yarnpkg.com/)
 - [pnpm](https://pnpm.io/)
 	- Fast, disk space efficient package manager
 - [Bun](https://bun.sh/)
+
+#### package.json
 
 ### UI Framework
 SSR/prerender(SSG)
