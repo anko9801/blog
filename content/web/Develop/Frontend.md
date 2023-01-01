@@ -82,17 +82,21 @@ SSR/prerender(SSG)
 [React ユーザーが Vue を選ばない理由 (zenn.dev)](https://zenn.dev/sa2knight/articles/why_react_folks_dont_choose_vue)
 
 ### Ecosystem
+- Next-gen JavaScript Compiler
+	- Babel
 - Webpack
-- Rollup
+- Module bundler
+	- Rollup
+- Minifier
+- Lint
+	- ESLint
+		- [estools/esquery: ECMAScript AST query library. (github.com)](https://github.com/estools/esquery)
 - Roam
-- Babel
 - SWC
 - Vite
-- ESLint
-	- [estools/esquery: ECMAScript AST query library. (github.com)](https://github.com/estools/esquery)
 
 ### Production Server
-Vercel
+- Vercel
 - Next.js
 
 
