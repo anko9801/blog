@@ -56,6 +56,8 @@ SSR/prerender(SSG)
 	- SFC のカスタムディレクティブがDSLっぽい
 	- TypeScript のサポート不足
 	- NuxtJS
+	- Pinia
+	- VuePress
 - React
 	- コンポーネント
 	- hooks
