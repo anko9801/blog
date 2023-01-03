@@ -37,7 +37,8 @@ TypeScript
 - Node.js
 - [Deno](https://deno.land/)
 - [Bun](https://bun.sh/)
-- Wasm
+- [WASM - WebAssembly](https://webassembly.org/)
+	- [WASI - WebAssembly System Interface](https://wasi.dev/)
 	- [WAPM - WebAssembly Package Manager](https://wapm.io/)
 
 ### Package Manager
