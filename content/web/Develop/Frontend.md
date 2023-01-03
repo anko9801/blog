@@ -82,6 +82,7 @@ SSR/prerender(SSG)
 	- Rust Wasm
 	- コードスプリッティングの手法がまだ確立されてないからでかいマルチページなウェブサイトつくると死ぬ
 
+[Mint - SPAのデスクトップアプリの為の言語](https://mint-lang.com/)
 [React ユーザーが Vue を選ばない理由 (zenn.dev)](https://zenn.dev/sa2knight/articles/why_react_folks_dont_choose_vue)
 
 ### Ecosystem
