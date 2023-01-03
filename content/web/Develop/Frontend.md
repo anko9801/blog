@@ -47,6 +47,10 @@ TypeScript
 	- Fast, disk space efficient package manager
 - [Bun](https://bun.sh/)
 
+攻撃
+- supply chain attack
+- dependency confusion attack
+
 #### package.json
 
 ### UI Framework
