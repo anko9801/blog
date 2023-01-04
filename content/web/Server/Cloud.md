@@ -11,5 +11,7 @@ GAS
 Conoha
 Cloudflare
 
-Pulumi
-Ansible
+- Pulumi
+- Ansible
+- Terraform
+- Terraform SDK
