@@ -69,3 +69,5 @@ call/cc
 Martin-Lof 型理論
 Homotopy 型理論
 Cubical 型理論
+
+線形時相論理式(LTL; Linear Temporal Logic)
