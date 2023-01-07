@@ -19,20 +19,28 @@ title: "ツールチェーン"
 	- 構文解析
 		- トークン列を抽象構文木に変換。
 	- 意味解析
-		- 静的意味の解析。変数のスコープや型検査、制御の流れの検査を行う。型推論
-- 中間表現
+		- 静的意味の解析。変数のスコープや型検査・型推論、制御の流れの検査を行う。
+- 中間表現での最適化
+	- クロージャ変換
+		- 自由変数を束縛させながら関数を平坦化する
 	- 中間コード生成
-		- SSA形式が便利
-		- クロージャ変換 関数型
+		- SSA形式の命令列に変換する
 	- 最適化
-		- 8つの最適化
+		- 8つの最適化を回す
 - コード生成
 	- レジスタ割り当て
-	- アセンブリを生成。
+		- 変数をレジスタに割り当てる
+	- コード生成
+		- アセンブリやバイナリに変換する
+
+### ソースコードの解析
+eBNF
+
+
+## 参考
 
 - glibc
 - [musl libc](https://musl.libc.org/)
-
 - [コンパイル中にコンパイルする「コンパイル時Cコンパイラ」をつくった話 - kw-udonの日記 (hatenablog.com)](https://kw-udon.hatenablog.com/entry/2016/12/03/201722)
 - [keiichiw/constexpr-8cc: Compile-time C Compiler implemented as C++14 constant expressions (github.com)](https://github.com/keiichiw/constexpr-8cc) 
 - [コンパイル時Brainfuckコンパイラ ――C++14 constexpr の進歩と限界―― - ボレロ村上 - ENiyGmaA Code (hateblo.jp)](https://boleros.hateblo.jp/entry/2014/12/24/065155)
