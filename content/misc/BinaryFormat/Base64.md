@@ -36,7 +36,9 @@ Wikipediaより
 
 ```shell
 $ echo -n "あいうえおかきくけこ" | base64
+44GC44GE44GG44GI44GK44GL44GN44GP44GR44GT
 $ echo -n "44GC44GE44GG44GI44GK44GL44GN44GP44GR44GT" | base64 -d
+あいうえおかきくけこ
 ```
 
 ## 脆弱性
