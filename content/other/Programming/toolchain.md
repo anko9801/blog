@@ -34,7 +34,8 @@ title: "ツールチェーン"
 		- アセンブリやバイナリに変換する
 
 ### ソースコードの解析
-eBNF
+字句解析、構文解析ではEBNF (Extended Backus-Naur Form)形式で書くと分かりやすい。
+- [The syntax of C in Backus-Naur form (wmich.edu)](https://cs.wmich.edu/~gupta/teaching/cs4850/sumII06/The%20syntax%20of%20C%20in%20Backus-Naur%20form.htm)
 
 
 ## 参考
