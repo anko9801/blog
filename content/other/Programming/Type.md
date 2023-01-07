@@ -71,3 +71,6 @@ Homotopy 型理論
 Cubical 型理論
 
 線形時相論理式(LTL; Linear Temporal Logic)
+次に $\phi$ を満たす: $\pi(k\ldots)\vDash○\phi\iff\pi(k+1\ldots)\vDash\phi$  
+$\phi_1$ はいつか $\phi_2$ を満たす: $\pi(k\ldots)\vDash\phi_1U\phi_2\iff\exists j (\pi(j\ldots)\vDash\phi_2\land\forall i\in[k,j-1](\pi(i\ldots)\vDash\phi_1))$
+
