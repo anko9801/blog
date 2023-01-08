@@ -3,7 +3,7 @@ title: "Rust"
 ---
 
 ## 概要
-Rust は安全で高速なソフトウェアを作れる言語と公式が主張しています。個人の感想としては最も書きやすい言語です。
+Rust は安全で高速なソフトウェアを作れる言語と言われています。個人の感想としては最も書きやすい言語だと思っています。
 安全性を支える技術はライフタイム、所有権など、高速を支える技術はゼロコスト抽象化、LLVMなどです。
 主な応用先はCLIツール、WASMビルド、ネットワーク、組み込みデバイスなどです。
 
@@ -19,8 +19,15 @@ Rust は安全で高速なソフトウェアを作れる言語と公式が主張
 	- 可変変数として `Default::default` で初期化し、後で値を入れる。
 
 ### コンテナ
-`std` で提供されるヒープに入る直積型の総称です。有名なコンテナを列挙すると
-- `Vec`
+`std` で提供されているヒープに入る直積型の総称をコンテナと言っています。有名なコンテナを列挙すると
+- [`std::vec::Vec<T>`](https://doc.rust-lang.org/std/vec/struct.Vec.html)
+- [`std::collections::VecDeque<T>`](https://doc.rust-lang.org/std/collections/struct.VecDeque.html)
+- [`std::collections::LinkedList<T>`](https://doc.rust-lang.org/std/collections/struct.LinkedList.html)
+- [`std::collections::HashMap<T>`](https://doc.rust-lang.org/std/collections/struct.HashMap.html)
+- [`std::collections::BTreeMap<T>`](https://doc.rust-lang.org/std/collections/struct.BTreeMap.html)
+- [`std::collections::HashSet<T>`](https://doc.rust-lang.org/std/collections/struct.HashSet.html)
+- [`std::collections::BTreeSet<T>`](https://doc.rust-lang.org/std/collections/struct.BTreeSet.html)
+- [`std::collections::BinaryHeap<T>`](https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html)
 
 ### グローバル変数
 - 静的に定数として初期化できる `const` `static`
