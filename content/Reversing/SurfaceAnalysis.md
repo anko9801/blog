@@ -13,3 +13,4 @@ title: "表層解析"
 		- ライブラリや関数リソースなど様々な情報を付与される.
 	- 内蔵ファイルの取得
 		- Resource Hacker
+		- [Resource Cracker](https://www.pelock.com/products/resource-cracker)
